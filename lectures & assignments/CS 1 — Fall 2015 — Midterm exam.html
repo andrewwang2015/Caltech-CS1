@@ -1,0 +1,786 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0085)https://courses.caltech.edu/pluginfile.php/112328/mod_resource/content/7/midterm.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CS 1 — Fall 2015 — Midterm exam</title>
+<style type="text/css"> 
+.centered { text-align: center }
+blockquote {
+  margin: 1em 1em;
+  background-color: #d0d0d0;
+  border: 2px solid #000;
+  padding: 0em 1em;
+}
+pre           { color: #0000bb }
+code          { color: #0000bb }
+div.solution  { color: #006644 }
+code.solution { color: #006644 }
+pre.solution  { color: #006644 }
+p.solution    { color: #006644 }
+b.solution    { color: #006644 }
+h3.solution   { color: #006644 }
+h3.warning    { color: #ff0000 }
+p.warning     { color: #ff0000 }
+h3.gradingNotes  { color: #008090 }
+div.gradingNotes { color: #0080a0 }
+span.interact { color: #007700 }
+</style>
+<style type="text/css"></style></head>
+<body>
+<div class="centered">
+<h1>CS 1: Introduction To Computer Programming, Fall 2015</h1>
+<h2>Midterm exam</h2>
+<p><b>Due:</b> <em>Friday, November 13, 15:00:00</em></p>
+</div>
+
+<hr>
+<h2>What to hand in</h2>
+<p>Write all of your answers in a single file called <code>midterm.py</code>.  <strong>The
+first two lines of the file should be comments in which you write your full name
+(first and last names) as well as your CMS cluster login name.</strong> Write answers to
+part 1 questions as comments; answers in the other sections should be normal
+Python code, with docstrings in all functions.  If you use any functions from
+Python modules, you should have an <code>import</code> statement (or more than one) at the
+top of the file (after the first two lines) that imports the modules you use.</p><p>Make sure that the answer to every problem is clearly indicated by a comment,
+for instance:</p><pre><code># Problem 3.2
+</code></pre><p>Please read all the instructions carefully!  Some of them may seem
+long-winded, but they are there so that we can be very clear on exactly what we
+want.  Since there is no time limit on this exam, this shouldn't be too
+stressful.</p><p>Note that the mark value of each problem is indicated in boldface at the
+start of the problem, like this:</p><ol>
+<li>
+<p><strong>[0.5]</strong> This function is worth 0.5 marks.</p>
+</li>
+</ol>
+<hr>
+<h2>Part 1: Pitfalls</h2>
+<p>In this section we will show you some examples of Python code with errors of
+various types.  Some of the errors will be syntax errors (invalid Python
+statements), some will be semantic errors (bugs in the code that aren't syntax
+errors), and some will be style errors.  Each problem will have several distinct
+errors.  Your job is to identify the errors and write down what's wrong in a
+comment.  You do <strong>not</strong> have to write down corrected versions of the code,
+but you should identify the specific locations in the code where the errors are.
+Note that writing down a corrected version of the code without stating in words
+what the specific errors are will get you zero points for that question.</p><p><strong>Note 1:</strong> Each problem has a stated number of errors for you to find.  If
+you think there are more errors than stated, write down <strong>all</strong> of the errors
+you notice; what we consider to be a single error may seem to be more than one
+error to you.</p><p><strong>Note 2:</strong> This section should be done <strong>offline</strong> <em>i.e.</em> without typing
+the code into a Python interpreter shell or trying to run the code in any way.
+<strong>Running this code to find the bugs is an Honor Code violation!</strong>  The other
+sections of this midterm can (and should) be done normally, running and
+debugging the code as you've been doing with your assignments.</p><ol>
+
+<li>
+
+<p><strong>[0.5]</strong> The following Python function has five <em>distinct</em> kinds of syntax
+errors (some of which may occur more than once).  Identify them.  You get 0.1
+marks for each correctly identified error.  Note that the only errors we are
+interested in here are those that would make the Python interpreter reject the
+function (<em>i.e.</em> which will give rise to an error message when the function is
+being read in to Python, as opposed to when the function is being run).</p>
+
+
+
+<pre><code>def split_on_zero(lst, n):
+    "
+    Return a tuple of three lists, containing all the items in the list 'lst'
+    which are greater than, equal to, or less than 'n'.
+    "
+    gt = []
+    eq = []
+    lt = []
+    for item in lst;
+        if item &gt; n:
+            gt.append(item)
+      elif item = n:
+            eq.append(item)
+      elif item &lt; n:
+            lt.append(item) 
+           
+    return (gt eq lt)
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[0.5]</strong> The following Python code has no syntax errors but has five
+distinctly different semantic errors, <em>i.e.</em> bugs that by themselves would
+prevent the code from working properly (even if all the other bugs were fixed).
+Identify them.  Assume that the docstring is an accurate description of what the
+function ought to be doing.  If a particular error causes multiple problems it
+still only counts as a single error (in other words, all errors are completely
+separate from each other and occur on different lines). If you think you see
+more than five errors, write down all the errors you see.  You get 0.1 marks for
+identifying each error (up to 0.5, of course).</p>
+
+
+
+<pre><code>def factorial():
+    '''
+    Compute and return the factorial of n i.e.
+    n * (n - 1) * (n - 2) * ... * 1,
+    or 1 if n == 0.
+    '''
+    n = int(raw_input())
+    result = 1
+    while n &gt; 0:
+        result *= n
+    n -= 1
+    return result
+
+def sin(x):
+    '''
+    Compute and return the sine of x.
+    x is an angle in radians.
+    This uses the trigonometric formula:
+    sin(x) = x - x**3/3! + x**5/5! - x**7/7! + ...
+    '''
+    result = x
+    tiny == 1.0e-16
+    sign = -1
+    n = 3
+    while True:
+        term = sign * x**n / factorial(n)
+        if abs(term) &lt; tiny:
+            return
+        result += term
+        sign *= -1
+        n += 2
+    print result
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+ 
+<p><strong>[0.5]</strong> The following Python function (which actually works!) has (at
+least!) five kinds of style errors, <em>i.e.</em> places where the code is written in
+a way that violates the guidelines set down in the
+<a href="https://courses.caltech.edu/pluginfile.php/112328/mod_resource/content/7/Python_style_guide.html">Python style guide</a>.  Identify them.  Note that
+the same kind of style error may appear more than once.  If you think there are
+more than five kinds of style errors, write down all of them.  Each style
+mistake correctly identified is worth 0.1 marks (up to a maximum of 0.5).</p>
+
+<pre><code>def rte(a):
+   'runing ttl of evnes'
+   b= []
+   c=0
+   d=0
+   for e in a:
+    #ap if evn
+    if d%2==0:
+          b.append(e+c)#!!!
+          c += e
+    else:
+       pass
+    d+=1
+   return b
+</code></pre>
+
+
+
+
+</li>
+
+</ol>
+<hr>
+<h2>Part 2: Writing simple functions</h2>
+<p>In this section and the following sections, you will be required to write
+some short Python functions.  Most of the functions in the rest of the midterm
+are no more than about 30 lines long (not including the docstrings), and many
+are much shorter than this, so if you find yourself writing very large
+functions, you're doing something wrong.</p><p>Don't forget to write docstrings for each function explaining what they do,
+what the arguments mean, and what the return value means.  <strong>NOTE:</strong> Do not just
+copy the instructions from the problem into your docstring!  Write the docstring
+in your own words.  Copying a docstring word-for-word from the problem
+description will be penalized at 0.2 marks for the first occurrence and 0.1
+marks for every subsequent occurrence (this applies to all parts of this exam).</p><p>Also: <strong>Please test your functions!</strong>  (This applies to the entire exam.)
+Remember: We are going to test your functions even if you don't.</p><ol>
+
+<li>
+ 
+<p><strong>[0.5]</strong> An interesting thing to simulate is a <em>random walk</em>.  There are
+many variations to this idea, but the basic idea is to have a "walker" make a
+series of steps in random directions and see how the position of the walker
+changes over time.  For this problem you will be implementing a very simple kind
+of random walk: one where each step is either -1 or +1.  Write a function called
+(you guessed it) <code>random_walk</code> which takes two positive integer arguments: <code>n</code>
+and <code>m</code>.  The argument <code>n</code> is a threshold while the <code>m</code> argument is the
+number of times to repeat the simulation.</p>
+
+<p>Each round of the simulation will go like this: the position of the walker
+will start at position 0 and then there will be a series of steps, each of which
+is either -1 or +1 (with equal probability).  (<em>Hint:</em> The <code>random.choice</code>
+function is useful here.)  Add up the step values to get the current position of
+the walker.  So, for instance, if there are ten +1 steps in a row followed by
+five -1 steps, the position will have moved a distance of +5.  Stop once the
+absolute value of the position exceeds <code>n</code> and keep track of the number of
+steps it took to get that far.</p>
+
+<p>Repeat the simulation <code>m</code> times, recording the number of steps taken each
+time.  Then average all of the step counts and return the average.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; random_walk(100, 1000)
+9636.076
+&gt;&gt;&gt; random_walk(200, 1000)
+40044.146
+&gt;&gt;&gt; random_walk(400, 1000)
+151703.396
+</code></pre>
+
+<p>Since this function uses random numbers, the exact results will be different
+each time you run the function.  Can you see a pattern developing?  If so, write
+it in a Python comment.  (You don't have to explain why the pattern is what it
+is.)</p>
+
+<p>Our solution to this problem is about 10 lines long.</p>
+
+
+
+
+</li>
+
+<li>
+ 
+<p><strong>[0.5]</strong> Write a function called <code>draw_box</code> that takes two arguments: a
+positive integer <code>n</code> (you should use <code>assert</code> statements to check that it is
+positive), and a probability value <code>p</code> (you should <code>assert</code> that this value is
+between 0.0 and 1.0, as all probabilities should be).  It will draw a box made
+up of <code>'+'</code> characters (the corners), <code>'-'</code> characters (the top and bottom
+edges), <code>'|'</code> characters (the left and right edges) and the interior of the box
+will be made up of blank characters (<code>' '</code>) and <code>'O'</code> (capital O) characters.
+The size of the interior of the box will be <code>n</code> by <code>n</code> characters.  Inside the
+box, the probability of having a capital O character in any given location will
+be <code>p</code>, so the smaller <code>p</code> is, the emptier the box will look.</p>
+
+<p>In order to print a single character without adding a space or a newline, use
+the <code>sys.stdout.write</code> function, which will take a string argument and print it
+to the terminal with no added characters.  In order to use this function, you
+will first have to import the <code>sys</code> module, preferably at the beginning of the
+file:</p>
+
+<pre><code>import sys
+</code></pre>
+
+<p>When using the <code>sys.stdout.write</code> function, to save some typing, you can
+include this line in the <code>draw_box</code> function:</p>
+
+<pre><code>    write = sys.stdout.write
+</code></pre>
+
+<p>and then just use <code>write</code> instead of <code>sys.stdout.write</code>.  For instance, to
+print the <code>'O'</code> character you would write:</p>
+
+<pre><code>    write('O')
+</code></pre>
+
+<p>Note that you will have to print a newline at the end of each line; use
+<code>print</code> with no arguments to do this, or use <code>write('\n')</code> if you prefer.</p>
+
+<p>To decide whether to print a blank character or an <code>'O'</code> at any location in
+the inside of the box, use the <code>random.random()</code> function (you'll need to
+import the <code>random</code> module for this to work).  <code>random.random()</code> returns a
+floating-point number between 0.0 and 1.0; if it's less than the probability
+<code>p</code>, print a <code>'O'</code>; otherwise print a space character.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; draw_box(10, 0.33)
++----------+
+|O      O  |
+| O   O    |
+|     O O O|
+|O O   O O |
+|O  O  O   |
+|    O   O |
+|     O    |
+|OO  O     |
+|O   O  OO |
+| O       O|
++----------+
+&gt;&gt;&gt; draw_box(7, 0.5)
++-------+
+|OOO O  |
+| O  OOO|
+|  OOOO |
+|OOO OO |
+|    O  |
+|  O OO |
+|OO  OOO|
++-------+
+&gt;&gt;&gt; draw_box(5, 0.8)
++-----+
+|  OOO|
+|OOOOO|
+|O  OO|
+|OO OO|
+| OOOO|
++-----+
+</code></pre>
+
+<p>Note that every time you run this function, the output will be different
+because of the randomness.  Our solution is about 20 lines long (not counting
+the docstring).</p>
+
+
+
+
+</li>
+
+<li>
+
+
+
+<p><strong>[0.5]</strong> A very simple form of data compression is called <em>run-length
+encoding</em> or RLE for short.  The form we'll describe here works on lists of
+values.  When there is a stretch of repeated values, the values are replaced by
+a tuple containing the value and the number of such values that are found
+consecutively in the list.  If there are a lot of repeated values in the list,
+the encoded list can be considerably shorter.  For this problem you'll be
+writing two functions which will implement RLE on lists of Python integers.</p>
+
+<p>The first function will be called <code>initial_value_count</code> and will take one
+argument (a non-empty list of ints).  It will return a tuple with two elements.
+The first element of the result tuple is the first value in the argument list.
+The second element of the result tuple is the number of times the first value is
+repeated in the argument list in consecutive locations starting at the beginning
+(so the first location whose value isn't the same as the first value ends the
+count).</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; initial_value_count([14]) 
+(14, 1)
+&gt;&gt;&gt; initial_value_count([14, 2, 3])
+(14, 1)
+&gt;&gt;&gt; initial_value_count([12, 12, 12, 3, -1, 12])
+(12, 3)
+</code></pre>
+
+<p>The second function will be called <code>run_length_encode</code> and will also take
+one argument (a (possibly empty) list of ints).  It will return a list of tuples
+of length 2, where each tuple is a (value, count) pair like in the previous
+function.  The list of tuples is a run-length encoded version of the original
+list.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; run_length_encode([])
+[]
+&gt;&gt;&gt; run_length_encode([14])
+[(14, 1)]
+&gt;&gt;&gt; run_length_encode([14, 2, 3])
+[(14, 1), (2, 1), (3, 1)]
+&gt;&gt;&gt; run_length_encode([12, 12, 12, 2, 3, 3, -1, -1, -1, -1, 5])
+[(12, 3), (2, 1), (3, 2), (-1, 4), (5, 1)]
+</code></pre>
+
+<p><em>Hint:</em> Use the <code>initial_value_count</code> function in the <code>run_length_encode</code>
+function.  You might want to use list slices to remove the values from the front
+of the input list that you have already processed.  Continue until there are no
+more list elements to process.  Neither function needs to be more than 10 lines
+long.</p>
+
+
+
+
+</li>
+
+
+</ol>
+<hr>
+<h2>Part 3: Microproject: Cryptography</h2>
+<p>In this section, we will be writing several functions that will use strings,
+lists, dictionaries, and files.  The overall objective will be to enable us to
+encrypt strings (and hence files containing strings) using a couple of different
+codes.</p><hr width="75%">
+<h3>About codes</h3>
+<p>We will be using two different kinds of encryption methods.</p>
+<h4>Substitution codes</h4>
+<p>The first method is called a <em>substitution code</em>.  The idea is that you take
+the letters from <code>'a'</code> to <code>'z'</code> and for each letter in a string, substitute it
+with a different letter, always substituting the same character for a particular
+character.  So all the <code>'a'</code>s might become <code>'m'</code>s, all the <code>'b'</code>s might
+become <code>'z'</code>s, and so on.  When doing this it's important to ensure that the
+replacing letters include all the letters from <code>'a'</code> to <code>'z'</code>; for instance,
+it wouldn't be useful to replace all the letters from <code>'a'</code> to <code>'z'</code> with the
+letter <code>'q'</code>, because you couldn't reconstruct the original string from the
+encrypted one.  In addition, you need to do something about capital letters and
+non-alphabetic letters.  What we will do with capital letters is to encrypt them
+like lower-case letters, but using capitals (so if <code>'a'</code> becomes <code>'m'</code>, then
+<code>'A'</code> becomes <code>'M'</code>), and non-letters will pass through unchanged.</p><p>Here's an example of a substitution code:</p><pre><code>Original:  abcdefghijklmnopqrstuvwxyz
+Encrypted: qjguzemvpabnyxdkcsrlhfowit
+</code></pre><p>Notice that every letter in the range <code>'a'</code> to <code>'z'</code> is represented in the
+encrypted code.  In this code, the encrypted version of <code>'a'</code> is <code>'q'</code>, <code>'b'</code>
+is <code>'j'</code>, <em>etc.</em>  So to encode <code>'This is a test.'</code> we would have:</p><pre><code>T --&gt; L
+h --&gt; v
+i --&gt; p
+s --&gt; r
+...
+</code></pre><p>to finally get: <code>'Lvpr pr q lzrl.'</code> as the encrypted text.  Decrypting the
+encrypted text uses the same idea, but we look up each character in the
+encrypted character list to find its unencrypted counterpart.  So:</p><pre><code>L --&gt; T
+v --&gt; h
+p --&gt; i
+r --&gt; s
+...
+</code></pre><p>and we then recover the original text unchanged.  We will be using
+dictionaries to make this process more efficient and convenient.</p>
+<h4>Sequential codes</h4>
+<p>The problem with substitution codes is that they are easy to break!  The
+frequency of characters in English text is well-known; for instance, <code>'e'</code> is
+the most common character, followed by <code>'t'</code>, <code>'a'</code>, <em>etc.</em>  Therefore, if you
+have a document that was encrypted using a substitution code, you can count up
+all the alphabetic characters, and the odds are that the most common one should
+correspond to <code>'e'</code>, the next most common to <code>'t'</code>, and so on.  Cryptogram
+puzzles in newspapers and magazines rely on this to enable people to solve them
+using only pencil and paper.  So in addition to using substitution codes we will
+also be using a second kind of encryption, which we call <em>sequential codes</em>
+(this isn't a technical term, but I can't think of anything better to call it).
+What these codes do is use the previous characters in a string to help encode
+the current character.</p><p>In what follows, we will be referring to the "numerical value" of each
+character.  The value we want is determined as follows:</p><pre><code>character   value
+
+    a         0
+    b         1
+    c         2
+    .
+    .
+    .
+    z        25
+</code></pre><p>To get from a character to its numerical value, a handy trick is to use
+Python's built-in <code>ord</code> function.  The <code>ord</code> function converts a character
+into its ASCII value, which is not the same value that we want (for instance,
+the ASCII value of the character <code>'a'</code> is 97).  To get the value we want, we
+can use this equation:</p><pre><code>value(char) = ord(char) - ord('a')
+</code></pre><p>This will map <code>'a'</code> to <code>0</code>, <code>'b'</code> to <code>1</code>, <em>etc.</em> as we want.</p><p>There is another built-in function called <code>chr</code> which converts a character
+value from its ASCII value back to a letter, so <code>chr(ord('a')) == 'a'</code>.  To go
+from our "numerical value" back to a character, use this equation:</p><pre><code>char(value) = chr(value + ord('a'))
+</code></pre><p>This maps <code>0</code> to <code>'a'</code>, <code>1</code> to <code>'b'</code>, <em>etc.</em></p><p>Now we get to the actual algorithm for the sequential code, which goes like
+this.  The first character goes through unchanged.  At every subsequent
+character's position, add the numerical value of that character to the numerical
+value of the previous <em>encrypted</em> character and take the result modulo 26 to
+get the encrypted numerical value of the current character, which can then be
+converted back to an actual character as shown above.  Each encrypted character
+is therefore a kind of "sum" of all the previous characters mod 26.  We can
+describe this process with an equation:</p><pre><code>encrypted(c) = (c + p) % 26
+# c is the value of the current character
+# p is the value of the previous encrypted character
+# % is the modulus (remainder) operator in Python
+</code></pre><p>The encrypted character value can then be converted to an actual character as
+described above.</p><p>Note that each character of a particular kind will not always be encrypted
+the same way (an <code>'e'</code> may be encrypted to an <code>'m'</code> in one place and a <code>'z'</code>
+in another place, for instance), which will make it much harder to deduce the
+code from frequency statistics.</p><p>An example will show this in action:</p><pre><code>Original text:     'Hello, world!'
+Character values:   7 4 11 11 14, 22 14 17 11 3  (ignore case)
+Encrypted values:  
+     value    prev              new prev
+  H    7   +   0    =  7 % 26 =    7      (ignoring case)
+  e    4   +   7    = 11 % 26 =   11
+  l   11   +  11    = 22 % 26 =   22
+  l   11   +  22    = 33 % 26 =    7
+  o   14   +   7    = 21 % 26 =   21
+  ,                
+  w   22   +  21    = 43 % 26 =   17
+  o   14   +  17    = 31 % 26 =    5
+  r   17   +   5    = 22 % 26 =   22
+  l   11   +  22    = 33 % 26 =    7
+  d    3   +   7    = 10 % 26 =   10
+  !
+Encrypted values:  7 11 22  7 21,  17  5 22  7 10
+Encrypted text:    H  l  w  h  v,   r  f  w  h  k  !
+  or: Hlwhv, rfwhk!
+</code></pre><p>Note that there are three <code>'l'</code> characters, and one of them becomes a <code>'w'</code>
+while the others become <code>'h'</code>s. Similarly, one <code>'o'</code> becomes a <code>'v'</code> while
+the other becomes an <code>'f'</code>.</p><p>Decrypting the encrypted code just undoes the encryption process:</p><pre><code>decrypted(c) = (c - p) % 26
+# c is the encrypted value of the current character
+# p is the value of the previous encrypted character
+# % is the modulus (remainder) operator in Python
+
+Encrypted text:    'Hlwhv, rfwhk!'
+Character values:   7 11 22  7 21,  17  5 22  7 10
+Decrypted values:  
+     value    prev               new prev
+  H    7   -   0    =   7 % 26 =    7      (ignoring case)
+  l   11   -   7    =   4 % 26 =    4 
+  w   22   -  11    =  11 % 26 =   11
+  h    7   -  22    = -15 % 26 =   11
+  v   21   -   7    =  14 % 26 =   14
+  ,                
+  r   17   -  21    =  -4 % 26 =   22
+  f    5   -  17    = -12 % 26 =   14
+  w   22   -   5    =  17 % 26 =   17
+  h    7   -  22    = -15 % 26 =   11
+  k   10   -   7    =   3 % 26 =    3
+  !
+Encrypted values:  7  4 11 11 14,  22 14 17 11  3
+Encrypted text:    H  e  l  l  o,   w  o  r  l  d  !
+  or: Hello, world!
+</code></pre><p>The only subtlety here is that you should be careful about the <code>prev</code> value.
+In both the encrypting and decrypting directions, <code>prev</code> refers to the previous
+<em>encrypted</em> character value.  If you get this wrong, the algorithm won't work.</p>
+<h4>Combining codes</h4>
+<p>We will combine these two codes by first using the sequential code to get an
+intermediate string and then using a substitution code on this string to get the
+final encoded string.  Decrypting will reverse the process: we will first
+decrypt the encrypted string using the substitution code to get an intermediate
+string and then decrypting this string to get the final (hopefully unencrypted)
+string.</p><p>Our encryption functions will also double-up as decryption functions too,
+because in each case the process of encrypting and decrypting is extremely
+similar, so there is no need to have separate functions.  <b>Try to avoid
+duplicating code if possible (the D.R.Y. principle we've talked about in
+class).</b></p><hr width="75%">
+<h3>The problems</h3>
+<p>If you skipped reading the previous section in order to save time, <b>please
+go back and read it!</b>  It will save you hours of debugging.  This isn't a timed
+exam anyway, so there is really no excuse for not reading everything.  If you
+have read the previous section, read on!</p><ol>
+
+<li>
+
+<p><strong>[0.5]</strong> We will be representing our substitution codes as dictionaries
+which map characters to other characters.  Write a function called
+<code>make_subst_dicts</code> which takes no arguments and returns a tuple containing two
+randomly-generated dictionaries.  Each dictionary will contain the lower-case
+letters <code>'a'</code> through <code>'z'</code> as the <em>only</em> keys, and will map each letter to
+another letter so that the values of the dictionaries are also the characters
+from <code>'a'</code> through <code>'z'</code>.  The first dictionary of the tuple is the "encoding"
+dictionary, whereas the second is the "decoding" dictionary.  The following must
+hold for the two dictionaries:</p>
+
+<pre><code>decode[encode[c]] == c  (for any c in the range a-z)
+</code></pre>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; sd = make_subst_dicts()
+&gt;&gt;&gt; (en, de) = sd
+&gt;&gt;&gt; en
+{'a': 'c', 'c': 'q', 'b': 'k', 'e': 'w', 'd': 'm', 'g': 'b', 'f': 'g', 'i': 'h', 'h': 'y', 'k': 's', 'j': 'a', 'm': 'v', 'l': 'd', 'o': 'n', 'n': 'p', 'q': 'x', 'p': 'f', 's': 'j', 'r': 'e', 'u': 'l', 't': 't', 'w': 'u', 'v': 'z', 'y': 'i', 'x': 'o', 'z': 'r'}
+&gt;&gt;&gt; de
+{'a': 'j', 'c': 'a', 'b': 'g', 'e': 'r', 'd': 'l', 'g': 'f', 'f': 'p', 'i': 'y', 'h': 'i', 'k': 'b', 'j': 's', 'm': 'd', 'l': 'u', 'o': 'x', 'n': 'o', 'q': 'c', 'p': 'n', 's': 'k', 'r': 'z', 'u': 'w', 't': 't', 'w': 'e', 'v': 'm', 'y': 'h', 'x': 'q', 'z': 'v'}
+&gt;&gt;&gt; en['a']
+'c'
+&gt;&gt;&gt; de[en['a']]
+'a'
+</code></pre>
+
+<p>Of course, the specific dictionaries returned will be different every time
+you call this function.</p>
+
+<p>The easiest way to write this is to import the <code>string</code> library and use the
+<code>string.lowercase</code> value, which is just the string <code>'abc...z'</code>.  Convert this
+string to a list, randomly shuffle the list (using the appropriate function in
+the <code>random</code> module) and then create the encoding dictionary by using the
+string characters as keys and the list elements at the corresponding locations
+in the list as the values.  Create the decoding dictionary the same way, but
+use the list elements as keys and the string elements as values.</p>
+
+<p>We will take marks off for excessively brute-force solutions.  For instance,
+don't just write out the string <code>'abcde...z'</code> when you can use
+<code>string.lowercase</code>.  The dictionaries must be randomly-generated; not doing
+this will cause you to lose all marks for this problem.</p>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[0.5]</strong> Write a function call <code>encode_subst</code> that encodes (or decodes) a
+string using a substitution code as described above.  The arguments to this
+function are:</p>
+
+<ul>
+
+<li><p>an encoding/decoding dictionary which maps the letters <code>'a'</code> through <code>'z'</code>
+to the same set of letters (like one of the dictionaries returned by the
+<code>make_subst_dict</code> function)</p></li>
+
+<li><p>a string to encode</p></li>
+
+</ul>
+
+<p>It will use the dictionary to create and return an encrypted string by
+converting all the string characters into their dictionary mappings.  Uppercase
+characters get converted to the corresponding lowercase characters, encrypted
+using the dictionary to get another lowercase character, and then converted back
+to uppercase.  All non-letters pass through unchanged (including <em>e.g.</em> space
+characters and newline characters).  You may find the <code>string.uppercase</code> string
+to be useful; it's just <code>'ABC...Z'</code>.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; sd = make_subst_dicts()
+&gt;&gt;&gt; (en, de) = sd
+&gt;&gt;&gt; en
+{'a': 'c', 'c': 'q', 'b': 'k', 'e': 'w', 'd': 'm', 'g': 'b', 'f': 'g', 'i': 'h', 'h': 'y', 'k': 's', 'j': 'a', 'm': 'v', 'l': 'd', 'o': 'n', 'n': 'p', 'q': 'x', 'p': 'f', 's': 'j', 'r': 'e', 'u': 'l', 't': 't', 'w': 'u', 'v': 'z', 'y': 'i', 'x': 'o', 'z': 'r'}
+&gt;&gt;&gt; de
+{'a': 'j', 'c': 'a', 'b': 'g', 'e': 'r', 'd': 'l', 'g': 'f', 'f': 'p', 'i': 'y', 'h': 'i', 'k': 'b', 'j': 's', 'm': 'd', 'l': 'u', 'o': 'x', 'n': 'o', 'q': 'c', 'p': 'n', 's': 'k', 'r': 'z', 'u': 'w', 't': 't', 'w': 'e', 'v': 'm', 'y': 'h', 'x': 'q', 'z': 'v'}
+&gt;&gt;&gt; encode_subst(en, 'This is a test!')
+'Tyhj hj c twjt!'
+&gt;&gt;&gt; encode_subst(en, 'THIS IS A TEST!')
+'TYHJ HJ C TWJT!'
+&gt;&gt;&gt; encode_subst(de, 'Tyhj hj c twjt!')
+'This is a test!'
+</code></pre>
+
+<p>Notice that the only difference between encoding and decoding is which
+dictionary you use.</p>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[1.0]</strong>  Write a function called <code>encode_seq</code> that takes two arguments:</p>
+
+<ul>
+
+<li><p>a string representing an encoding "direction" (either <code>'en'</code> for encoding or
+<code>'de'</code> for decoding)</p></li>
+
+<li><p>a string to encode</p></li>
+
+</ul>
+
+<p>It encodes the string using a sequential code as described above and returns
+the encoded string.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; encode_seq('en', 'Hello, world!')
+'Hlwhv, rfwhk!'
+&gt;&gt;&gt; encode_seq('de', 'Hlwhv, rfwhk!')
+'Hello, world!'
+&gt;&gt;&gt; encode_seq('en', 'This is a test!')
+'Taia ia a txpi!'
+&gt;&gt;&gt; encode_seq('en', 'THIS IS A TEST!')
+'TAIA IA A TXPI!'
+&gt;&gt;&gt; encode_seq('de', 'Taia ia a txpi!')
+'This is a test!'
+</code></pre>
+
+<p>Note that you should get the exact results shown in the examples above,
+because this function doesn't depend on randomly-generated dictionaries.</p>
+
+<p>This function can be a bit tricky to get right.  Please read the discussion
+above so that you know exactly how to implement it.</p>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[0.5]</strong> Write a function called simply <code>encode</code> which will use both of the
+two encoding methods you've implemented above to thoroughly encode a string.  It
+takes the following arguments:</p>
+
+<ul>
+
+<li><p>a string representing an encoding "direction" (either <code>'en'</code> for encoding or
+<code>'de'</code> for decoding)</p></li>
+
+<li><p>a tuple of encoding/decoding dictionaries like that returned from
+<code>subst_dicts</code></p></li>
+
+<li><p>a string to encode or decode</p></li>
+
+</ul>
+
+<p>It will return the transformed (encoded or decoded) version of the string.</p>
+
+<p>The function encodes a string by first applying the sequential code using
+<code>encode_seq</code> and then applying the substitution code using <code>encode_subst</code>
+(using one of the supplied dictionaries).  Decoding does things in the opposite
+order (and uses the other dictionary).</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; sd = make_subst_dicts()
+&gt;&gt;&gt; encode('en', sd, 'This is a test!')
+'Jkek ek k jqze!'
+&gt;&gt;&gt; encode('en', sd, 'THIS IS A TEST!')
+'JKEK EK K JQZE!'
+&gt;&gt;&gt; encode('de', sd, 'Jkek ek k jqze!')
+'This is a test!'
+</code></pre>
+
+<p>Again, every time you run this code with new substitution dictionaries you
+will get a different result.</p>
+
+<p>The only thing to watch out for here is to make sure that the order of
+applying the two encryption methods is correct so that decoding undoes what
+encoding does.</p>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[0.5]</strong>  Write a function called <code>encode_file</code> which takes the following
+arguments:</p>
+
+<ul>
+
+<li><p>a string representing an encoding "direction" (either <code>'en'</code> for encoding or
+<code>'de'</code> for decoding)</p></li>
+
+<li><p>a tuple of encoding/decoding dictionaries like that returned from
+<code>subst_dicts</code></p></li>
+
+<li><p>a filename which refers to the file you want to encode or decode; this file
+will be read from but not altered</p></li>
+
+<li><p>a filename which is the name of the file which you will write the encoded or
+decoded version of the source file to</p></li>
+
+</ul>
+
+<p>This function won't return anything, but when it returns a new file will have
+been created.  Each line of the function will have been transformed using the
+<code>encode</code> function with appropriate arguments.  See the next section for an
+example of how to use and test this function.  Make sure that all files you open
+in this function will be closed before exiting it.</p>
+
+<p>If your <code>encode</code> function is working correctly, this should be a very easy
+function to write and test.</p>
+
+
+
+
+</li>
+
+</ol>
+<h3>Testing your code</h3>
+<p>We aren't supplying you with any specific test scripts for this exam, but you
+can interactively test your code on the examples given to make sure that they
+work.  For this part of the exam, we are also supplying you with the full text
+of William Shakespeare's play <a href="https://courses.caltech.edu/pluginfile.php/112328/mod_resource/content/7/romeo.txt">Romeo and Juliet</a>.  You should
+download it and run it through the <code>encode_file</code> function by calling it as
+follows:</p><pre><code>&gt;&gt;&gt; sd = make_subst_dicts()
+&gt;&gt;&gt; encode_file('en', sd, 'romeo.txt', 'romeo_en.txt')
+&gt;&gt;&gt; encode_file('de', sd, 'romeo_en.txt', 'romeo_de.txt')
+</code></pre><p>This will (if it's working correctly) generate an encrypted version of the
+file as <code>romeo_en.txt</code>, and it will use that encrypted version to decrypt the
+file and save the decrypted version as <code>romeo_de.txt</code>.  (These function calls
+shouldn't take more than a few seconds to complete, either.)  If your code is
+working correctly, the encrypted file should be complete gibberish, while the
+decrypted version will be identical to the original version.  You can check this
+in a Linux (or Mac OS X) terminal by typing:</p><pre><code>% more romeo.txt
+% more romeo_en.txt
+% more romeo_de.txt
+</code></pre><p>(where <code>%</code> is the shell prompt).  A more accurate way to check is to use the
+<code>diff</code> command, which checks to see if two files have different contents.  Type
+this:</p><pre><code>% diff romeo.txt romeo_de.txt
+</code></pre><p>and if the two files are identical, the program will return without printing
+anything.  If the program prints lots of lines, it means that the files are
+different and you probably have a bug (or more than one!).</p><hr><p>[End of midterm exam]</p>
+<hr>
+<font size="-1">Copyright (c) 2015, California Institute of
+  Technology. All rights reserved.<br>
+</font>
+
+
+
+</body></html>

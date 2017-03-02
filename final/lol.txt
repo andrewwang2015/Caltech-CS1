@@ -1,0 +1,6 @@
+MOVE : b at (6, 2)
+ 
+MOVE : a at (6, 2)
+ 
+MOVE : . at (6, 2)
+ 

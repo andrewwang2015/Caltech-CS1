@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0082)https://courses.caltech.edu/pluginfile.php/112123/mod_resource/content/1/lab4.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CS 1 — Fall 2015 — Assignment 4</title>
+<style type="text/css"> 
+.centered { text-align: center }
+blockquote {
+  margin: 1em 1em;
+  background-color: #d0d0d0;
+  border: 2px solid #000;
+  padding: 0em 1em;
+}
+pre           { color: #0000bb }
+code          { color: #0000bb }
+div.solution  { color: #006644 }
+code.solution { color: #006644 }
+pre.solution  { color: #006644 }
+p.solution    { color: #006644 }
+b.solution    { color: #006644 }
+h3.solution   { color: #006644 }
+h3.warning    { color: #ff0000 }
+p.warning     { color: #ff0000 }
+h3.gradingNotes  { color: #008090 }
+div.gradingNotes { color: #0080a0 }
+span.interact { color: #007700 }
+</style>
+<style type="text/css"></style></head>
+<body>
+<div class="centered">
+<h1>CS 1: Introduction To Computer Programming, Fall 2015</h1>
+<h2>Assignment 4: Life, the Universe, and Everything</h2>
+<p><b>Due:</b> <em>Thursday, November 5, 02:00:00</em></p>
+</div>
+<hr width="75%">
+<h2>Coverage</h2>
+<p>This assignment covers the material up to lecture 13.</p>
+
+<hr>
+<h2>Part  What to hand in</h2>
+<p>You will be handing in four files for this assignment.</p><p>You should collect the answers to section B into a file called
+<code>lab4_b.py</code>.</p><p>For section D, you should hand in the files <code>lab4_d1.py</code>,
+<code>lab4_d2.py</code> and <code>lab4_d3.py</code> containing your
+programs.</p><p>There is a test script for section B only.  It's called
+<a href="https://courses.caltech.edu/pluginfile.php/112123/mod_resource/content/1/lab4_b_tests.py"><code>lab4_b_tests.py</code></a>.  You should download it and run it
+to make sure your code from section B works properly.</p><p>All four files of your code should be handed in to
+<a href="http://csman.cs.caltech.edu/">csman</a> as usual.</p>
+<hr>
+<h2>Part A: Installing new Python packages</h2>
+<p>For one section of this lab, you will need to have the <code>Tkinter</code> package
+installed in Python.  Naturally, it is already installed on the CMS cluster
+computers, but many of you will want to install it on your own computers.  To
+determine if your version of Python already has this package installed, start up
+WingIDE and in the Python shell type:</p><pre><code>&gt;&gt;&gt; import Tkinter
+</code></pre><p>If no error is reported, you are ready to go.  If not, what you do depends on
+which operating system you are using.</p><p>Let's look at computers running Windows.  The normal Python installation, as
+we described it in assignment 1, should have installed <code>Tkinter</code> already.  If
+not, you will need to redo the Python installation process, following the
+instructions in assignment 1; this time, pay particular attention to the line
+that says to install all the optional packages under "Customize Python
+2.7.10".  This simply requires that you select the option "Tcl/Tk" and then
+choose "Entire feature will be installed on local hard drive".  This will cause
+the <code>Tkinter</code> package to be installed, and after that, you should be able to
+use it without any problems.</p><p>If your computer runs Mac OS X, and you installed Python using the
+instructions in lab 1, Tkinter is probably already installed. If not, you should
+either use the CMS cluster computers or ask a TA to help you set up Tkinter.</p><p>Linux users should consult their distribution's package manager documentation
+for information on how to set up <code>Tkinter</code> on their system.  Most distributions
+have a <code>python-tk</code> package or something similar which will install
+<code>Tkinter</code>.</p><p>Windows users will find some differences in using <code>Tkinter</code> compared to
+Linux and Mac users.  The primary difference is that when using <code>Tkinter</code> on
+Windows (but not on Linux or Mac) no windows will show up until the <code>mainloop</code>
+command (described below) is entered.  This shouldn't cause any serious
+problems.</p><p><b>Warning!</b> On some computers, using <code>WingIDE</code> with <code>Tkinter</code> can result
+in problems if you try to execute the program from within <code>WingIDE</code> by hitting
+the Run button.  What may happen is that the program will hang or will exit with
+a complicated error message.  If this happens, simply use <code>WingIDE</code> as an
+editor only and run the program from the terminal window.  So if the module you
+are working on is called <code>MyModule.py</code>, run it as:</p><pre><code>% python MyModule.py
+</code></pre><p>(where the <code>%</code> is the terminal prompt).  If you have problems with this, ask
+your TA to help you.  The <code>WingIDE</code> documentation claims that it works
+perfectly well with <code>Tkinter</code>, but we have not found this to be the case.</p>
+<hr>
+<h2>Part B: Exercises</h2>
+<p>In this section we will write a few simple functions which we will use in
+part D as part of the graphics miniproject in that section.  We will also write
+a few functions that involve dictionaries.  Every function should have a
+docstring explaining what it does, what its arguments (if any) mean, and what it
+returns.  None of these functions need to be more than about a dozen lines long
+(not counting the docstring), so if you find that you need much more than this,
+you have missed something important and should talk to a TA.</p><ol>
+
+<li>
+ 
+<p><b>[20]</b>  Write a function called <code>random_size</code> that takes two arguments
+(both non-negative even integers, where the first argument must be smaller than
+the second), and returns a random even integer which is &gt;= the lower number and
+&lt;= the upper number.  Use the <code>randint</code> function from the <code>random</code> module to
+generate the random numbers.  Use Python's <code>help()</code> function to tell you how
+<code>randint</code> works.</p>
+
+<p>Use <code>assert</code> statements to check the inputs to and outputs from the
+function; they should check that:</p>
+
+<ol>
+<li>the two input numbers are non-negative</li>
+<li>the two input numbers are both even (<em>hint:</em> use the <code>%</code> operator)</li>
+<li>the first input argument is smaller than the second argument</li>
+<li>the output number is even</li>
+</ol>
+
+<p>The technical term for what these assertions are checking are the
+<em>preconditions</em> and the <em>postconditions</em> of the function <em>i.e.</em> the
+conditions that must be true before the function starts computing
+(preconditions) and the conditions that must be true once the function is done
+computing (postconditions).  Checking preconditions and postconditions with
+assertions is a common strategy to make your functions more likely to be
+correct.</p>
+
+<p><em>Note:</em> You do not need to write a loop to solve this problem.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; random_size(0, 10)
+8
+&gt;&gt;&gt; random_size(0, 10)
+10
+&gt;&gt;&gt; random_size(0, 10)
+0
+&gt;&gt;&gt; random_size(20, 102)
+34
+</code></pre>
+
+
+
+
+</li>
+<li>
+ 
+<p><b>[10]</b> Write a function called <code>random_position</code>.  This function will take
+as its arguments two integers called <code>max_x</code> and <code>max_y</code>, both of which are
+<code>&gt;= 0</code> (use <code>assert</code> to check this).  It will return a random <code>(x, y)</code> pair
+(tuple), with both <code>x &gt;= 0</code> and <code>y &gt;= 0</code> and with <code>x &lt;= max_x</code> and <code>y &lt;=
+max_y</code>.  The function is named <code>random_position</code> because the <code>(x, y)</code> pair
+returned from the function will represent non-negative integer pixel coordinates
+on a computer monitor <em>i.e.</em> a position on the monitor.  Again, use the
+<code>randint</code> function to generate the random numbers.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; random_position(800, 600)
+(125, 456)
+&gt;&gt;&gt; random_position(800, 600)
+(234, 101)
+&gt;&gt;&gt; random_position(50, 75)
+(45, 12)
+</code></pre>
+
+
+
+
+</li>
+<li>
+ 
+<p><b>[20]</b>  Write a function called <code>random_color</code> which will generate random
+color values in the format recognized by the <code>Tkinter</code> graphics package.  These
+colors are represented by strings of the form:</p>
+
+<pre><code>#RRGGBB
+</code></pre>
+
+<p>where '#' is the literal character '<code>#</code>', and 'RRGGBB' are six hexadecimal
+digits, which are either the digits <code>0</code> to <code>9</code> or the letters <code>a</code> to <code>f</code>.
+The 'RR' digits represent the degree of red color in the color, the 'GG' digits
+represent the degree of green color, and the 'BB' digits represent the degree of
+blue color.  The minimum value for each color is <code>0</code> and the maximum is <code>ff</code>,
+which is hexadecimal for 255.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; random_color()
+'#0144a9'
+&gt;&gt;&gt; random_color()
+'#ff008a'
+&gt;&gt;&gt; random_color()
+'#a0a04f'
+</code></pre>
+
+<p>Note that black would be the color <code>'#000000'</code>, white would be <code>'#ffffff'</code>,
+pure red would be <code>'#ff0000'</code>, pure green would be <code>'#00ff00'</code>, and pure blue
+would be <code>'#0000ff'</code>.  This is not important in the function; just choose six
+random hexadecimal digits, put them into a string with the correct format, and
+return it.</p>
+
+<p>You do not need to use <code>assert</code> in this function.</p>
+
+<p>You may find the <code>choice</code> function in the <code>random</code> module to be quite
+useful for this problem.</p>
+
+
+
+
+</li>
+<li>
+ 
+<p><b>[20]</b>  The keys in a dictionary are guaranteed to be unique, but the
+values are not.  Write a function called <code>count_values</code> that takes a single
+dictionary as an argument and returns a count of the number of distinct values
+it contains.  <em>Hint:</em> Remember the <code>values</code> method of dictionaries.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; d = { 'red' :  1, 'green' : 1, 'blue' : 2 }
+&gt;&gt;&gt; count_values(d)
+2
+&gt;&gt;&gt; count_values({ 'a' : 97, 'b' : 98, 'c' : 99 })
+3
+&gt;&gt;&gt; count_values({ 'foo' : 42, 'bar' : 42, 'baz' : 42 })
+1
+</code></pre>
+
+
+
+
+</li>
+<li>
+ 
+<p><b>[25]</b> Write a function called <code>remove_value</code> that takes a dictionary and
+an arbitrary item which could be a value in the dictionary.  It removes (using
+the <code>del</code> operator) all key/value pairs from the dictionary which have that
+value.  If the value is not in the dictionary it does nothing.  It returns
+nothing.  You can assume that <code>==</code> will work for all values stored in any
+dictionary passed as an argument to <code>remove_value</code>.</p>
+
+<p><b>NOTE:</b>  This problem is harder than it appears!  You cannot change the
+size of a dictionary while you are iterating through it using a Python <code>for</code>
+loop.  <em>Hint:</em> Make a list of all the keys that need to be removed, and then
+remove them later.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; d = { 'foo' : 1, 'bar' : 2, 'baz' : 1 } 
+&gt;&gt;&gt; remove_value(d, 1) 
+&gt;&gt;&gt; d 
+{'bar' : 2}
+&gt;&gt;&gt; remove_value(d, 2)
+&gt;&gt;&gt; d 
+{} 
+</code></pre>
+
+
+
+
+</li>
+<li>
+ 
+<p><b>[20]</b> Write a function called <code>split_dict</code> that takes as its argument a
+dictionary which uses strings as keys and returns a tuple of <u>two</u>
+dictionaries whose key/value pairs are from the original dictionary: those whose
+keys start with the letters <code>a-m</code> (lower- or uppercase) and those whose keys
+start with the letters <code>n-z</code> (lower- or uppercase).  Keys starting with other
+letters are not included in either dictionary.  The original dictionary is not
+altered.  You may assume that the string keys have at least one letter.
+<em>Hint:</em> strings can be compared using the relational operators (<code>&lt;</code>, <code>&lt;=</code>,
+<code>&gt;</code> and <code>&gt;=</code>).</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; split_dict({ 'Jim' : 1, 'Tom' : 2, 'Sam' : 3, 'Bob' : 4 })
+({'Bob': 4, 'Jim': 1}, {'Sam': 3, 'Tom': 2})
+&gt;&gt;&gt; dict = { 'rat' : 'animal', 'cup' : 'utensil', 'green' : 'color' }
+&gt;&gt;&gt; d1, d2 = split_dict(dict)
+&gt;&gt;&gt; d1
+{'green': 'color', 'cup': 'utensil'}
+&gt;&gt;&gt; d2
+{'rat' : 'animal'}
+</code></pre>
+
+
+
+
+</li>
+<li>
+ 
+<p><b>[20]</b> Write a function called <code>count_duplicates</code> that takes a dictionary
+as an argument and returns the number of values that appear two or more times.
+<em>Hint:</em> The <code>count</code> method on lists may be useful to you here.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; count_duplicates({ 'foo' : 1, 'bar' : 2, 'baz' : 3, \
+                       'xxx' : 2, 'yyy' : 1 })
+2
+&gt;&gt;&gt; count_duplicates({ 'foo' : 'yes', 'bar' : 'no', 'baz' : 'maybe' })
+0
+</code></pre>
+
+
+
+
+</li>
+
+</ol>
+<hr>
+<h2>Part C: Pitfalls</h2>
+<p>There is no part C this week.</p>
+<hr>
+<h2>Part D: Miniproject: Drawing simple pictures</h2>
+<p>Each of the following exercises will require you to write a separate Python
+module (program) which, when run, will draw some objects on a canvas object
+using <code>Tkinter</code>.  All dimensions are in units of pixels.  In each module, a
+root window called <code>root</code> should be created as well as a canvas which goes
+inside the root window (don't forget to use the <code>pack</code> method of the canvas
+object to position the canvas inside the root window!), and both it and the
+canvas it contains should be 800 pixels wide and 800 pixels high.  The last line
+of the module should be this:</p><pre><code>root.mainloop()
+</code></pre><p>This will start the module as a separate program and display the image.  For
+the first two programs, manually close the window and restart the Python shell
+to exit the program. The last program will use a different way of exiting the
+program.</p><p><b>NOTE:</b> As mentioned above, WingIDE does not always work well with Python
+code that uses <code>Tkinter</code> (they interfere with one another to some extent).
+Therefore, when running your code, we recommend that you run it from a terminal
+instead of hitting the "Run" button in WingIDE.  If you don't know how to do
+this, ask your TA.  You may still use WingIDE to edit your code, of course.  If
+you run your code from inside WingIDE, you will probably encounter bugs that
+will disappear when running it from the terminal.  The reasons for this are
+beyond the scope of this class.</p><ol>
+
+<li>
+ 
+<p><b>[20]</b> Write a Python module (program) called <code>lab4_d1.py</code>.  This module,
+when run, will draw four squares of size 100x100 on an 800x800 canvas using the
+<code>create_rectangle</code> method of the canvas object.  The square in the upper-left
+corner should be red, the square in the upper-right corner should be green, the
+square in the lower-left corner should be blue, and the square in the
+lower-right corner should be yellow.  Note that <code>Tkinter</code> knows the meaning of
+the strings <code>'red'</code>, <code>'green'</code>, <code>'yellow'</code>, and <code>'blue'</code> when used as color
+names.</p>
+
+<p>Your code shouldn't include any function definitions, just direct calls to
+<code>Tkinter</code> functions and methods.</p>
+
+<p>The resulting picture should look like this:</p>
+
+<img src="./CS 1 — Fall 2015 — Assignment 4_files/lab4_d1.jpg" alt="./images/lab4_d1.jpg" height="50%" width="50%">
+
+
+
+
+</li>
+
+<li>
+ 
+<p><b>[30]</b> Write a Python module (program) called <code>lab4_d2.py</code>.  This module,
+when run, will draw the exact same picture as in the previous problem, but it
+will do so in a different way.  In this module, you will write a function called
+<code>draw_square</code> which will take four arguments:</p>
+
+<ol>
+
+<li>the canvas on which the square will be drawn</li>
+
+<li>the color of the square (which will be both the fill color and the outline color)</li>
+
+<li>the width and height of the square (in pixels); these are obviously the same
+since it's a square</li>
+
+<li>the position of the center of the square, represented as a tuple of two
+integers representing the horizontal and vertical position of the center in
+pixels</li>
+
+</ol>
+
+<p>This function will both draw the square (using the <code>create_rectangle</code> method
+of the canvas object) and also return the handle of the square that was drawn on
+the canvas (note that the <code>create_rectangle</code> method itself returns the
+handle of the rectangle that was drawn).  (Note that we won't be using these
+handles in this assignment, but we will in later assignments.)</p>
+
+<p>The only tricky part is knowing where the center of the square should be.
+For a 100x100 square located in the upper-left-hand corner, the center would be
+at (50, 50) (height = 50, width = 50).</p>
+
+<p>Make sure that your function has a docstring explaining what it does and what
+all the arguments to the function mean.</p>
+
+<p>Once this function is written, your module will call it four times to draw
+the four squares in the picture.  To be specific: the only place you should call
+the <code>create_rectangle</code> method of a canvas object is inside the <code>draw_square</code>
+function.</p>
+
+<p>In this module, you will have some code which is part of a function (the
+<code>draw_square</code> function), and some code which is at the top level of the module
+(not in any function).  To keep the module well-organized, put all of the code
+that isn't in the function (except for the <code>import</code> statements, which should go
+at the beginning of the file) into a block using the <code>if __name__ ==
+'__main__': ...</code> idiom described in class.  In other words, the module should be
+structured like this:</p>
+
+<pre><code>from Tkinter import *
+
+def draw_square(&lt;argument list&gt;):
+    &lt;docstring for draw_square&gt;
+    &lt;code for draw_square&gt;
+
+if __name__ == '__main__':
+    &lt;all other code&gt;
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><b>[40]</b> Write a Python module (program) called <code>lab4_d3.py</code>.  This
+module, when run, will draw 50 colored squares of random colors, sizes, and
+positions whenever it's run.  The module will, of course, need to import the
+<code>random</code> module.  Use the <code>draw_square</code> function from the previous problem to
+draw the squares.  Use a loop to generate the squares — do not have 50 lines
+with calls to <code>draw_square</code>, or you will get a zero grade on this section!</p>
+
+<p>Generate random colors using the <code>random_color</code> function you wrote in part
+B.  Generate random sizes using the <code>random_size</code> function you wrote in part B.
+Finally, (you guessed it) generate random positions using the <code>random_position</code>
+function you wrote in part B.  The range of sizes is from 20 to 150 pixels, and
+the positions can be anywhere from 0 to 800 pixels in both the horizontal and
+vertical directions (so they can range from (0, 0) to (800, 800)).</p>
+
+<p>There's one more thing to do before your program is done.  By now, you're
+probably getting tired of quitting the program by manually closing the window.
+Instead, create a key binding so that hitting the <code>"q"</code> key anywhere inside the
+window will cause the program to exit.  Use the <code>bind</code> method of the root
+object, and bind the key to a function which causes the program to exit
+(<em>e.g.</em> to the built-in <code>quit</code> function).</p>
+
+<p>Your file should be structured the same way it was in the previous problem:</p>
+
+<pre><code>from Tkinter import *
+import random
+
+&lt;code for all functions&gt;
+
+if __name__ == '__main__':
+    &lt;all other code&gt;
+</code></pre>
+
+<p>You should copy the functions you're using from part B into this module.</p>
+
+<p>Here is a sample picture we obtained when we ran our program:</p>
+
+<img src="./CS 1 — Fall 2015 — Assignment 4_files/lab4_d3.jpg" alt="./images/lab4_d3.jpg" height="50%" width="50%">
+
+<p>Your images will be different from this, and will in fact be different every
+time you run your program.</p>
+
+
+
+
+</li>
+
+</ol>
+<hr>
+<font size="-1">Copyright (c) 2015, California Institute of
+  Technology. All rights reserved.<br>
+</font>
+
+
+
+</body></html>

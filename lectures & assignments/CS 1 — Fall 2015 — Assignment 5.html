@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0082)https://courses.caltech.edu/pluginfile.php/112385/mod_resource/content/3/lab5.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CS 1 — Fall 2015 — Assignment 5</title>
+<style type="text/css"> 
+.centered { text-align: center }
+blockquote {
+  margin: 1em 1em;
+  background-color: #d0d0d0;
+  border: 2px solid #000;
+  padding: 0em 1em;
+}
+pre           { color: #0000bb }
+code          { color: #0000bb }
+div.solution  { color: #006644 }
+code.solution { color: #006644 }
+pre.solution  { color: #006644 }
+p.solution    { color: #006644 }
+b.solution    { color: #006644 }
+h3.solution   { color: #006644 }
+h3.warning    { color: #ff0000 }
+p.warning     { color: #ff0000 }
+h3.gradingNotes  { color: #008090 }
+div.gradingNotes { color: #0080a0 }
+span.interact { color: #007700 }
+</style>
+<style type="text/css"></style></head>
+<body>
+<div class="centered">
+<h1>CS 1: Introduction To Computer Programming, Fall 2015</h1>
+<h2>Assignment 5: A Whopping 2000 Calculations Per Second!!!</h2>
+<p><b>Due:</b> <em>Thursday, November 19, 02:00:00</em></p>
+</div>
+<hr width="75%">
+<h2>Coverage</h2>
+<p>This assignment covers the material up to lecture 15.</p>
+
+<hr>
+<h2>Part  What to hand in</h2>
+<p>You will be handing in three files for this assignment.</p><p>You should collect the answers to sections B and C into a file called
+<code>lab5_bc.py</code>.</p><p>For section D, you should hand in the files <code>lab5_d_1.py</code> and <code>lab5_d_2.py</code>
+containing your programs.</p><p>There is a test script for section B only.  It's called
+<a href="https://courses.caltech.edu/pluginfile.php/112385/mod_resource/content/3/lab5_b_tests.py">lab5_b_tests.py</a>.  You should download it and run it to
+make sure your code from section B works properly.  Code from the other sections
+will not be tested.</p><p>All three files of your code should be handed in to <a href="http://csman.cms.caltech.edu/">http://csman.cms.caltech.edu</a> as usual.</p>
+<hr>
+<h2>Part A: Installing new Python packages</h2>
+<p>There are no new Python packages that you need to install for this week's
+assignment.</p>
+<hr>
+<h2>Part B: Exercises</h2>
+<p>For this section, you will be writing a few simple (and fairly short)
+classes.  Make sure that your classes have a class docstring, and that all the
+methods in each class have docstrings.</p><ol>
+
+<li>
+
+<p><strong>[15]</strong> Write a class called <code>Point</code> which represents a point in
+three-dimensional Euclidean space (with real-valued coordinates).  This class
+will contain only two methods. The constructor method (<code>__init__</code>) will take as
+inputs the <code>x</code>, <code>y</code> and <code>z</code> coordinates of the point and will store them in
+the object.  In addition, a method called <code>distanceTo</code> will take another
+<code>Point</code> as its input and will compute the distance between that point and the
+point being acted on, using the Euclidean distance formula (the distance between
+two points is the square root of the sum of the squares of the differences
+between the coordinates).</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; p1 = Point(1.2, 2.4, 0.1)
+&gt;&gt;&gt; p2 = Point(0.0, -3.2, -1.3)
+&gt;&gt;&gt; p1.distanceTo(p2)
+5.89576118919347
+</code></pre>
+
+<p>The distance is &nbsp; <code>sqrt((1.2 - 0.0)**2 + (2.4 - (-3.2))**2 + (0.1 -
+(-1.3))**2)</code>, &nbsp; which evaluates to the printed value.</p>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[15]</strong> Write a class called <code>Triangle</code>.  Instances of this class will
+contain three <code>Point</code>s (as defined in the previous problem), which should be
+supplied as arguments to the constructor (don't just supply the (x, y)
+coordinates; give actual <code>Point</code> objects as arguments).  The class will contain
+one method besides its constructor: <code>area</code>.  This method will compute the area
+of a triangle using <a href="http://en.wikipedia.org/wiki/Heron%27s_formula">Heron's
+formula</a>:</p>
+
+<pre><code>a = length of side 1
+b = length of side 2
+c = length of side 3
+s = (a + b + c) / 2
+area = sqrt(s * (s - a) * (s - b) * (s - c))
+</code></pre>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; p1 = Point(0.0, 0.0, 0.0)
+&gt;&gt;&gt; p2 = Point(1.0, 0.0, 0.5)
+&gt;&gt;&gt; p3 = Point(0.0, 1.0, 0.5)
+&gt;&gt;&gt; t = Triangle(p1, p2, p3)
+&gt;&gt;&gt; t.area()
+0.6123724356957944
+</code></pre>
+
+<p><strong>Note:</strong> In the <code>area</code> method, please use the <code>distanceTo</code> method on
+points you defined previously to compute the lengths of line segments. (This is
+a requirement of this problem.)</p>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[30]</strong>  In this problem you will be designing a (slightly) more
+complicated class called <code>Averager</code>.  The purpose of this class is to store a
+list of numbers and perform various operations on it.  Specifically, there will
+be methods to do the following actions (method names in square brackets):</p>
+
+<ol>
+
+<li>[<code>getNums</code>] Return a copy of the list of numbers stored so far.</li>
+
+<li>[<code>append</code>] Append a new number to the list.</li>
+
+<li>[<code>extend</code>] Append a list of numbers to the existing list.</li>
+
+<li>[<code>average</code>] Compute the average of the stored list.  If the list is empty,
+return 0.0.  Make sure to return a floating-point value even if all the numbers
+stored in the list are integers.</li>
+
+<li>[<code>limits</code>] Compute the minimum and maximum of the stored list.  If the list
+is empty, return the tuple <code>(0, 0)</code>.</li>
+
+</ol>
+
+<p>Make sure that the <code>getNums</code> method returns a <em>copy</em> of the stored list,
+not the stored list itself (the test script will check for this).  (<em>Hint:</em>
+list slices may be useful here.)  Methods should not return fields of an object
+which are mutable, because that permits the object's internal state to be
+altered by any external code, which destroys one of the big advantages of using
+objects (secure encapsulation of state).</p>
+
+<p>Instances of the <code>Averager</code> class should have (at least!) three fields (data
+attributes) that are updated appropriately in each method:</p>
+
+<ol>
+
+<li><p><code>nums</code>, which will store the current list of numbers</p></li>
+
+<li><p><code>total</code>, which will store the sum of the current list of numbers</p></li>
+
+<li><p><code>n</code>, which will store how many numbers are in the current list (the length
+of the current list)</p></li>
+
+</ol>
+
+<p>Please make sure you use the fields appropriately; don't just just <code>nums</code>
+and compute the length using <code>len</code> whenever you need it or compute the total
+using <code>sum</code> whenever you need it.  If you are doing a lot of averaging
+computations, having to recompute values repeatedly is inefficient, and one of
+the benefits of object-oriented programming is that you can automatically update
+state variables every time you call methods.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; a = Averager()
+&gt;&gt;&gt; a.average()
+0
+&gt;&gt;&gt; a.getNums()
+[]
+&gt;&gt;&gt; a.append(1)
+&gt;&gt;&gt; a.append(2)
+&gt;&gt;&gt; a.append(3)
+&gt;&gt;&gt; a.getNums()
+[1, 2, 3]
+&gt;&gt;&gt; a.extend(range(4, 11))
+&gt;&gt;&gt; a.getNums()
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+&gt;&gt;&gt; a.average()
+5.5
+&gt;&gt;&gt; a.limits()
+(1, 10)
+</code></pre>
+
+
+
+
+</li>
+
+</ol>
+<hr>
+<h2>Part C: Pitfalls: Poor design</h2>
+<p>Each of the following snippets of code has one or more design flaws.  Design
+flaws include (but are not limited to):</p><ul>
+<li>unnecessary code</li>
+<li>excessively complex code</li>
+<li>unnecessarily inefficient code (doing more computation
+ than is necessary to get the result)</li>
+</ul><p>These will be the only design flaws in the functions in this section.  For
+each case,</p><ol type="a">
+<li>explain what the problem or problems are (there may be more than one problem)</li>
+<li>write out what the code should be</li>
+</ol><p><strong>NOTE:</strong>  You are <em>not</em> looking for style errors here.  All of these
+functions are written in a clean coding style.</p><ol>
+
+<li>
+
+<p><strong>[20]</strong>  This function has a minor but very common design flaw.</p>
+
+<pre><code>def is_positive(x):
+    '''Test if x is positive.'''
+    if x &gt; 0:
+        return True
+    else:
+        return False
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[20]</strong> <em>N.B.</em> don't use the Python <code>index</code> method in your version of
+this function.</p>
+
+<pre><code>def find(x, lst):
+    '''Returns the index into a list where x is found, or -1 otherwise.
+    Assume that x is found at most once in the list.'''
+    found = False
+    location = -1
+    for i, item in enumerate(lst):
+        if item == x:
+            found = True
+            location = i
+    if found == True:
+        return location
+    else:
+        return -1
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[20]</strong></p>
+
+<pre><code>def categorize(x):
+    '''Return a string categorizing the number 'x', which should be
+    an integer.'''
+    if x &lt; 0:
+        category = 'negative'
+    if x == 0:
+        category = 'zero'
+    if x &gt; 0 and x &lt; 10:
+        category = 'small'
+    if x &gt;= 10:
+        category = 'large'
+    return category
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[20]</strong> <em>N.B.</em> don't use the Python <code>sum</code> function in your version of this
+function.</p>
+
+<pre><code>def sum_list(lst):
+    '''Returns the sum of the elements of a list of numbers.'''
+
+    if len(lst) == 0:
+        answer = 0
+    elif len(lst) == 1:
+        answer = lst[0]
+    elif len(lst) == 2:
+        answer = lst[0] + lst[1]
+    elif len(lst) &gt; 2:
+        total = 0
+        for item in lst:
+            total += item
+        answer = total
+    return answer
+</code></pre>
+
+
+
+
+</li>
+
+</ol>
+<hr>
+<h2>Part D: Miniproject: Interactive picture drawing</h2>
+<p>For this week's miniproject, we will continue making drawings using the
+Python graphics package <code>Tkinter</code>.  This week, we will focus on event handling,
+which is the process by which the user can directly effect a graphical program
+while it's running by pressing a key on the keyboard or clicking the mouse (or
+other possibilities that we won't consider here).</p><p>You will write two programs for this section, each in their own files (called
+<code>lab5_d_1.py</code> and <code>lab5_d_2.py</code> for problems D.1 and D.2 respectively).  To
+keep you from having to type in a lot of standard code (which in the programming
+world is called "boilerplate" code), we are providing you with a file called
+<a href="https://courses.caltech.edu/pluginfile.php/112385/mod_resource/content/3/lab5_d_template.py">lab5_d_template.py</a>.  You should use this as a starting
+point for your programs and fill in the places marked:</p><pre><code>&lt;your code goes here&gt;
+</code></pre><p>with your own code (removing that line, of course, and renaming the file).</p><ol>
+
+<li>
+
+<p><strong>[60]</strong>  This program will be an incredibly simple painting program.
+You will create an 800x800 window which is initially blank.  It will respond to
+the following events with the corresponding actions.</p>
+
+<ol>
+
+<li><p>When the user presses the <code>q</code> key, the program will exit
+(<code>q</code> stands for "quit").</p></li>
+
+<li><p>When the user clicks the left mouse button, a filled circle of the
+current color and a diameter between 10 to 50 pixels (randomly-chosen) will be
+drawn centered at the current position of the mouse cursor.</p></li>
+
+<li><p>When the user presses the <code>c</code> key, the current color will change to a new
+randomly-chosen color (<code>c</code> stands for "change color").  That will become the
+color that is used to paint circles until the <code>c</code> is pressed again.
+Previously-drawn circles don't change color.</p></li>
+
+<li><p>When the user presses the <code>x</code> key, all the circles are cleared from the
+screen.  This means that every time a circle is created, the handle that is
+returned must be stored somewhere.</p></li>
+
+</ol>
+
+<p>The current color is initially set to a random color value.</p>
+
+<p>Here's a picture generated by this program:</p>
+
+<img src="./CS 1 — Fall 2015 — Assignment 5_files/lab5_d_1.jpg" alt="./images/lab5_d_1.jpg" height="800" width="800 ">
+
+<p>Pretty cool, huh? ;-) &nbsp; OK, maybe not.</p>
+
+<p>Here are some things to keep in mind when writing this program:</p>
+
+<ul>
+
+<li><p>Don't define any classes for this problem (or for any of the problems in this
+section).  We'll cover defining classes for use in conjunction with <code>Tkinter</code>
+next assignment.  Here we just want to get you working with <code>Tkinter</code> and event
+handling.</p></li>
+
+<li><p>All of your event handling code (aside from the <code>bind</code> method calls) should
+be in two functions; one of them will handle key presses and the other will
+handle left mouse button clicks.</p></li>
+
+<li><p>The key value from the event object is <code>event.keysym</code>.  Confusingly, this
+doesn't use the same notation as the <code>bind</code> command.  So the <code>q</code> key is
+represented just by the letter <code>'q'</code>, not by <code>'&lt;q&gt;'</code>.  Some keys, such as the
+<code>+</code> and <code>-</code> keys, are represented by names (<code>'plus'</code> and <code>'minus'</code>
+respectively).  <code>Tkinter</code> is not very consistent!</p></li>
+
+<li><p>You will need global variables in this program representing the root window,
+the canvas, the current color and the list of circles (actually circle handles).
+You will need to use the Python <code>global</code> statement, but don't overuse it!
+<strong>Only use <code>global</code> when it's absolutely necessary or you will lose marks.</strong>
+Remember that you only need to use the <code>global</code> statement when you are going to
+<em>change</em> the value of a global variable from inside a function.</p></li>
+
+<li><p>When you delete the circles from the canvas, make sure you also empty out the
+global list of circle handles.</p></li>
+
+<li><p>Use a helper function to do the actual drawing of circles.  You can also write
+whatever other helper functions seem useful.  Don't try to cram all of your code
+into the event handling functions!  That's very poor design.</p></li>
+
+</ul>
+
+<p>This program does not have to be very long; our solution is about 60 lines
+long including comments and docstrings.</p>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[120]</strong>  For this program, you will be creating a variant of the
+previous program.  Here is what will change:</p>
+
+<ol>
+
+<li><p>When the left mouse button is clicked, instead of a colored circle, a colored
+N-pointed star shape is drawn.  N is a positive odd integer no smaller than 5
+(so N could be 5, 7, 9, ...).  The star shape is made of N individual lines of
+the same length <em>i.e.</em> it's not a filled star.  The size of a star is the
+radius of the circle circumscribing the star; this size for any particular star
+is randomly chosen to be between 50 and 100 pixels.</p></li>
+
+<li><p>When the <code>+</code> key is pressed, N is increased by 2.  So if clicking the left
+mouse button previously caused a five-pointed star to be drawn, after clicking
+<code>+</code> once, clicking the left mouse button would then cause a seven-pointed star
+to be drawn.  Previously-drawn stars don't change.</p></li>
+
+<li><p>When the <code>-</code> key is pressed, N is decreased by 2.  N is not allowed to go
+below 5, however.  If N is 5 and the <code>-</code> key is pressed, N stays at 5 (no error
+message is printed either).</p></li>
+
+</ol>
+
+<p>Everything else will stay the same.  In particular, the <code>c</code> key will again
+change the current color, the <code>x</code> key will again clear the display and empty
+out the global list of handles, and the <code>q</code> key will again quit the program.
+Once again, the current color is initially set to a random color value.</p>
+
+<p>Here's a picture generated by this program:</p>
+
+<img src="./CS 1 — Fall 2015 — Assignment 5_files/lab5_d_2.jpg" alt="./images/lab5_d_2.jpg" height="800" width="800 ">
+
+<p>You are encouraged to re-use as much code as possible from the previous
+program.</p>
+
+<p><strong>NOTE:</strong> This program is harder than the ones you have been writing up to
+this point.  Here are some tips to help you get this program working correctly.</p>
+
+<ol>
+
+<li><p>You will need to keep track of these global variables: the root window, the
+canvas, the current color, the value of <code>N</code>, and a list of the handles of the
+lines drawn on the canvas (so you can delete them when the <code>x</code> key is
+pressed).</p></li>
+
+<li><p>As mentioned above, the event keysyms for the <code>+</code> and <code>-</code> keys are <code>'plus'</code>
+and <code>'minus'</code>, not <code>'+'</code> and <code>'-'</code> as you might expect.</p></li>
+
+<li>
+
+<p>By far the most difficult part of this program is the function that draws
+individual stars.  (You'd better put this code into a separate function — if
+it's inside <em>e.g.</em> the event handler you'll have to re-write the program
+because of poor design.)  The way to handle this task is to break it into pieces
+(known in programming as "divide and conquer").  Here are the separate steps we
+recommend you follow.</p>
+
+<ol>
+
+<li><p>Write a separate function called <code>draw_line</code> that does nothing but draws
+individual lines on a canvas with a particular starting location, ending
+location, and color, and will return the handle of the line just drawn.  This
+function should be easy to write.</p></li>
+
+<li>
+
+
+
+<p>Use the <code>draw_line</code> function to write a function called <code>draw_star</code>
+which draws an N-pointed star centered at a particular location, using lines of
+a particular length and color.  The center point of the star points vertically
+upward (towards the top of the canvas).  The function will return a list of the
+handles of all the lines drawn.</p>
+
+<p>This function may be a bit tricky.  The way to approach it is to remember
+that the points of a star will be located on the perimeter of a circle around
+the center point, equally spaced around the circle, with one of the points
+located at the top of the circle.  (The radius of this circle is the "size" of
+the star.) So the first task is to figure out the locations of these points.
+Once you have these locations, you simply need to connect them up with lines.
+To do this, you connect a point with one of the points located as far as
+possible around the circle.  If the coordinates of the points are in a list with
+nearby points adjacent in the list, then for N points you need to go (N - 1) / 2
+points in the list to get the point to connect a particular point to (going
+around the end of the list to the beginning if necessary).  So for N = 5 you
+need to go 2 points along the list, for N = 7 you need to go 3 points along the
+list, etc.  Thus, if you have a list of 5 points, the lines you need to draw are
+between points 0 and 2, 1 and 3, 2 and 4, 3 and 0, and 4 and 1.  For 7 points
+you'll need to connect points 0 and 3, 1 and 4, 2 and 5, 3 and 6, 4 and 0, 5 and
+1, and 6 and 2.  For larger values of N the process is similar.</p>
+
+<p>This is all well and good, but how do you compute the coordinates of the
+points in the first place?  To do this, it's really helpful to know about
+<a href="http://tutorial.math.lamar.edu/Classes/CalcII/PolarCoordinates.aspx">polar
+coordinates</a> if you don't already (also see
+<a href="http://en.wikipedia.org/wiki/Polar_coordinate_system">here</a>).  The points of a star
+are spaced around a circle at equal distances, which means that lines connecting
+them to the center of the circle (which are not the lines that you will draw)
+form equal angles with lines from nearby star points to the center.  The angle
+(in radians) is (2 * pi / N) for N points.  Normal (x, y) coordinates can be
+derived from polar coordinates using these equations:</p>
+
+<pre><code>x = r * cos(theta)
+y = r * sin(theta)
+</code></pre>
+
+<p>You know what <code>r</code> is (it's the radius of the circle in which the star fits).
+And <code>theta</code> is the angle between the x-axis and the line connecting the (x, y)
+coordinates of a point to the origin of the circle.</p>
+
+<p>Even with this knowledge, there are still a couple of problems.  First is
+that the (x, y) positions have to be moved so that they are centered on the
+cursor position, not on the point (0, 0).  This is easy.  Second is that the
+y-axis on the screen goes in the opposite direction to the y-axis we use when
+doing math.  And third is that the first point we want is at (0, -r) relative to
+the origin of the circle (the top of the circle), not at (r, 0).  <em>Hint:</em> One
+clever approach involves pretending that the first point is at (r, 0), computing
+all the other points, and then flipping the x and y axes.</p>
+
+<p>Our version of the <code>draw_star</code> function is 21 lines of code (not including
+docstrings and comments).</p>
+
+</li>
+
+<li><p>Once the <code>draw_star</code> function is working, the rest of the program should
+be easy.</p></li>
+
+</ol>
+
+<p>Because of all this, expect to spend a fair bit of time debugging your
+<code>draw_star</code> drawing function, and don't be shy about asking for help from your
+TA!  When you get it working, though, it'll be a lot of fun to play with.</p>
+
+<p>Again, this program is not that long.  Our solution is about 110 lines long,
+including comments and docstrings.</p>
+
+</li>
+
+</ol>
+
+
+
+
+</li>
+
+</ol>
+<hr>
+<font size="-1">Copyright (c) 2015, California Institute of
+  Technology. All rights reserved.<br>
+</font>
+
+
+
+</body></html>

@@ -1,0 +1,94 @@
+    012345
+  +-------
+0 | .abbcc
+1 | .aabbc
+2 | ..aabb
+3 | d..aab
+4 | d...aa
+5 | ddee..
+6 | dddee.
+
+MOVES: 0
+TARGET: 5
+
+ 
+MOVE : a at (0, 5)
+ 
+    012345
+  +-------
+0 | .abbaa
+1 | .aabba
+2 | ..aabb
+3 | d..aab
+4 | d...aa
+5 | ddee..
+6 | dddee.
+
+MOVES: 1
+TARGET: 5
+
+ 
+MOVE : a at (0, 2)
+ 
+    012345
+  +-------
+0 | .aaaaa
+1 | .aaaaa
+2 | ..aaaa
+3 | d..aaa
+4 | d...aa
+5 | ddee..
+6 | dddee.
+
+MOVES: 2
+TARGET: 5
+
+ 
+MOVE : . at (5, 2)
+ 
+    012345
+  +-------
+0 | .aaaaa
+1 | .aaaaa
+2 | ..aaaa
+3 | d..aaa
+4 | d...aa
+5 | dd....
+6 | ddd...
+
+MOVES: 3
+TARGET: 5
+
+ 
+MOVE : . at (6, 0)
+ 
+    012345
+  +-------
+0 | .aaaaa
+1 | .aaaaa
+2 | ..aaaa
+3 | ...aaa
+4 | ....aa
+5 | ......
+6 | ......
+
+MOVES: 4
+TARGET: 5
+
+ 
+MOVE : a at (6, 0)
+ 
+    012345
+  +-------
+0 | aaaaaa
+1 | aaaaaa
+2 | aaaaaa
+3 | aaaaaa
+4 | aaaaaa
+5 | aaaaaa
+6 | aaaaaa
+
+MOVES: 5
+TARGET: 5
+
+ 

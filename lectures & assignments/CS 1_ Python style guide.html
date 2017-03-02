@@ -1,0 +1,787 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0096)https://courses.caltech.edu/pluginfile.php/110532/mod_resource/content/1/Python_style_guide.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CS 1: Python style guide</title>
+<style type="text/css"> 
+.centered { text-align: center }
+blockquote {
+  margin: 1em 1em;
+  background-color: #d0d0d0;
+  border: 2px solid #000;
+  padding: 0em 1em;
+}
+pre           { color: #0000bb }
+code          { color: #0000bb }
+div.solution  { color: #006644 }
+code.solution { color: #006644 }
+pre.solution  { color: #006644 }
+p.solution    { color: #006644 }
+b.solution    { color: #006644 }
+h3.solution   { color: #006644 }
+h3.warning    { color: #ff0000 }
+p.warning     { color: #ff0000 }
+h3.gradingNotes  { color: #008090 }
+div.gradingNotes { color: #0080a0 }
+span.interact { color: #007700 }
+</style>
+<style type="text/css"></style></head>
+<body>
+<div class="centered">
+<h1>CS 1: Python style guide</h1>
+</div>
+<p>There are a number of different ways to format Python code. Many programmers
+abuse this freedom and write code that is difficult to read and thus hard to
+maintain.  While there is more than one way to properly format code, here is a
+set of guidelines which we have found useful in practice.  You are not required
+to abide by them religiously, but we will take marks off for poor formatting.
+Some of these guidelines may seem amazingly anal, but they really make a
+difference when reading code.</p><p>Some of the style mistakes may not be relevant to you, because they refer to
+features of Python that we haven't yet covered in the course.  You can ignore
+those style mistakes for now, but check back again when we cover those
+features.</p><p>Each style mistake has an associated name in bold capital letters
+<b>[LIKE_THIS]</b> which we will use to identify it.</p><hr><h2>Catalog of style mistakes</h2><h3>General</h3><ul>
+
+
+
+<li>
+<b>[OPERATOR_SPACE]</b>
+
+<p>ALWAYS surround these binary operators with a single space on either side:
+assignment (<code>=</code>, <code>+=</code>, etc.), comparisons (<code>==</code>, <code>&lt;</code>, <code>&gt;</code>, <code>!=</code>, <code>&lt;=</code>,
+<code>&gt;=</code>, <code>in</code>, <code>not in</code>, <code>is</code>, <code>is not</code>), booleans (<code>and</code>, <code>or</code>, <code>not</code>),
+and arithmetic operators.  Example:</p>
+
+<pre><code>  i = j + 1               # NOT i=j+1
+  submitted += 1          # NOT submitted+=1
+  x = x * 2 - 1           # NOT x=x*2-1
+  hypot2 = x * x + y * y  # NOT hypot2=x*x+y*y
+  c = (a + b) * (a - b)   # NOT c=(a+b)*(a-b)
+</code></pre>
+
+<p>Some people prefer to omit the space around <code>*</code> or <code>/</code> but leave it around
+<code>+</code> and <code>-</code> as a hint about precedence, but we discourage this.  However, it's
+OK to leave out spaces in array subscripts for simple increments/decrements:</p>
+
+<pre><code>  b = a[i-1]
+</code></pre>
+
+</li>
+
+<li>
+<b>[COMMA_SPACE]</b>
+
+<p>Always put a space after a comma.</p>
+
+</li>
+
+<li>
+<b>[COMMENT_SPACE]</b>
+
+<p>Always leave a space after the open-comment sign, <em>e.g.</em></p>
+
+<pre><code>  # This comment is easy to read.
+  #This comment is harder to read.
+</code></pre>
+
+</li>
+
+<li>
+<b>[LINE_LENGTH]</b>
+
+<p>There are still many devices around (especially printers) that are limited
+to 80 character lines.  The default wrapping on such devices looks
+ugly. Therefore, please limit all lines to a maximum of 80 characters.</p>
+
+<p>The preferred way of wrapping long lines is by using Python's implied line
+continuation inside parentheses, brackets and braces. If necessary, you can
+add an extra pair of parentheses around an expression, but sometimes using a
+backslash looks better. Make sure to indent the continued line appropriately.
+Some examples:</p>
+
+<pre><code>  class Rectangle(Blob):
+      def __init__(self, width, height,
+                   color='black', emphasis=None, highlight=0):
+          if width == 0 and height == 0 \
+             and color == 'red' and emphasis == 'strong' \
+             or highlight &gt; 100:
+              raise ValueError, "sorry, you lose"
+
+          if width == 0 and height == 0 and (color == 'red' \
+                                             or emphasis is None):
+              raise ValueError, "I don't think so"
+
+          Blob.__init__(self, width, height,
+                        color, emphasis, highlight)
+</code></pre>
+
+<p>In some cases, explicit line continuation characters are unnecessary. When in
+doubt, use them anyway. Also, for long chains of booleans (<code>a and b and c...</code>)
+try to put the "and" or "or" at the start of a line rather than at the end of a
+line; this makes it clear that the expression is continued from the last line.</p>
+
+</li>
+
+<li>
+<b>[BAD_NAMES]</b>
+
+<p>Some people like to give all of their functions and variables single-letter
+names.  This makes code very hard to understand for anyone reading the code
+— including you in a few months!  Functions should have descriptive names,
+without excessive abbreviation.  For instance:</p>
+
+<pre><code>  # Bad:
+  def a(r):
+      '''area of circle'''
+      return math.pi * r * r
+
+  # Better:
+  def area(r):
+      '''Compute the area of a circle of radius r.'''
+      return math.pi * r * r
+</code></pre>
+
+<p>The name of the second function suggests what it does.  However, don't go
+crazy with this.  We don't want to see code like this:</p>
+
+<pre><code>  # Too wordy:
+  def AreaOfACircle(radiusOfTheCircle):
+      '''Compute the area of a circle, given the radius 'radiusOfTheCircle'.
+      Return the computed area.'''
+      areaToReturn = math.pi * radiusOfTheCircle * radiusOfTheCircle
+      return areaToReturn
+</code></pre>
+
+<p>But we also don't want unreadable abbreviations:</p>
+
+<pre><code>  def arOfCirc(rad):
+      '''Cmpt area of circ given rad'''
+      return math.pi * rad * rad
+</code></pre>
+
+<p>You may know what <code>arOfCirc</code> means, but don't assume that anyone else will.</p>
+
+<p>Names that have multiple words in them can be written in either of two styles:</p>
+
+<pre><code>  # Multiple-word names:
+  this_is_a_name = 42   # OK
+  thisIsAName = 42      # Also OK
+</code></pre>
+
+<p>But these are the only two styles you should use:</p>
+
+<pre><code>  thisisaname = 42      # Not OK -- can't see the boundaries of words
+
+  wherearetheboundariesofthewords = 101       # See how hard this is to read?
+  here_are_the_boundaries_of_the_words = 101  # See how easy this is to read?
+</code></pre>
+
+<p>Also, don't mix the two accepted styles; pick one and stick with it.</p>
+
+<p>Variable names that are indices of a list, particularly in a loop, can be one
+letter (<code>i</code> and <code>j</code> are popular choices).  However, if you're using the <code>for
+&lt;item&gt; in &lt;list&gt;</code> form the <code>&lt;item&gt;</code> identifier should probably be a longer
+name. For example:</p>
+
+<pre><code>  # OK to use the name 'i' for the index of the list 'lst'.
+  lst = [1, 2, 3, 4, 5]
+  for i in range(len(lst)):
+      print lst[i]
+
+  # Use the word 'item' instead of 'i'; it's more readable.
+  for item in lst:
+      print item
+</code></pre>
+
+</li>
+
+<li>
+<b>[BLANK_LINES]</b>
+
+<p>Separate top-level function and class definitions with at least two blank
+lines. Also separate method definitions inside a class by one or two blank
+lines. Extra blank lines may be used to separate groups of related functions
+(but don't overdo it).</p>
+
+<pre><code>  # Bad:
+  def square(x):
+      return x * x
+  def cube(x):
+      return x * x * x
+  def fourthPower(x):
+      return x * x * x * x
+
+  # Better:
+  def square(x):
+      return x * x
+
+  def cube(x):
+      return x * x * x
+
+  def fourthPower(x):
+      return x * x * x * x
+</code></pre>
+
+<p>It's also good to put comments to separate groups of functions <em>e.g.</em></p>
+
+<pre><code>    # These functions provide internet access for the Widget class.
+</code></pre>
+
+<p>For really significant sections, do this:</p>
+
+<pre><code>  #
+  # The class Widget implements objects that can do all kinds of neat
+  # stuff.
+  #
+</code></pre>
+
+<p><em>I.e.</em> have one empty comment line at the top and bottom of the
+header.</p>
+
+<p>For long functions, or long sections within a function, it is often a good
+idea to have comments at the end of the function/block, <em>e.g.</em></p>
+
+<pre><code>  def foobar(x, y, z):
+      # 2000 lines of code follow...
+      return 1
+  # end foobar
+</code></pre>
+
+<p>Similarly, you can have <code>&nbsp;# end if</code>, <code>&nbsp;# end while</code>, etc. A
+better solution is to keep functions and blocks short enough so that this isn't
+needed.</p>
+
+<p>Use blank lines in functions to indicate logical sections. We also like to
+have blank lines before each <code>if</code>/<code>while</code>/<code>for</code> statement to set them off
+logically from the rest of the surrounding code, which we find makes the code
+more readable.</p>
+
+<p>Do not put large numbers of empty lines (&gt; 2) between code sections unless
+there is a clear need to distinguish different sections of the code.  Comments
+work better than large numbers of blank lines for this purpose.</p>
+
+</li>
+
+<li>
+<b>[INDENT_CONSISTENT]</b>
+
+<p>Indentation levels should be consistent.  We prefer four spaces for one
+indent level.  A tab should be set to be equal to four spaces if you use tabs.
+(A better solution is to never use tabs.  Studies have consistently shown that
+right-thinking programmers don't use tabs.)</p>
+
+<p>Here's an example of bad indenting which is still accepted by Python (but not
+by your grader!):</p>
+
+<pre><code>  for i in range(5):
+    print i
+
+  if j &gt; 100:
+        print "j is greater than 100!"
+
+  while k &gt; 0:
+      k -= 1
+      print k
+</code></pre>
+
+<p>Note that the <code>for</code> loop used a two-space indent, the <code>if</code> statement used
+six spaces, and the <code>while</code> loop used four spaces.  This should have looked
+like this:</p>
+
+<pre><code>  for i in range(5):
+      print i
+
+  if j &gt; 100:
+      print "j is greater than 100!"
+
+  while k &gt; 0:
+      k -= 1
+      print k
+</code></pre>
+
+<p>Now, the code looks neat and consistent.</p>
+
+</li>
+
+<li>
+<b>[PRECEDENCE]</b>
+
+<p>Use parentheses to show operator precedence in all cases except that of
+multiplication/division over addition/subtraction and assignment
+statements.</p>
+
+</li>
+
+<li>
+<b>[MAGIC_NUMBER]</b>
+
+<p>Avoid putting a number into a file which has no obvious relevance to
+the surrounding code.  This is known as a "magic number".  Instead, define it
+as a variable at the top of the file.</p>
+
+</li>
+
+<li>
+<b>[USELESS_CODE]</b>
+
+<p>Don't put in code that has no function or no effect.  If it's code that's
+was only used for debugging purposes, it should be removed before you submit
+your assignment.</p>
+
+</li>
+
+<li>
+<b>[STMTS_ON_LINE]</b>
+
+<p>Do not put multiple statements in one line, not even very simple ones. It's
+just confusing and hard to read. Similarly, we dislike this:</p>
+
+<pre><code>  if not line: break
+</code></pre>
+
+<p>and prefer:</p>
+
+<pre><code>  if not line:
+      break
+</code></pre>
+
+<p>Remember: there is no tax on newlines. Do not try to cram as much as you can
+in one line.</p>
+
+</li>
+
+<li>
+<b>[BAD WHITESPACE]</b>
+
+<p>Don't use whitespace in the following places:</p>
+
+<ul>
+
+<li>
+<p>Immediately inside parentheses or square brackets, as in:</p>
+
+<pre><code>  spam( ham[ 1 ] )
+</code></pre>
+
+<p>Always write this as:</p>
+
+<pre><code>  spam(ham[1])
+</code></pre>
+
+</li>
+
+<li>
+<p>Immediately before a comma, semicolon, or colon, as in:</p>
+
+<pre><code>  if x == 4 :
+      print x , y
+      x , y = y , x
+</code></pre>
+
+<p>Always write this as:</p>
+
+<pre><code>  if x == 4:
+      print x, y
+      x, y = y, x
+</code></pre>
+
+</li>
+
+<li>
+ 
+<p>Immediately before the open parenthesis that starts the argument list of a
+function call, as in:</p>
+
+<pre><code>  spam (1)
+</code></pre>
+
+<p>Always write this as:</p>
+
+<pre><code>  spam(1)
+</code></pre>
+
+</li>
+
+<li>
+ 
+<p>Immediately before the open square bracket that starts an indexing or slicing
+operation, as in:</p>
+
+<pre><code>  dict ['key'] = list [index]
+</code></pre>
+
+<p>Always write this as:</p>
+
+<pre><code>  dict['key'] = list[index]
+</code></pre>
+
+</li>
+
+<li>
+ 
+<p>Excessive amounts of space around an assignment (or other) operator to align
+it with another, <em>e.g.</em>:</p>
+
+<pre><code>  x             = 1
+  y             = 2
+  long_variable = 3
+</code></pre>
+
+<p>A good rule of thumb is: if you have to move the operator eight or more
+spaces, don't waste your time. Otherwise, do the alignment.  <em>E.g.</em>, change:</p>
+
+<pre><code>  x = 1
+  foo = 2
+  fudge = 5
+</code></pre>
+
+<p>to:</p>
+
+<pre><code>  x     = 1
+  foo   = 2
+  fudge = 5
+</code></pre>
+
+<p>but leave</p>
+
+<pre><code>  x = 1
+  y = 2
+  this_variable_name_is_really_long = 3
+</code></pre>
+
+<p>alone. This is a bit of a judgment call.</p>
+
+</li>
+
+</ul>
+
+</li>
+
+<li>
+ 
+<b>[KEYWORD_SPACES]</b>
+
+<p>Don't use spaces around the '=' sign when used to indicate a keyword argument
+or a default parameter value. For instance, instead of:</p>
+
+<pre><code>  def complex(real, imag = 0.0):
+      return magic(r = real, i = imag)
+</code></pre>
+
+<p>write:</p>
+
+<pre><code>  def complex(real, imag=0.0):
+      return magic(r=real, i=imag)
+</code></pre>
+
+</li>
+
+<li>
+ 
+<b>[IMPORT]</b>
+
+<p>In general, avoid using <code>from X import *</code>; either do this:</p>
+
+<pre><code>  from X import Y  # For a single function that's used a lot.
+</code></pre>
+
+<p>or do this:</p>
+
+<pre><code>  import X   # For a module where we need a lot of functions.
+</code></pre>
+
+<p>Also, <strong>do not use</strong> <code>import X</code> <strong>or</strong> <code>from X import Y</code> <strong>inside a class
+or function.</strong> We've never seen a case where it's necessary, and it just makes
+things confusing. Put all <code>import</code> statements at the toplevel and at the
+beginning of the file. That way, we know where to look for them. It's up to you
+whether to format them as</p>
+
+<pre><code>  import X, Y, Z
+</code></pre>
+
+<p>or</p>
+
+<pre><code>  import X
+  import Y
+  import Z
+</code></pre>
+
+<p>We tend to use the former for quick throwaway scripts and the latter for
+larger projects.</p>
+
+</li>
+
+</ul><h3>Comments</h3><ul>
+
+<li>
+ 
+<b>[COMMENTS_FULL_SENTENCES]</b>
+
+<p>If a comment is a phrase or sentence, its first word should be capitalized,
+unless it is an identifier that begins with a lower case letter (never alter the
+case of identifiers!).  We prefer comments that are complete sentences.  You
+should use two spaces after a sentence-ending period.  Ideally, refer to
+identifiers with surrounding quotes, <em>e.g.</em></p>
+
+<pre><code>  # The variable 'nitems' represents the number of items in the stack.
+</code></pre>
+
+<p>If a comment is very short, it doesn't have to be a full sentence or end in a
+period <em>e.g.</em></p>
+
+<pre><code>  i = 1  # loop index
+</code></pre>
+
+<p>This is called an "inline comment".  Use these only when describing something
+<em>i.e.</em> in the above code snippet you're saying "The variable 'i' represents a
+loop index."</p>
+
+</li>
+
+<li>
+<b>[COMMENT_GRAMMATICAL]</b>
+
+<p>Comments should be correctly spelled (no typos) and be grammatically correct.
+We don't want to sound like your high school English teacher, but it's rilly
+unplesant to read coments that hav speling or grmatacial or tpyogarphic rrors.</p>
+
+</li>
+
+<li>
+<b>[COMMENT_NON_OBVIOUS]</b>
+
+<p>Write comments for anything that isn't completely obvious from the context.
+In particular, write comments for any tricky algorithm or code you are using.
+Also put a comment at the beginning of each function describing what it does.
+When in doubt, comment more rather than less.</p>
+
+</li>
+
+<li>
+<b>[COMMENT_REDUNDANT]</b>
+
+<p>Comments should not restate the obvious.  This is especially common with
+inline comments.  Example:</p>
+
+<pre><code>  x = x + 1   # increment x
+</code></pre>
+
+</li>
+
+<li>
+<b>[COMMENT_MEANINGLESS]</b>
+
+<p>Don't make meaningless comments <em>e.g.</em></p>
+
+<pre><code>  i = 1   # i
+</code></pre>
+
+<p>Don't laugh; we've actually seen this sort of thing.</p>
+
+</li>
+
+<li>
+<b>[COMMENTS_CONSISTENT_WITH_CODE]</b>
+
+<p>Comments that contradict the code are worse than no comments. ALWAYS MAKE A
+PRIORITY OF KEEPING THE COMMENTS UP-TO-DATE WHEN THE CODE CHANGES!</p>
+
+</li>
+
+<li>
+<b>[COMMENT_INDENT]</b>
+
+<p>Always indent your comments to the same degree as the surrounding code.</p>
+
+</li>
+
+<li>
+<b>[COMMENT_INLINE]</b>
+
+<p>Try to line up inline comments where convenient. In other words, don't do
+this:</p>
+
+<pre><code>  x = x + 1       # some cool comment about x
+  y = y + 1   # some even cooler comment about y
+</code></pre>
+
+<p>Instead, do this:</p>
+
+<pre><code>  x = x + 1       # some cool comment about x
+  y = y + 1       # some even cooler comment about y
+</code></pre>
+
+</li>
+
+<li>
+<b>[COMMENT_PRECEDING]</b>
+
+<p>Do not write comments that apply to the preceding code if you can possibly
+avoid it.  Try to write comments that refer to the current line of code or to
+the lines of code which immediately follow.</p>
+
+</li>
+
+<li>
+<b>[COMMENT_BLOCK]</b>
+
+<p>Block comments generally apply to some (or all) code that follows them, and
+are indented to the same level as that code. Each line of a block comment starts
+with a <code>#</code> and a single space (unless it is indented text inside the comment).
+Paragraphs inside a block comment are separated by a line containing a single
+<code>#</code>. Block comments are best surrounded by a blank line above and below them
+(or two lines above and a single line below for a block comment at the start of
+a a new section of function definitions).  We always like to start and end a
+block comment with a line containing a single <code>#</code>; this is a matter of personal
+preference. In other words, a block comment looks like this:</p>
+
+<pre><code>  #
+  # The first line comes after an empty line.
+  #
+  # Separate paragraphs are also separated by an empty line,
+  # and there's an empty line at the end.
+  #
+</code></pre>
+
+<p>Block comments at the top of a file or at the beginning of a class or
+function should be turned into docstrings (see below).</p>
+
+</li>
+
+</ul><h3>Documentation Strings</h3><ul>
+
+<li>
+<b>[DOCSTRINGS]</b>
+
+<p>All modules should normally have docstrings, and all functions and classes
+exported by a module should also have docstrings. Public methods (including the
+<code>__init__</code> constructor) should also have docstrings. When in doubt, add a
+docstring to all functions. Otherwise, you'd have to add a comment indicating
+the purpose of the function anyway, so why not have docstrings?</p>
+
+<p>For consistency, always use triple quotes around docstrings.  This allows the
+docstring to span multiple lines.  You can use either triple-single-quotes
+(<code>'''</code>) or triple-double-quotes (<code>"""</code>), but please use the same style for the
+entire file.</p>
+
+</li>
+
+</ul><h3>Functions</h3><ul>
+
+<li>
+<b>[FUNCTION_DECOMPOSITION]</b>
+
+<p>Don't hesitate to decompose your functions into lots of smaller functions
+where appropriate.  Don't write functions that are pages and pages of text in
+length.</p>
+
+</li>
+
+</ul><h3>Exception handling</h3><ul>
+
+<li>
+<b>[EXCEPTIONS_CATCH_ALL]</b>
+
+<p>Don't catch all exceptions and then ignore them, like this:</p>
+
+<pre><code>  try:
+      # code goes here
+  except: # catch all exceptions
+      pass
+</code></pre>
+
+<p>If you don't want to deal with errors at all, don't put a <code>try: ... except:
+...</code> condition in at all, but add a comment for later if you intend to
+eventually catch certain exceptions:</p>
+
+<pre><code>  # FIXME: catch FooError that could be raised by function bar().
+</code></pre>
+
+</li>
+
+<li>
+<b>[USAGE_STMT]</b>
+
+<p>If a program is called with incorrect arguments or the wrong number of
+arguments, it should detect that, print a usage statement to the terminal, and
+exit.  The usage statement should start with the word "usage" (in lower case)
+and should include the program name.  The easiest way to get the program name is
+to use <code>sys.argv[0]</code> <em>i.e.</em></p>
+
+<pre><code>  import sys, os.path
+
+  # Get the program name without the full pathname.
+  prog_name = os.path.basename(sys.argv[0])
+
+  usage = "usage: %s input_filename output_filename" % prog_name
+
+  if len(sys.argv) != 2:
+     print &gt;&gt; sys.stderr, usage
+     sys.exit(1)
+</code></pre>
+
+<p>Note that we are using the <code>&nbsp;print &gt;&gt;&nbsp;</code> syntax to print to
+<code>sys.stderr</code>.</p>
+
+<p>Also note that the <code>sys.exit()</code> function has an argument of 1.  If you just
+call it with no arguments (<em>i.e.</em> <code>sys.exit()</code> instead of <code>sys.exit(1)</code>) it
+isn't right.  On Unix systems (like Linux), the <code>exit</code> function returns an
+integer value to the operating system (OS) which tells the OS if the program
+exited successfully or not.  If this integer is 0, that means a successful exit;
+anything else (like 1) means that an error occurred.  By default, <code>sys.exit()</code>
+will return a 0, so we have to specifically tell it to return 1 (because here an
+error has occurred) by giving it the argument 1.</p>
+
+<p>Note that the program arguments in the usage message have mnemonic names.  Of
+course, your argument names will probably be different from "<code>input_filename</code>"
+and "<code>output_filename</code>" and there may be more or fewer arguments.  If some of
+the arguments are optional, they should be put into square brackets.  Typically,
+optional arguments have a leading "<code>-</code>" (dash) to indicate that they're
+optional, and if they are followed by extra arguments, those come after the
+argument with the dash.  Here's an example:</p>
+
+<pre><code>  usage: myprogram [-f filename] n1 n2 n3
+</code></pre>
+
+<p>This says that the program name is "<code>myprogram</code>"; it takes three required
+arguments "<code>n1</code>", "<code>n2</code>", and "<code>n3</code>" (these probably represent integers), and
+there is an optional argument called "<code>filename</code>" which has a preceding "<code>-f</code>"
+argument. Note how the usage message has the optional arguments in square
+brackets.  Of course, when you invoke the program you don't use the square
+brackets.  You'd invoke it like this:</p>
+
+<pre><code>  % myprogram 10 20 30
+</code></pre>
+
+<p>without the optional argument, or:</p>
+
+<pre><code>  % myprogram -f foobar 10 20 30
+</code></pre>
+
+<p>with the optional argument (the filename here is "<code>foobar</code>").
+The % character is the unix prompt.</p>
+
+<p>Also, a lot of people learning Python seem to like to write the arguments of
+usage messages in angle brackets like this:</p>
+
+<pre><code>  usage: myprog &lt;input_filename&gt; &lt;output_filename&gt;
+</code></pre>
+
+<p>This is a bad idea, because on Unix systems (like the CS cluster computers)
+the &lt; and &gt; characters are operators that mean specific things when typed in at
+the prompt (they redirect input and output).  Instead, this should be written as
+just:</p>
+
+<pre><code>  usage: myprog input_filename output_filename
+</code></pre>
+
+</li>
+
+</ul>
+<hr>
+<font size="-1">Copyright (c) 2015, California Institute of
+  Technology. All rights reserved.<br>
+</font>
+
+
+
+</body></html>

@@ -1,0 +1,1059 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0082)https://courses.caltech.edu/pluginfile.php/111455/mod_resource/content/2/lab1.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CS 1 — Fall 2015 — Assignment 1</title>
+<style type="text/css"> 
+.centered { text-align: center }
+blockquote {
+  margin: 1em 1em;
+  background-color: #d0d0d0;
+  border: 2px solid #000;
+  padding: 0em 1em;
+}
+pre           { color: #0000bb }
+code          { color: #0000bb }
+div.solution  { color: #006644 }
+code.solution { color: #006644 }
+pre.solution  { color: #006644 }
+p.solution    { color: #006644 }
+b.solution    { color: #006644 }
+h3.solution   { color: #006644 }
+h3.warning    { color: #ff0000 }
+p.warning     { color: #ff0000 }
+h3.gradingNotes  { color: #008090 }
+div.gradingNotes { color: #0080a0 }
+span.interact { color: #007700 }
+</style>
+<style type="text/css"></style></head>
+<body>
+<div class="centered">
+<h1>CS 1: Introduction To Computer Programming, Fall 2015</h1>
+<h2>Assignment 1: Getting started</h2>
+<p><b>Due:</b> <em>Thursday, October 15, 02:00:00</em></p>
+</div>
+<hr width="75%">
+<h2>Coverage</h2>
+<p>This assignment covers the material in lectures 1 to 5.</p>
+
+<hr>
+<h2>Things you should have already done by now</h2>
+<p>In order to be able to submit this assignment (and any of the other
+assignments in this course), you should have already done several things by now.
+If you've been to the lectures and/or read the lecture slides and/or read the
+information on the course website, you should know this, but every year, a
+number of students apparently don't do those things, so we are repeating this
+here for clarity, because we know that if you read nothing else, you will read
+the assignments.  <b>PLEASE DO NOT SKIP THIS SECTION!</b></p><ol>
+
+<li>
+
+<p>You should have enrolled in the course Moodle page.  Apparently you did this,
+or you wouldn't be able to read this document.  Well done! :-)</p>
+
+</li>
+
+<li>
+
+<p>You should have a working CMS cluster computer account.  Without this, you
+won't be able to submit your homework, whether or not you intend to use the CMS
+cluster computers.  If you have an account from a previous term, you should have
+checked it to make sure that it still works (they get deactivated if you don't
+use them for an extended period) and if it doesn't work, you should have gone to
+see the system administrators in Annenberg room 112 between 9 and 5 to reset it
+and/or emailed them at <a href="mailto:help@cms.caltech.edu">help@cms.caltech.edu</a>.  (Going in person is better
+because they can fix it instantly.)  If you have never had a CMS cluster
+account, you should have applied for one
+<a href="http://acctreq.cms.caltech.edu/cgi-bin/request.cgi">here</a> and changed your
+password promptly (on a terminal or equivalent (<em>e.g.</em> PuTTy if you use
+Windows)) once you received email notice that the account was set up.  <strong>If you
+haven't changed your password, your account will deactivate in seven days, and
+you probably won't be able to submit your homework.</strong></p>
+
+</li>
+
+<li>
+
+<p>You should have filled in the "Lab section/csman signup sheet" on the course
+website.  Without this, we can't add you to the course csman page, which means
+that you will not be able to submit assignments.  <b>THIS IS INCREDIBLY
+IMPORTANT!</b> Every year, a bunch of students forget to do this and then try to
+email their assignments to the TAs and/or the course instructor.  <b>Emailed
+assignments do not count, and you will be penalized for lateness for every day
+between the due date and the date you upload your assignment to csman.</b> If you
+try to email your assignment to us, you will only annoy us, so don't do it!  We
+don't care that you really did the assignment on time; if it isn't in csman by
+the due date, it's late and you will incur late penalties (0.5 marks/day).</p>
+
+</li>
+
+<li>
+
+<p>You should have read the general documents on the course website regarding
+course policies, especially the pages entitled "Action items for new students",
+"Administrative information" and "Collaboration policies".  The last one is
+particularly important, because if you violate the collaboration policies, you
+may get sent to the Caltech Board of Control, which is never pleasant.</p>
+
+<p>If you have questions about general course policies, please refer to the
+"Course policies and frequently-asked questions (FAQs)" page, which will
+probably answer most of your questions.</p>
+
+</li>
+
+<li>
+
+<p>If the assignment due date is almost here and you still aren't on the course
+csman page, you should have emailed the instructor explaining the situation.  As
+long as you have successfully filled out the signup sheet, adding you to the
+course <a href="http://csman.cms.caltech.edu/">csman</a> page is very easy.  If you haven't filled
+in the signup sheet, you should do that first and then email the instructor.</p>
+
+</li>
+
+</ol><p>If you ignore any of these steps (like, say, if you just skipped reading this
+section), then you are liable for all late penalties that may occur as a result
+of your negligence.  <b>We will not waive late penalties for negligence on your
+part.</b>  However, if there is a problem that is clearly not your fault, we will
+take that into account.</p>
+<hr>
+<h2>What to hand in and how to hand it in</h2>
+
+<h3>What to hand in</h3>
+<p>You will hand in a single file called <code>lab1.py</code>.  This will consist of
+Python code and comments.  For this assignment, only part C has anything you
+need to hand in.</p><p>For the exercises where you are asked to evaluate some Python expression or
+answer a question, write the answer in a comment, along with the exercise number
+and subsection.  For instance, if you are asked to evaluate <code>2 + 2</code> for
+part C, exercise 3, section 6, you would write:</p><pre><code># Ex C.3.6:  2 + 2 --&gt; 4
+</code></pre><p>You can use multiple lines if you like, but make sure each line is a comment.</p><p>For the exercises where you are asked to write some Python code, write the code
+with a preceding comment indicating the problem number (and subsection).  For
+instance, if you were asked to write a function of one input which returns the
+input unchanged as the answer to part C, exercise 5, section 2, you could write:</p><pre><code># Ex C.5.2:
+def identity(x):
+    return x
+</code></pre><p>The code itself should be uncommented, of course, because we will run it to
+make sure it works correctly.</p>
+<h3>How to submit your assignment</h3>
+<p>The CS 1 lab submission system is called "csman".  The csman web site is at
+<a href="http://csman.cms.caltech.edu/">http://csman.cms.caltech.edu</a>.  The FAQ (Frequently Asked Questions) list has details of how to submit
+assignments.  Once lab sections have been set up and you have been added to the
+course csman page, you can submit your assignment.</p>
+<hr>
+<h2>Time hints</h2>
+<p>Numbers in bold at the start of problems (<em>e.g.</em> <b>[10]</b>) are a crude
+estimate of the time (in minutes) the problem should take.  If it seems like a
+problem is taking you disproportionately long to complete (<em>e.g.</em> if you are
+spending hours on a problem rated <b>[10]</b>), that is a hint that you might
+want to talk to a TA.  These numbers assume that you have attended the lectures
+and done the portions of the assignment that precede it.</p><p>Parts A and B have no time hints, because there is nothing to hand in for those
+sections.</p>
+<hr>
+<h2>Part A: Getting started in the CMS computer lab</h2>
+
+<h3>Location</h3>
+<p>The CMS computer lab is in room 104 of the Annenberg building.  If you want
+access to the building (and the room) after hours (<em>i.e.</em> after 5 PM), and
+assuming that you are enrolled in the course, you can use your ID card to get in
+the building by holding it up to one of the card readers by one of the doors.
+There is also a card reader outside the computer lab.  If you don't have card
+reader access, email your UID to the departmental secretary (Jeri Chittum,
+<a href="mailto:jeri@cms.caltech.edu">jeri@cms.caltech.edu</a>) to get access (this may be necessary if you
+registered late).  Note that the card readers sometimes malfunction, especially
+on cold evenings; our experience is that the one on the northwest corner of the
+building (the side entrance) is more reliable than the one on the north side
+(the main entrance).</p><p>The computer lab has a number of computers (hence the name).  Collectively,
+they are known as the "CMS cluster" (or sometimes the "CS cluster").  Most of
+them are running the Linux operating system; specifically, a distribution of
+Linux called "OpenSUSE Linux".  You will need to know a little bit about Linux
+in order to use the system.  Hopefully most of you went to the Linux tutorial
+lecture, but either way you should review the slides from that lecture (posted
+on the CS 1 web site) before doing any serious work on the computers.</p>
+<h3>Logging in locally</h3>
+<p>Once you have a CMS cluster account, you can log in to any of the machines in
+the CMS cluster.  Go to the CMS lab, find an unoccupied machine, and sit down.
+You will be presented with a login screen.  In the top box (labelled with a
+"man" icon) enter your login name.  In the bottom box (labelled with a "key"
+icon) enter your password.  If you have done this correctly, you will see your
+"desktop".   The default desktop is the GNOME desktop, which is pretty sparse,
+but if you click on the word "Activities" on the top bar to the left, some icons
+will come up, including icons for a terminal and a web browser.  Click on the
+terminal icon to start a terminal. You will mainly be using the terminal for
+this course.</p><p>At any point, some of the computers in the CMS lab may not work properly.  If
+you try to log in but fail, this may be the reason.  Ask a TA to help.  If you
+can, send email describing the problem to the system administrators at
+<a href="mailto:help@cms.caltech.edu">help@cms.caltech.edu</a>.  Please indicate the name of the machine that
+isn't working (which is written on a label on the front panel of each computer).
+Please specify what isn't working <em>e.g.</em> say things like <em>"I couldn't log in
+to this machine."</em> or <em>"There is smoke pouring out of the back of the computer
+and it's making a horrible grinding noise and people are scared."</em> but not just
+<em>"It's broken"</em>.</p>
+<h3>Logging in remotely</h3>
+<p>You can log in to the computer lab remotely, but don't expect to be able to
+do your homework this way — our system neither encourages this nor even
+supports it, and we don't want you to try to do your work this way.
+Nevertheless, logging in remotely is sometimes useful (<em>e.g.</em> for changing
+your password), so here's how.</p><p>To log in remotely, you have to have a terminal program running on your own
+computer.  For Windows computers, we recommend the
+<a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTy</a> program (which
+you will have to install); for Mac OS X, either Terminal.app or iTerm.app is
+fine, and if you use Linux, you should already know how to find the terminal
+program ;-)</p><p>You should log in to <code>login.cms.caltech.edu</code>.  <em>DO NOT</em> type this into a
+web browser's URL bar!  It isn't a web site, and that won't work.  On a computer
+running Linux or Mac OS X, you should do this:</p><pre><code>% ssh login.cms.caltech.edu
+Password: &lt;enter your password&gt;
+</code></pre><p>and you can proceed from there.  (The <code>%</code> is not something you type; it's
+just the terminal prompt.  Your terminal prompt may be different, but we'll use
+the <code>%</code> character when we want to indicate the prompt.  When we tell you to
+type something at the terminal, never type the prompt.)</p><p>With PuTTy you will need to enter the hostname <code>login.cms.caltech.edu</code> in
+the configuration window that comes up when you start the program, and then
+click "Open" at the bottom.  A terminal window will come up, and you'll be
+prompted for your login name and your password.  Once this is entered, you will
+be logged in.</p><p>In all cases, type:</p><pre><code>% exit
+</code></pre><p>at the prompt to log out.</p>
+<h3>Using the terminal</h3>
+<p>From here on, we'll assume that you are working in the CMS lab.  Some of the
+things we describe may not work if you are logged in remotely, which will
+hopefully deter you from trying to work that way.  Most importantly, WingIDE
+(the Python development environment) will not work remotely.</p><p>Now would be a great time to review the slides from the Linux tutorial lecture
+if you haven't already.  You will be using the terminal mainly to launch
+programs (<em>e.g.</em> WingIDE) and to manage files (create directories, move files
+between directories, etc.).  You don't need to be an expert in Linux for this
+class; a minimal number of commands will take you a long way.</p>
+<h3>Changing your password</h3>
+<p>The very first thing you should do once you start up a terminal (assuming you
+haven't done this already) is to change your password.  The password that was
+assigned to you when you got your account is only valid for a few days, and
+you're expected to change it after you log in.  This is easy to do from a
+terminal using the <code>passwd</code> command:</p><pre><code>% passwd
+Changing password for user &lt;your login name&gt;.
+Enter login(LDAP) password:
+</code></pre><p>and you just enter the new password.  You will need to enter it twice (to
+minimize the chances that you typed it wrong the first time).  <em>Make sure you
+remember your new password!</em>  If you forget it, you will have to go see the
+sysadmins and get them to straighten things out.</p><p>Once you have changed your password, the new password will be good for the
+entire term, so you won't have to do it again.</p>
+<h3>Starting WingIDE</h3>
+<p>To start up WingIDE, type this in the terminal:</p><pre><code>% wing-101-5.1 &amp;
+</code></pre><p>and WingIDE will start up.  The <code>&amp;</code> is optional but recommended; what it
+does is allow you to subsequently enter more commands into the terminal.
+Without the <code>&amp;</code>, you would have to wait until WingIDE exits before entering any
+more commands.</p><p><em>Tip</em>: Just type in <code>wing</code> and hit the Tab key; it should type the rest of
+the program name for you.  Then add an <code>&amp;</code> at the end, press Return, and
+WingIDE will start up.</p><p>When you start up WingIDE for the first time, a window will come up with a
+license agreement.  Click "Accept" and the main WingIDE window will appear.
+Make sure that the Python Shell in the lower right-hand corner says "Python
+2.7.10" (or perhaps a slightly earlier version).  If Python doesn't start
+up, something has gone wrong and you need to talk to a TA.</p>
+<h3>Working with WingIDE</h3>
+<h4>The Python Shell</h4><p>Now that WingIDE is running, we can start experimenting with Python.  Let's
+start by working with the Python Shell in the lower right-hand corner.  The
+first thing you should do is to type the following at the Python prompt (don't
+print the <code>&gt;&gt;&gt;</code> prompt, though!):</p><pre><code>&gt;&gt;&gt; print "hello, world!"
+</code></pre><p>If all goes well, Python should reply:</p><pre><code>hello, world!
+&gt;&gt;&gt;
+</code></pre><p>Woo hoo!</p><p>Note that Python not only printed the string you wanted it to print, but it
+also printed another prompt, indicating that it is ready for you to enter more
+commands.  Try a few commands.  (The commands are what follows the <code>&gt;&gt;&gt;</code>
+prompt, and Python's expected response is printed on subsequent lines.  Don't
+confuse the Python prompt with the terminal prompt; they aren't related.)</p><pre><code>&gt;&gt;&gt; 2 + 2
+4
+
+&gt;&gt;&gt; 1.0 + 1.0 + 1.0/2.0 + 1.0/6.0 + 1.0/24.0 + 1.0/120.0 + 1.0/720.0 + 1.0/5040.0 + 1.0/40320.0
+2.71827876984127
+
+&gt;&gt;&gt; 'foo' + 'bar'
+'foobar'
+
+&gt;&gt;&gt; 'foo'.upper()
+'FOO'
+
+&gt;&gt;&gt; '     this string has leading and trailing spaces    '.strip()
+'this string has leading and trailing spaces'
+
+&gt;&gt;&gt; import math
+&gt;&gt;&gt; math.sqrt(2.0)
+1.4142135623730951
+
+&gt;&gt;&gt; def func(x, y):
+...     return x + y
+...
+
+&gt;&gt;&gt; func(2, 3)
+5
+</code></pre><p>At this point, click on the "Options" button on the lower right side, and select
+the option "Restart Shell".  Then try this:</p><pre><code>&gt;&gt;&gt; math.sqrt(2.0)
+</code></pre><p>You should see something like this:</p><pre><code>Traceback (most recent call last):
+  File "&lt;string&gt;", line 1, in &lt;fragment&gt;
+NameError: name 'math' is not defined
+</code></pre><p>What this tells us is that when we restart the Python shell, all memory of the
+previous work we did is lost.  Often this is what you want, but sometimes it
+isn't.  This leads us naturally to the next topic.</p><h4>The Editor</h4><p>The majority of the WingIDE window is occupied by the top-central window.  When
+you start up WingIDE for the first time, there is a tutorial there called
+"Introduction for New Users".  Do yourself a favor: take a little time and read
+through this tutorial.  It will familiarize you with the way that WingIDE works.</p><p>Once you're done with that, click on the "New" button near the top left-hand
+corner of the window.  That will bring up a new tab on the editing window called
+"untitled-1.py". This is the Python source code editor.  It is where you will be
+doing the majority of your work.</p><p>Type the following code into the editing window. (Don't try to cut-and-paste from
+the browser window; that probably won't work.)</p><pre><code>def testme():
+    print "this is a test"
+
+def foo(x, y, z):
+    return x + y + z
+</code></pre><p>Notice how the code that you type changes color after you're finished typing it.
+This is what is called "syntax coloring", and most programming editors do it.
+It makes code much easier to read.  Note also that WingIDE knows how to
+intelligently indent your code, so you don't have to do that yourself (at least,
+most of the time you don't).</p><p>You can immediately execute this code in the Python shell by hitting the "Run"
+button.  Then, in the Python shell, you can do this:</p><pre><code>&gt;&gt;&gt; testme()
+this is a test
+&gt;&gt;&gt; foo(2, 3, 4)
+9
+&gt;&gt;&gt;
+</code></pre><p>When you hit the "Run" button, it's as if you instantly typed the entire
+contents of the editor into the Python shell.  This is often useful when
+debugging code (which is the process of removing errors from your code).</p><h4>Saving your work</h4><p>Much of the time, you will want to save the code you have been typing into a
+file so that you can continue working on it later.  You will also need to save
+your work to a file in order to submit it for grading.  Saving your work is
+easy: just click the <code>Save</code> button near the top (or use the <code>Save</code> command in
+the <code>File</code> menu item, or hit <code>Control-S</code>).  A file browser will come up.  If
+you click on <code>Save</code>, a file named <code>untitled-1.py</code> will be written to your home
+directory.  Most of the time, though, you will want to rename the file to
+something else (which you can do in the dialog box at the bottom of the window),
+and you will probably want to save the file into another directory (which you
+can do by navigating there using the file browser).  Let's rename the file to
+<code>foobar.py</code> and save it.  You will note that the name of the file on the tab
+changes to <code>foobar.py</code>.  Then, in the Python shell, do this:</p><pre><code>&gt;&gt;&gt; import foobar
+&gt;&gt;&gt; foobar.testme()
+this is a test
+&gt;&gt;&gt; foobar.foo(2, 3, 4)
+9
+&gt;&gt;&gt;
+</code></pre><p>Congratulations!  You have just written a Python module called <code>foobar</code>.
+The contents of this module are in a file called <code>foobar.py</code> which exists in
+one of your directories, and it can be reloaded later, re-edited, and submitted
+to the CS 1 grading system.</p><p>We <em>STRONGLY</em> recommend that you save your work often.  Nothing is more
+frustrating than to work on a program for two hours without saving anything, and
+have all of that work wiped out because the computer crashed.  You should get
+into the habit of saving your work automatically every ten minutes or so, or
+else after you've typed (say) ten new lines of code.  The <code>Save</code> button will
+save your work to the file with the same name as the name on the tab; that's
+the one you need to use often.  You can do this even more efficiently by typing
+<code>Control-S</code> <em>i.e.</em> the "control" key held down while you type the "s" key.</p><p>To exit WingIDE, go to the <code>File</code> menu and select <code>Quit</code>.  When you restart
+WingIDE, the editor will contain the last thing you were working on, which is
+very convenient.</p><p>That's all for this section.</p>
+<hr>
+<h2>Part B: [<em>OPTIONAL</em>] Getting set up on your own computer</h2>
+<p>Most of you (hopefully <em>all</em> of you) own your own computer, and many of you
+will want to work on the assignments on your own computer in the comfort of your
+dorm, or use your computer in the CMS lab.  Logging in remotely to the CMS
+cluster computer to do your homework is <em>strongly</em> discouraged; the system is
+not set up to do this and the system administrators may get annoyed at you if
+you try to do it (also, it's not easy to do anyway).  The alternative is to set
+up the CS 1 software on your own computer and do your work there.  This is
+<em>not</em> required, but it is convenient, and we encourage you to do it, because
+then you'll be able to work on your CS 1 homework wherever your laptop is.</p><p>In this assignment we will only show you how to set up Python and the WingIDE
+development environment.  Subsequent assignments will also require extra Python
+packages; we will discuss how to set those up when the time comes.</p><p>We will be using Python version 2.7.10 in this course.  Earlier versions
+will work for most of the course, but there may be occasional problems, so we
+recommend you install the correct version.  Python versions 3.0 and later are
+<em>not</em> acceptable, because there are significant changes to the Python syntax
+in those versions which are incompatible with the lectures and assignments.</p><p>The version of the WingIDE Python development environment we will use is
+WingIDE 101 version 5.1.7-1.  The "101" refers to a free version of
+WingIDE which can be downloaded from the
+<a href="http://wingware.com/downloads/wingide-101">WingWare web site</a>.</p><p>What to do from here depends on which operating system (OS) your computer is
+running.  Most computers run one of three operating systems: Windows, Mac OS X,
+or Linux.  Which specific version of the operating system shouldn't make a
+difference as long as your computer is not too old.  The actual software you
+need to set up is the same regardless of the operating system, but the details
+of setting it up are different.</p><p>Don't try to set up the CS 1 software on a tablet or <em>e.g.</em> a Chromebook.
+It almost certainly won't work, and you will waste a lot of time.</p>
+<h3>Windows</h3>
+<p>Most of you have computers that run some version of the Microsoft Windows
+operating system.  Fortunately, getting the CS 1 software to work on Windows is
+not too difficult.</p><p>First, you will need to install Python 2.7.10.  Download the installer
+for Python version 2.7.10
+<a href="http://www.python.org/ftp/python/2.7.10/python-2.7.10.msi">here</a>.
+Click on the link to download it; it will most likely be saved in the directory
+"<code>My Documents/Downloads</code>".  Use the Windows Explorer (file manager) to
+inspect that directory; there should be a file called "<code>Python-2.7.10</code>"
+which is a Windows Installer Package.  Click on that file and the installation
+will begin.  A dialog box will ask you if you want to run that file; click on
+the "Run" button.  You will be presented with a series of question/answer
+dialog boxes.  Selecting "Next" on each box is fine, except that you should
+install all the optional packages under "Customize Python 2.7.10" (except
+for the Test Suite, which you won't need).  Click on each extension you want to
+install and select "Entire feature will be installed on local hard drive".
+Once you're done, click the "Next" button at the bottom and Python 2.7.10
+will be installed.</p><p>Now you need to install WingIDE.  You can get the Windows Installer Package
+<a href="http://wingware.com/pub/wingide-101/5.1.7/wingide-101-5.1.7-1.exe">here</a>.
+Again, click on the link to download the installer, and again, use the file
+manager to inspect the "My Documents/Downloads" directory.  You should see a
+file called "wingide-101-5.1.7-1".  Click on it and it will begin the
+installation process.  Select the default values for everything (except that you
+should agree to the license agreement!).  Once you finish, WingIDE will start up
+and you will have to select "Accept" on another license agreement.  Do so, and
+you will see the main WingIDE window.  The Python Shell in the lower right-hand
+corner should say "Python 2.7.10".  If not, something has gone wrong and
+you should ask your TA for help.  If everything is working, exit WingIDE.  You
+can start it up again by using the Start button to find the program, but we
+recommend you make a shortcut to WingIDE by dragging the menu item to the
+desktop (ask a TA if you don't know how to do this).</p><p>Now you're ready to go.</p>
+<h3>Mac OS X</h3>
+<p>Installing the CS 1 software on a Mac is almost as easy as installing it on
+Windows.</p><p>First, you need to install Python 2.7.10 (or a version close to it).
+Most Macs already have some version of Python installed, but it will likely not
+be the correct one, and even if it is, it may not include some of the libraries
+we will need.  Therefore, we strongly recommend that you install the
+<code>ActiveState</code> version of Python, which is up-to-date and includes pre-installed
+libraries like <code>Tkinter</code> that we will be using a lot.  ActiveState's version of
+Python can be found <a href="http://www.activestate.com/activepython">here</a>.  Once you install
+it, the new version of Python will be found in the <code>/usr/local/bin</code> directory.
+Note that this step will not uninstall the previous version of Python, which is
+found in the <code>/usr/bin</code> directory.</p><p>Then you need to install WingIDE.  The installation package for WingIDE can
+be found
+<a href="http://wingware.com/pub/wingide-101/5.1.7/wingide-101-5.1.7-1.dmg">here</a>.
+Click on the link to download it to the "<code>Downloads</code>" directory.  Navigate to
+that directory using the Finder and search for the file called
+"<code>wingide-101-5.1.7-1.dmg</code>". Click on it, and a new Finder window will
+come up with some icons, including one that says "<code>WingIDE.app</code>".  Drag that
+icon to the Applications folder in order to install WingIDE.  Once this is done,
+you can launch WingIDE by using the Finder to get into the Applications
+directory and clicking on WingIDE.  You will need to agree to the WingIDE
+license, but after that you'll see the main WingIDE window.  Then you have to
+configure Python.  In the menu, select "Edit/Configure Python", and a new window
+will pop up.  Select "Custom" for the Python executable.  In the dialog box
+below this, type in "<code>/usr/local/bin/python</code>".  Click "OK".  Go to the Python
+Shell and click "Options/Restart Shell".  Now it should say "Python 2.7.10"
+or something very similar (whatever version you installed previously).  If this
+doesn't work, ask a TA for help.</p><p>Once all this is done, you're ready to go.</p>
+<h3>Linux</h3>
+<p>If you use Linux as your primary OS, congratulations, you rock!  We like Linux
+too ;-) Unfortunately, it's difficult to give general instructions for
+installing the course software on Linux, as each Linux distribution has its own
+package manager and does things somewhat differently.  Compounding the problem
+is the fact that nearly all Linux distributions already provide Python, but the
+version of Python provided will probably not be the one we will be using in this
+course.  To determine this, start up a terminal and type</p><pre><code>% python
+</code></pre><p>at the terminal prompt (<code>%</code> here is the terminal prompt character; as usual,
+don't type that).  If it prints:</p><pre><code>Python 2.7.10 (... some other stuff ...)
+(... some other stuff ...)
+</code></pre><p>then you're fine (the <code>2.7.10</code> is the version of Python running).  If
+not, you may need a different version of Python.  Python versions that are
+slightly older than <code>2.7.10</code> are probably OK.   If not, and your Linux
+distribution's package manager has a "<code>python2.7</code>" package, you can
+install that.</p><p>Once you have Python installed, it's time to install WingIDE 101.  WingIDE
+101 is available for download
+<a href="http://wingware.com/pub/wingide-101/5.1.7/wingide-101-5.1.7-1-x86_64-linux.tar.gz">here</a>.
+Download it and run the following commands:</p><pre><code>% tar zxf wingide-101-5.1.7-1-x86_64-linux.tar.gz
+% cd wingide-101-5.1.7-1-x86_64-linux
+% sudo python ./wing-install.py
+</code></pre><p>After this, just answer the questions the installer asks.  Use the default
+install locations.  Make sure your <code>PATH</code> environment variable (set <em>e.g.</em>
+in your <code>.bashrc</code> file) includes <code>/usr/local/bin</code>; if you don't know how to do
+this, ask a TA.</p><p>If you've done all this correctly, you can then start WingIDE by typing</p><pre><code>% wing-101-5.1 &amp;
+</code></pre><p>and you're ready to go.  (The <code>&amp;</code> is not required, but if you type it you
+will be able to enter terminal commands while WingIDE is running.)</p><p>The first time you run WingIDE you will have to accept the license of the
+software; click "Accept" and you won't have to do it again.</p><p>Once WingIDE is running, look at the Python shell in the lower right-hand
+corner.  If the Python version is 2.7.10 or something close to it, you are
+done.  Otherwise (and assuming you've installed Python version 2.7.10
+somewhere on your system), you'll have to tell WingIDE where the correct version
+of Python is located.  Do this by clicking on Edit/Configure Python, which will
+bring up a new window.  Set "Python Executable" to "Custom".  Then enter the
+location of the correct Python version in the dialog box immediately below.
+After this is done, click "OK", restart the program, and the Python version in
+the Python shell should be the correct one.  If you have a problem with this,
+ask your TA for help.</p>
+<h3>Any other OS</h3>
+<p>If your computer runs an operating system other than Windows, Mac OS X, or
+Linux, you are on your own.  You can ask a TA for help, but we recommend that
+you try to obtain a computer that runs one of the three major OSs unless you're
+willing to invest the time to figure everything out for yourself.</p>
+<hr>
+<h2>Part B2: [<em>OPTIONAL</em>] Setting up a Linux virtual machine</h2>
+<p>Some students may want to set up their own Linux installation.  <b>This is
+completely optional!</b>  You do not need to do this, but if you want to, these
+instructions will help you.</p><p>There are a number of ways to set up a Linux computer:</p><ul>
+
+<li><p>You could buy a new desktop or laptop computer and install Linux as the only
+operating system on that computer.</p></li>
+
+<li><p>You could install Linux alongside whichever operating system (Windows or Mac
+OS X) is already on an existing computer.  This is called "dual-booting".</p></li>
+
+<li><p>You could set up a Linux virtual machine (VM) on your existing operating
+system.</p></li>
+
+</ul><p>How do to either of the first two approaches is beyond the scope of this
+course.  However, setting up a Linux VM isn't very hard, so if you want to try
+that, this section will walk you through the process.  Once again, <b>you don't
+have to do this!</b>  It's strictly for those students who are interested
+enough/motivated enough to want to do it.  You also don't get any extra marks
+for doing it, but it's a worthwhile learning experience.  Setting up a Linux VM
+is quite an involved process, but it isn't hard; basically, you just need to be
+able to read carefully and follow directions.</p><p>One thing must be made crystal-clear at this point.  <b>These instructions
+assume that you will be installing a VM on your <u>own</u> computer.  Do not, under
+<u>any</u> circumstances, attempt to install a VM on one of the CMS cluster
+computers!</b>  This is not supported and will probably make the system
+administrators very angry, because it will waste a <em>lot</em> of disk space.</p><p>The other caveat is that setting up a Linux VM from scratch is pretty
+time-consuming.  Don't even bother unless you have at least a couple of hours to
+spare.</p>
+<h3>Hardware requirements</h3>
+<p>In order for this to work, you should have a laptop (or desktop) computer
+running either Microsoft Windows, Mac OS X, or some version of the Linux
+operating system.  Ideally your computer and its operating system are not too
+old (say, not more than 2 years old) and the computer has at least 2 gigabytes
+of RAM (random access memory).  You should also have at least 20 gigabytes of
+free space on your computer's hard disk.  Note that Chromebooks (at least, most
+Chromebooks) are not viable for installing virtual machines.  If you don't know
+whether your laptop's specs are good enough, you need to find out – all
+programmers should know what operating system they are running and how much RAM
+and disk space they have on their computers.  If your computer's specs aren't
+good enough to install the VM, you should consider getting a better laptop!</p>
+<h3>Downloading and installing VirtualBox</h3>
+<p>You will be setting up a virtual machine, and in order to do this you will
+need software that manages and runs virtual machines.  A virtual machine (at
+least in this context) is an operating system that runs in software (hence
+"virtual") inside another operating system.  The outer ("host") operating system
+(which is the operating system of your computer, running directly on the
+computer's hardware) effectively simulates the hardware that the inner ("guest")
+operating system (running in software) sees.  In fact, the guest operating
+system is not aware that it is being run as a virtual machine, though it will
+probably run more slowly than it would if it were running on bare hardware.</p><p>The software we will use to run our VM is called <b>VirtualBox</b>.  You should
+go to <a href="http://virtualbox.org/wiki/Downloads">this page</a> and download and install
+whichever version of VirtualBox runs on your operating system.  For instance, if
+your laptop runs Microsoft Windows, you should download the "VirtualBox X.X for
+Windows Hosts" installer (where "X.X" is the version number; <em>e.g.</em> 5.0).  If
+your laptop runs Mac OS X, download the version for OS X hosts.  If your laptop
+runs Linux, you should install VirtualBox using the package manager of your
+distribution; install the "virtualbox" packages but not the "virtualbox-guest"
+packages.  Ask the TAs if you're not sure how to do this, but if you're already
+a Linux user, you probably already know how to do this.  (Also, why would you
+need to install a Linux VM if you already have Linux installed?)</p><p>You may notice that some of the download links specify "x86" while others
+specify "AMD64".  These refer to 32-bit and 64-bit operating systems,
+respectively.  Nowadays almost all operating systems are 64-bit, and in fact
+only the Windows installer supports 32-bit systems (and it also supports 64-bit
+systems).</p><p>Once you've downloaded the installer for your operating system, just click on
+it to install VirtualBox (unless your host operating system is Linux; see
+above).  Both Windows and OS X will generally give you some grief about
+installing software from an untrusted source, and you may need to change some
+settings to allow this.  Ask the TAs if you need help doing this.  Other than
+that, the installation should go smoothly.</p>
+<h3>Downloading Ubuntu Linux MATE</h3>
+<p>In order to create a VM running Linux, you will need the Linux software.
+There are literally dozens of Linux versions (also known as Linux distributions
+or "flavors") that can be installed.  We are choosing one called Ubuntu MATE
+(pronounced "mah-tay" after the caffeinated South American beverage) for a
+number of reasons.  It's stable, highly configurable, light on resources and
+uses the Ubuntu Linux software repositories, which are among the largest and
+best-maintained repositories of any Linux distribution.  In addtion, Ubuntu MATE
+is easy for beginning Linux users to pick up, but it's also suitable for more
+advanced users.</p><p>You may be tempted to use another version of Ubuntu Linux, or another version
+of Linux entirely.  <strong>Please do not do so.</strong>  There are a number of different
+"spins" (variants) of Ubuntu Linux, but some of them (including standard "stock"
+Ubuntu as well as Kubuntu) are not suitable for use in a VM because they are too
+demanding in terms of 3D graphics acceleration support.  Put simply, if you do
+this, your VM may not be responsive and this will make you angry and frustrated.
+Other spins, like Xubuntu and Lubuntu, are quite suitable for VMs, but some of
+the instructions below would need to be modified for those spins, so if you use
+these don't expect the TAs to be able to help you in case something goes wrong.
+The same considerations apply for non-Ubuntu flavors of Linux; they probably
+work fine, but we don't have the same level of expertise with them, so if a
+problem comes up, you are on your own.</p><p>You need to download a "disk image" of the most current version of Ubuntu
+Linux MATE, which as of this writing is version 15.04.  It can be downloaded
+from <a href="http://ubuntu-mate.org/vivid">this page</a>.  We recommend the "HTTP direct
+download" link. (You can use the "Torrent" download link if you know how to use
+BitTorrent clients.)  Choose the "64-bit PC (AMD64)" version, unless your
+computer is a 32-bit computer, in which case you'll have to make do with the
+32-bit version.  (However, if your computer is a 32-bit computer, you really
+need a more modern computer!)  Click on the link and save the file to your disk.
+<strong>IMPORTANT: This file is quite large (more than 1 gigabyte), so make sure that
+your computer is plugged in to an AC adapter when downloading!</strong>  Also, we
+<b>strongly</b> recommend that if possible you use a wired Ethernet connector to do
+the download if at all possible, or else use the fastest wireless network you
+can find.  The "Caltech Guest" Wi-Fi is <strong>extremely</strong> slow and not suitable for
+large downloads, so don't use that.  If all else fails, you can use a flash
+drive to copy the disk image from a friend who has downloaded it successfully.
+The file (for 64-bit computers) should be called
+<code>ubuntu-mate-15.04-desktop-amd64.iso</code>.  <strong>If the file is not downloaded
+completely, nothing else in this section will work and you will have to start
+over.</strong>  Finally, remember what directory you downloaded the file to, because you
+will need this information for the next step.  Most operating systems put a
+<code>Downloads</code> directory under each user's home directory where downloaded files
+go by default.</p>
+<h3>Installing Ubuntu Linux MATE</h3>
+<p>OK, now we get to the interesting part: creating a new virtual machine which
+runs Linux!</p>
+<h4>Preparing the virtual disk</h4>
+<ol>
+
+<li><p>First, start up VirtualBox.  (You should be able to find it in the program
+menus, or you can use the terminal command line if you're using Linux (the
+program name is <code>virtualbox</code>.)  A smallish window should pop up.</p></li>
+
+<li><p>Click on the <code>New</code> button at the top left to create a new virtual machine.  A
+new window called <code>Name and operating system</code> will pop up with information you
+need to fill in.  Under the <code>Name</code> entry enter <code>Ubuntu MATE 15.04</code>.
+VirtualBox will automatically select <code>Linux</code> in the <code>Type</code> entry and <code>Ubuntu
+(64 bit)</code> in the <code>Version</code> entry (or <code>Ubuntu (32 bit)</code> if you have a 32-bit
+computer).  Click <code>Next</code>.</p></li>
+
+<li><p>The window title changes to <code>Memory size</code>.  Select <code>1024</code> (megabytes, or 1
+gigabyte).  This is the minimum amount needed for things to work reasonably
+smoothly.  In a pinch, you might get by with <code>512</code> (half a gigabyte) but using
+some programs (<em>e.g.</em> a web browser) from inside the VM will be difficult. If
+you have lots of memory, feel free to specify more (<em>e.g.</em> 2048 megabytes/2
+gigabytes, or even 4096 megabytes/4 gigabytes; more than this will not help
+you).  Click <code>Next</code>.</p></li>
+
+<li><p>The window title changes to <code>Hard drive</code>.  Select <code>Create a virtual hard
+drive now</code>.  Click <code>Create</code>.</p></li>
+
+<li><p>The window title changes to <code>Hard drive file type</code>.  Select <code>VDI (VirtualBox
+Disk Image)</code>.  Click <code>Next</code>.</p></li>
+
+<li><p>The window title changes to <code>Storage on physical hard drive</code>.  Select
+<code>Dynamically allocated</code>.  Click <code>Next</code>.</p></li>
+
+<li><p>The window title changes to <code>File location and size</code>.  Leave the upper entry
+alone; it should say <code>Ubuntu MATE 15.04</code>.  For the size enter <code>20 GB</code> and
+click <code>Create</code>.  This should be more than enough disk space for everything you
+are going to do in this course.  If you have a lot of disk space and intend to
+use this VM for other courses as well, you can make it larger, but you won't be
+able to change it later.  Because it's dynamically allocated, it won't use up
+the 20 gigabytes right away; 20 gigabytes is simply the maximum size the disk
+can grow to.</p></li>
+
+</ol><p>At this point, the window you've been entering information into should go
+away, and there should be a new VM entry displayed in the main VirtualBox window
+that says <code>Ubuntu MATE 15.04</code> and below that <code>Powered Off</code>.</p><p>Congratulations!  You've just finished the first part of installing the Linux
+VM!  Unfortunately, although you've created storage for your VM (the 20 gigabyte
+virtual hard disk you just created), there isn't anything in it yet, so we have
+to install Linux onto it.</p>
+<h4>Configuring the VM settings</h4>
+<p>If you've done everything correctly so far, now you will be looking at the
+main VirtualBox window, but it will now have a new entry on the left for your
+new VM.  At this point we need to adjust some settings.</p><ol>
+
+<li><p>Select the entry for your new VM by clicking on it.</p></li>
+
+<li><p>Click the <code>Settings</code> button at the top left of the window.  A new window will
+pop up with menu entries at the left (Windows, Linux) or on top (Mac).  Each one
+selects a particular set of options.</p></li>
+
+<li><p>Click on the <code>System</code> entry.  Under <code>Motherboard</code>, you will see an entry
+called <code>Boot Order</code>.  Uncheck the <code>Floppy</code> option.  To be extra safe, you can
+use the arrow keys to the right of the boot order list to move the <code>Floppy</code>
+option down as low as it can go.  (I have no idea why this option even exists.)
+At this point, the topmost entry in <code>Boot Order</code> should be <code>CD/DVD</code> and it
+should be checked.</p></li>
+
+<li><p>Click on the <code>Display</code> entry.  Change <code>Video Memory</code> to the maximum value
+(128 megabytes).  Also make sure that <code>Enable 3D Acceleration</code> is checked but
+<code>Enable 2D Video Acceleration</code> is unchecked (they are mutually exclusive).</p></li> 
+
+<li><p>Click on the <code>Storage</code> entry.  Under <code>Storage Tree</code> you will see an icon
+that looks like a disk and that says <code>Empty</code>.  Click on it.  This is the
+virtual CD/DVD drive.  We are going to be loading it with the contents of the
+Linux file we downloaded earlier (the one whose name ended in <code>.iso</code>).  To the
+right there is an empty checkbox titled <code>Live CD/DVD</code>.  Check it.  Then at the
+right edge there is another disk icon.  Click on it and select <code>Choose a
+virtual CD/DVD disk file</code>.  This will bring up a file browser window.  You will
+need to navigate to the directory on your computer in which the Linux <code>.iso</code>
+file is located and select it.  Remember, it will be called
+<code>ubuntu-mate-15.04-desktop-amd64.iso</code>.  Once you've selected it, click
+<code>Open</code>.  Then click <code>OK</code> in the previous window.</p></li>
+
+</ol><p>That's the end of the second phase of installation.  We're now ready to
+actually load Linux onto our virtual disk drive and create a working system.</p>
+<h4>Installing the operating system</h4>
+<p>At this point, VirtualBox knows where the Linux software you downloaded is
+located and can start up a working Linux system.  Click on the <code>Start</code> button
+on top.  This will bring up a new window which will contain the entire Linux
+desktop.  The window is small, but we'll make it bigger later.  You will see
+some garbage and then the words <code>Ubuntu MATE</code> as the system boots up.  There
+may be some warning messages as well; ignore them.  Finally you'll see a screen
+containing a pretty graphic and (again) the words <code>Ubuntu MATE</code>.  Then the
+installer will start.  It will ask you if you want to try Ubuntu MATE or install
+it.</p><p>Now would be a good time to mention one annoying thing about VirtualBox.  It
+has a tendency to "capture" the mouse, which means that when you click on the
+mouse inside a VM window, the mouse pointer won't exit it (or it will but you'll
+still see a duplicate pointer inside the window).  There is a key you can press
+that will "release" the mouse and let you use applications outside of the VM.
+This is called the "Host key".  On the Mac the Host key is the left Command key,
+and on Windows and Linux it's the right Control key (you can change the key
+binding if you really hate it).  It's also listed in the lower-right corner of
+the window the VM is in.  You should practice tapping the Host key in order to
+get out of the VM (ask a TA if you are having problems with this).  Clicking
+inside the VM window puts you in the VM again.</p><p>Select <code>Install Ubuntu MATE</code>.  This will start the installation process.
+What this involves is mainly copying a lot of software from the file you
+downloaded (the <code>.iso</code> file) onto the virtual disk.  You'll also have to answer
+a few questions.</p><ol>
+
+<li><p>The installation window title changes to <code>Preparing to install Ubuntu MATE</code>.
+Check the box labeled <code>Download updates while installing</code>.  If you like, you
+can also check the box labeled <code>Install this third-party software</code>.  This will
+install proprietary software that is necessary for doing certain things (for
+instance, watching Flash videos).  However, it shouldn't be necessary to install
+this if you don't want to.  Then click <code>Continue</code>.</p></li>
+
+<li><p>The window title becomes <code>Installation type</code>.  Select <code>Erase disk and
+install Ubuntu MATE</code>.  <b>Don't panic!</b>  This will <b>not</b> erase <b>anything</b> on
+your computer's hard drive!  The "disk" it will be erasing is the virtual disk
+you created in a previous step (which is actually already empty).  As you see,
+there are other options too, but none of them are important for us, so just go
+ahead and erase the entire (virtual) disk and install Linux by clicking
+<code>Install Now</code>.  A confirmation window will come up.  Click <code>Continue</code>.</p></li>
+
+<li><p>The system will then ask you where you are, and preselect "Los Angeles".
+Click <code>Continue</code>.</p></li>
+
+<li><p>The system will ask you for your preferred keyboard layout, and preselect
+"English (US)".  Click <code>Continue</code>.</p></li>
+
+<li><p>The window title becomes <code>Who are you?</code>.  Enter your name, a name for your
+computer (which can be anything you like), a username (which might as well be
+the same as your CMS cluster username), and a password (which can be the same or
+different, as you like).  Type in your password a second time where indicated.
+<b>Make sure that you don't forget your password!</b>  Click <code>Require my password
+to log in</code> and then click <code>Continue</code>.</p></li>
+
+<li><p>At this point, the system will show you a slide show about all the cool things
+included in Ubuntu MATE while it copies files to your system.  Be patient; this
+step takes a while (a <em>long</em> while if you have a very slow internet
+connection).  The progress bar will let you know how far along you are.</p></li>
+
+<li><p>Once this is done, the virtual machine will tell you that it needs to restart
+to complete the installation, and ask you if it can.  <b>Do not accept!</b>  If you
+do, you'll get the same screen you started with (the one asking if you want to
+install Ubuntu or just try it.).  The problem is that the boot order you
+selected above will cause the system to boot from the CD/DVD drive if possible,
+and here it is possible because you've loaded the virtual CD/DVD drive with the
+Linux installation CD (actually the <code>.iso</code> file, but the system can't tell the
+difference).  Instead, you have to power down the virtual machine by clicking
+on the close button of the VM window (which will either be in the upper left or
+upper right corner, depending on your operating system).  VirtualBox will give
+you some shutdown options, and you should select <code>Power down the machine</code>.
+Click <code>OK</code> and the VM will exit, closing the VM window in the process.</p></li>
+
+<li><p>Now you have to adjust a couple of settings for the VM.  Click the <code>Settings</code>
+button and select the <code>System</code> menu entry.  Under <code>Boot Order</code>, uncheck the
+<code>CD/DVD</code> option and move it down below <code>Hard Disk</code>; make sure <code>Hard Disk</code> is
+checked.  Then click the <code>Storage</code> menu entry and click on the disk icon marked
+<code>ubuntu-mate-15.04-desktop-amd64.iso</code>.  Uncheck the <code>Live CD/DVD</code> checkbox and
+click on the disk icon above it and to its right.  This will bring up a
+pull-down menu.  Scroll down to the bottom and select <code>Remove disk from virtual
+drive</code>.  Click <code>OK</code>.</p></li>
+
+</ol><p>Now your Linux system is ready to use without needing the installation
+<code>.iso</code> file.  Start it up again and we'll continue setting up.</p>
+<h4>Updating your system</h4>
+<p>When you start the VM, you should now see a login window with your name
+preselected.  Enter your password and hit return to log in to the VM.</p><p>At this point, you might think you're done, but there are still a few steps
+to go.  First, you need to update your system.  Most Linux distributions,
+including Ubuntu, are continually being updated, and it's important to make sure
+your system is up-to-date, because updates contain bug fixes and fix security
+holes.  There are actually a few different ways to update your system.  When you
+log in, if you need updates (and in this case you do), a graphical program
+called <code>Software Updater</code> wlll already be running and will tell you that you
+need to update your system.  (The window may be minimized; if so, click on the
+entry in the task bar at the bottom to bring it up.)  Click on <code>Install now</code> to
+update the system.  A window will pop up asking you for your password.  You
+should enter this and then hit the <code>Authenticate</code> button, and then the system
+will start updating.  <b>Warning: this will take a while!</b>  If you like using a
+graphical program to update the system, this is always an option.</p><p>The other option is to update the system from the terminal command line.
+This is actually just as easy and very powerful once you know what you're doing.
+To do this, first start up a terminal by hitting the key combination
+<code>Control+Alt+t</code> (<em>i.e.</em> hold down the <code>Control</code> and <code>Alt</code> keys while
+pressing and releasing the <code>t</code> key).  Then enter the following commands (the
+<code>%</code> is the terminal prompt; don't enter that):</p><pre><code>% sudo apt update
+[enter your password]
+% sudo apt upgrade
+</code></pre><p>You should only have to enter your password once.  After <code>sudo apt update</code>,
+a bunch of stuff will be printed in the terminal, none of which you need to pay
+attention to.  After <code>sudo apt upgrade</code>, the system will list all the packages
+that can be upgraded and offer you a yes/no choice as to whether to proceed or
+not.  Hit the return key (which selects yes) to start updating.  Also note that
+the terminal prompt is more complicated than just <code>%</code>; by default it also
+contains your username, the computer's name and the current directory.  We will
+always use <code>%</code> in our examples, but never type the <code>%</code> into the terminal!
+It's possible to change the prompt to whatever you like; see any Linux tutorial
+for more on this.</p><p>Note that you shouldn't try to simultaneously update using the graphical
+updater and the terminal updater, as whichever one is invoked first will prevent
+the other one from running.</p><p>Once you're done, you need to restart the VM.  If you used the graphical
+software updater program, a window will come up asking if you want to restart
+now or later; press <code>Restart now</code> and the system will restart.  Otherwise,
+click on the button on the top right hand corner of the VM window (on the top
+panel), which will bring up a shutdown/restart window; select <code>Restart</code>.  After
+the system restarts, enter your password to log back in.</p><p>Once this is complete, you have an up-to-date Linux system running on your
+VM.  But wait, there's more!</p>
+<h4>Installing the VirtualBox guest utils</h4>
+<p>One annoying thing about running a Linux VM is that by default the VM window
+is much smaller than the computer's monitor.  It would be nice if the VM took
+over the entire monitor display, so it really looked like you were running a
+different operating system.  You can do this by installing the "VirtualBox guest
+utils".  These are a set of programs that give the system a number of new
+abilities, one of which is to use the full screen.  There is more than one way
+to install the guest utils, but we'll do it from the terminal command line.
+Bring up a terminal in the VM, and then type the following command:</p><pre><code>% sudo apt install build-essential dkms m4 virtualbox-guest-dkms
+</code></pre><p>You may be asked to enter your password; if so, do so.  Then the system will
+ask if you really want to install all those packages; hit Return to accept.  The
+packages will be installed.</p><p>At this point, you need to restart the VM for the changes to take effect.
+Use the button on the upper-right corner of the VM window to do this.  Once it
+restarts, press Host+f (press the Host key and the <code>f</code> key simultaneously) and
+the window should go to full screen.  You should do this when you reach the
+login screen but before entering your password.  The VM may pop up a window
+telling you that you have just hit the Host+f key (duh!); you should check the
+checkbox telling it not to show that window again.</p><p>Note that the full screen capability may not kick in until you have logged
+in, but once it does you'll be able to log out and log back in, and it should
+stay full screen.  This is much nicer to work with.  Also, when you are in
+full-screen mode, you can still get out of the VM by hitting the Host key and
+then doing Alt-tab (Command-tab on Mac OS X) to select a different program.
+Then just Alt-tab back to the VM window to get back into it.</p>
+<h4>Some simple customizations and stuff to know</h4>
+<p>Now you have a fully-functional and up-to-date Linux system installed as a
+virtual machine.  Yay!</p><p>You will see a panel on the top of the screen with a few panel "applets" on
+it to control things like volume, to show the date, to bring up the
+shutdown/restart window, <em>etc.</em>; these are on the right-hand side.  On the
+left-hand side there are menus that allow you to select programs, as well as a
+launcher that will bring up the Firefox web browser.</p><p>Under the <code>System</code> menu there is an entry called <code>Control Center</code> which you
+should bring up.  This is where most of the configuration of the system happens.
+Click on that and look around.  It's similar to analogous programs on Mac OS X
+and Windows.  One thing to do now is to click on <code>Appearance</code> and then
+<code>Background</code> if you want to change the desktop background.  There are a number
+of nice wallpaper images to choose from, or you can choose a simple color (my
+preference is black) or a color gradient.  Another thing to try is <code>MATE Tweak</code>
+which will allow you to change still other settings.  I like to hide the <code>Home</code>
+icon on the desktop, which you can do here.  There are other options here too;
+feel free to experiment.  Another customization you can do from the Control
+Center is to swap the Control and Caps Lock keys, which I find very helpful.  To
+do this, click on the <code>Keyboard</code> settings, then <code>Layouts</code> and <code>Options</code> (at
+the bottom of the window).  This brings up a window with a bunch of options.
+Select <code>Ctrl key position</code> and scroll down until you see <code>Swap Ctrl and Caps
+Lock</code> which you should check if you want that behavior.  This is all we'll be
+doing with the Control Center for now.</p><p>You will be working mainly in the terminal, so you need to be able to launch
+terminals quickly.  You can always use the <code>Control-Alt-t</code> key sequence, but
+some people prefer having a launcher on the top bar similar to what is there for
+the Firefox web browser.  To create such a launcher, find the terminal menu
+entry under the menu at the top left: <code>Applications/System Tools/MATE
+Terminal</code>.  If you just select this option, a terminal will come up.  Instead of
+selecting it, drag the terminal icon with the mouse onto the top panel.  This
+will create a new launcher icon.  Whenever you click on this, a new terminal
+will be created.  Also, every time you log in from now on, that terminal
+launcher will be there.</p><p>Since you'll be working in the terminal so much, it is worth spending a
+couple of minutes configuring the terminal to be as comfortable as possible.
+You may want to change the background color, the text color, or the font used
+for the text to suit your preferences.  To do this, click on the <code>Edit</code> menu
+and then select the <code>Profile Preferences</code> option.  This will bring up a window
+in which you can select a number of preferences.  To change the font, uncheck
+the option <code>Use the system fixed width font</code> and then click on the <code>Font</code>
+pulldown menu immediately below it.  You can choose between a number of fonts,
+each at a number of different sizes.  Pick whatever you find most comfortable,
+then click <code>OK</code>.  If you've changed the font, you will see the change.  If you
+want to change the background or text colors, click on the <code>Colors</code> menu
+option at the top of the window and uncheck <code>Use colors from system theme</code>.
+Then you can click on <code>Text color</code> and <code>Background color</code> to set those colors
+to be whatever you like.  I like an off-white text color on a dark green
+background, but that's just me; use whatever you feel most comfortable with.</p><p>Also, note that the terminal program can create multiple terminals or
+multiple tabs in a single terminal.  Tabs are very useful when doing multiple
+distinct things.  Create a new tab by typing <code>Control+Shift+t</code>.  Create a new
+terminal window by typing <code>Control+Shift+n</code>.  (These can also be done from the
+menu.)  Type <code>Control+d</code> in a terminal window to close it, or just type
+<code>exit</code>.</p><p>There are other terminal configurations you can do, but this is enough for
+now.</p>
+<h4>Installing Python and WingIDE</h4>
+<p>Python will already be installed on the VM.  See above for how to install
+WingIDE.</p><p>Whew!  That was a long and complicated process, but now you are completely
+set up on your spiffy new Ubuntu MATE virtual machine.  The only additional
+thing we will do in the rest of the course is install more Python libraries;
+we'll walk you through that when the time comes.  If things didn't work out as
+described above, see a TA.</p>
+<hr>
+<h2>Part C: Exercises</h2>
+<p>In this section we will do some basic programming exercises to test your
+understanding of the lecture material and to let you experiment with WingIDE and
+the Python shell.  We will also introduce you to a few features of Python that
+we didn't talk about in the lectures.</p><ol>
+
+<li><p>[<b>10</b>] For each of the following expressions, what value will the
+expression give? Verify your answers by typing the expressions into the Python
+shell.  Write your answers as a Python comment.</p><ol>
+<li><code>9 - 3</code></li>
+<li><code>8 * 2.5</code></li>
+<li><code>9 / 2</code></li>
+<li><code>9 / -2</code></li>
+<li><code>9 % 2</code></li>
+<li><code>9 % -2</code></li>
+<li><code>-9 % 2</code></li>
+<li><code>9 / -2.0</code></li>
+<li><code>4 + 3 * 5</code></li>
+<li><code>(4 + 3) * 5</code></li>
+</ol>
+</li>
+<li><p>[<b>10</b>] Python includes a lot of operators of the form <code>op=</code>, where <code>op</code>
+is one of the standard operators.  For instance, the following are all
+operators: <code>+= -= *= /= %=</code>.  The meaning of these operators is as follows:</p><pre><code>  x op= y
+</code></pre><p>is the same as</p><pre><code>  x = x op y
+</code></pre><p>For instance, <code>x += y</code> is the same as <code>x = x + y</code> and <code>y -= 2</code> is the same
+as <code>y = y - 2</code>.  For each of the following statements, what will be the value
+of the variable <code>x</code> after the statement has been executed?  Assume that the
+statements are entered into the Python shell one after another, so that
+subsequent statements can depend on the values of previous ones.  Write your
+answers as a Python comment.</p><ol>
+<li><code>x = 100</code></li>
+<li><code>x = x + 10</code></li>
+<li><code>x += 20</code></li>
+<li><code>x = x - 40</code></li>
+<li><code>x -= 50</code></li>
+<li><code>x *= 3</code></li>
+<li><code>x /= 5</code></li>
+<li><code>x %= 3</code></li>
+</ol>
+</li>
+<li><p>[<b>10</b>] Write a step-by-step description of what happens when Python
+evaluates the statement <code>x += x - x</code> when <code>x</code> has the
+initial value of <code>3</code>.  What is <code>x</code> after the statement
+has been evaluated?  Write your answer as a Python comment.</p>
+</li>
+<li><p>[<b>10</b>]  Complex numbers are the sum of a real number and an imaginary
+number.  An imaginary number is just a real number multiplied by the square root
+of <code>-1</code>.  The square root of <code>-1</code> is often called <code>i</code> or <code>j</code>.  Python allows
+you to enter complex numbers directly, in the form <code>Yj</code> (for imaginary numbers)
+and <code>X+Yj</code> (for complex numbers).</p><p>What are the values of the following expressions?</p><ol>
+<li><code>1j + 2.4j</code></li>
+<li><code>4j * 4j</code></li>
+<li><code>(1+2j) / (3+4j)</code></li>
+</ol><p>What are the results of the following two expressions?</p><ol>
+<li><code>(1+2j) * (1+2j)</code></li>
+<li><code>1+2j * 1+2j</code></li>
+</ol><p>Why do you think they're different?  What does this tell you about the way
+Python handles complex numbers?</p><p>Write all your answers as a Python comment.</p>
+</li>
+<li><p>[<b>10</b>] However, not all complex operations act the way you would expect
+them to.  Enter the following into the Python shell:</p><pre><code>&gt;&gt;&gt; import math
+&gt;&gt;&gt; math.sqrt(-1.0)
+</code></pre><p>This will give the following error message:</p><pre><code>Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ValueError: math domain error
+</code></pre><p>That means that the <code>sqrt</code> function can't handle square roots of negative
+numbers.  Fortunately, the <code>cmath</code> (complex math) module exists which can
+handle problems like these.  Now try this:</p><pre><code>&gt;&gt;&gt; import cmath
+&gt;&gt;&gt; cmath.sqrt(-1.0)
+</code></pre><p>Notice that this does give the expected answer of <code>1j</code>.</p><p>What are the values of the following expressions?</p><ol>
+
+<li><code>cmath.sin(-1.0+2.0j)</code></li>
+<li><code>cmath.log(-1.0+3.4j)</code></li>
+<li><code>cmath.exp(-cmath.pi * 1.0j)</code></li>
+
+</ol><p>Finally, why do you think it's a better idea to write</p><pre><code>import math
+import cmath
+</code></pre><p>than</p><pre><code>from math import *
+from cmath import *
+</code></pre><p>in a program?</p><p>Write all your answers as a Python comment.</p>
+</li>
+<li><p>[<b>5</b>] What are the values of the following expressions?  (If there are
+multiple lines in a question, give the value of the expression on the final
+line.) If an expression gives an error, write the error message.  Write all
+answers as a Python comment.</p><ol>
+
+<li><p><code>"foo" + 'bar'</code></p></li>
+<li><p><code>"foo" 'bar'</code></p></li>
+
+<li>
+ 
+<pre><code>a = 'foo'
+b = "bar"
+a + b
+</code></pre>
+
+</li>
+
+<li>
+ 
+<pre><code>a = 'foo'
+b = "bar"
+a b
+</code></pre>
+
+</li>
+
+</ol>
+</li>
+<li><p>[<b>5</b>] Rewrite the following string using single quote characters on either
+end of the string instead of triple quotes.  Don't use any operators or function
+calls (you don't need them).  Write the answer inside a Python comment.</p><pre><code>'''A
+B
+C'''
+</code></pre>
+</li>
+<li><p>[<b>10</b>] Write a single Python expression which will generate a string of 80
+<code>'-'</code> characters.  The expression itself shouldn't be longer than 10
+characters.  Write the answer inside a Python comment.</p>
+</li>
+<li><p>[<b>5</b>] Write a single-line Python string which, when printed using Python's
+<code>print</code> statement, will print:</p><pre><code>first line
+second line
+third line
+</code></pre><p>(without any leading spaces on each line).  Write the string inside a
+Python comment.</p>
+</li>
+<li><p>[<b>15</b>] Given variables <code>x</code> and <code>y</code>, which refer to the values <code>3</code> and
+<code>12.5</code> respectively, write a line of code using <code>print</code> to display each of the
+following messages. When numbers appear in the messages, the variables <code>x</code> and
+<code>y</code> should be used in the <code>print</code> statement.  Use the <code>%</code> formatting operator
+and a format string for each example, but don't use the <code>%s</code> catch-all
+formatting operator.  In this case, write your answer as Python code (not inside
+a comment).</p><ol>
+<li><code>The rabbit is 3.</code></li>
+<li><code>The rabbit is 3 years old.</code></li>
+<li><code>12.5 is average.</code></li>
+<li><code>12.5 * 3</code></li>
+<li><code>12.5 * 3 is 37.5.</code></li>
+</ol>
+</li>
+<li><p>[<b>10</b>] Use <code>raw_input</code> to prompt the user for a number.  Store the number
+entered as a <code>float</code> in a variable named <code>num</code>, and then print the contents of
+<code>num</code>.  Use the prompt string <code>"Enter a number: "</code> as the argument to
+<code>raw_input</code>.  Write the answer as Python code (not in a comment).</p>
+</li>
+<li><p>[<b>10</b>] Write a function called <code>quadratic</code> that takes four input arguments
+<code>a</code>, <code>b</code>, <code>c</code>, and <code>x</code> and computes the value of the quadratic expression</p><p><code>ax<sup>2</sup> + bx + c</code></p><p>for those values of <code>a</code>, <code>b</code>, <code>c</code>, and <code>x</code>.  Note that <code>**</code> is the power
+operator in Python, though you don't actually have to use that.  (What else could
+you use if you don't use the <code>**</code> operator?)</p><p>Write your answer as Python code (not in a comment).</p>
+</li>
+<li><p>[<b>30</b>] DNA is composed of four distinct base pairs: adenine (A), cytosine
+(C), guanosine (G), and thymine (T).  In a DNA molecule, A bases pair with T
+bases and C bases pair with G bases.  A value of interest is the proportion of
+C/G bases in a DNA molecule, since C/G bases bind more strongly than A/T bases
+(and thus, a DNA molecule with a large proportion of C/G bases is more stable
+than one with a large proportion of A/T bases).  Given a DNA sequence, this can
+easily be computed by counting up the number of each base, and taking the ratio
+of the (G or C) bases as a proportion of the total.</p><p>Use Python's <code>help()</code> function to learn about the <code>count()</code> method of
+Python's strings (typing <code>help(''.count)</code> at the Python interactive prompt is
+one way to do this).  Then use this to write a function called <code>GC_content</code>
+which takes in a string representing a DNA sequence and returns a single float,
+which represents the proportion of the bases which are either G or C.  You may
+assume that the input string has only A, C, G, or T bases.  For instance:</p><pre><code>GC_content('ACCAGTGTAG')         --&gt; 0.5
+GC_content('ATATATATA')          --&gt; 0.0
+GC_content('GCGGCCATGCATGGGG')   --&gt; 0.75
+</code></pre><p>One pitfall here is that dividing two integers in Python throws away the
+remainder, so you will want to convert the numerator and denominator of the
+ratio to floats using the <code>float()</code> function (built-in to Python) before doing
+the division.</p><p>Add a docstring to your function so that typing:</p><pre><code>help(GC_content)
+</code></pre><p>in the Python shell will print out a description of what the function does,
+what its input argument should be, and what its output represents.</p><p>Make sure you test your function on the examples given, no matter how sure
+you are that it works correctly!</p>
+</li>
+
+</ol>
+<hr>
+<h2>Part D: Miniproject</h2>
+<p>Most assignments will have a miniproject which will involve solving larger-scale
+programming problems.  There is no miniproject in this assignment.</p>
+<hr>
+<font size="-1">Copyright (c) 2015, California Institute of
+  Technology. All rights reserved.<br>
+</font>
+
+
+
+</body></html>

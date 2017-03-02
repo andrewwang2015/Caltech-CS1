@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0097)https://courses.caltech.edu/pluginfile.php/112328/mod_resource/content/7/midterm_cover_sheet.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CS 1 — Fall 2015 — Midterm exam: cover sheet</title>
+<style type="text/css"> 
+.centered { text-align: center }
+blockquote {
+  margin: 1em 1em;
+  background-color: #d0d0d0;
+  border: 2px solid #000;
+  padding: 0em 1em;
+}
+pre           { color: #0000bb }
+code          { color: #0000bb }
+div.solution  { color: #006644 }
+code.solution { color: #006644 }
+pre.solution  { color: #006644 }
+p.solution    { color: #006644 }
+b.solution    { color: #006644 }
+h3.solution   { color: #006644 }
+h3.warning    { color: #ff0000 }
+p.warning     { color: #ff0000 }
+h3.gradingNotes  { color: #008090 }
+div.gradingNotes { color: #0080a0 }
+span.interact { color: #007700 }
+</style>
+<style type="text/css"></style></head>
+<body>
+<div class="centered">
+<h1>CS 1: Introduction To Computer Programming, Fall 2015</h1>
+<h2>Midterm exam: cover sheet</h2>
+<p><b>Due:</b> <em>Friday, November 13, 15:00:00</em></p>
+</div>
+<hr width="75%"><p>This is the CS 1 midterm exam cover sheet.  You should read this cover sheet
+in its entirety <strong>before</strong> you begin the exam.</p><h2>Preliminaries</h2><ul>
+
+<li><p>This exam is due on <strong>Friday, November 13, 15:00:00</strong>.  Please submit your text answers
+electronically through <a href="http://csman.cms.caltech.edu/">csman</a>, just like you do with your assignments.</p></li> 
+
+<li><p>There is <strong>no time limit</strong> on this exam.  Yes, you read that right.  No time
+limit.  Take as long as you like, except that you <em>must</em> hand the exam in on
+time or else face significant late penalties (3.0 marks/day).  You can work in
+non-consecutive sessions if you like.  You can use the Python interpreter (see
+below), take your time debugging, etc.  We estimate that this exam should not
+take longer than six hours if you have kept up with the material and understand
+it.</p></li>
+
+<li><p>This exam covers all the material up to lecture 13 and assignment 4, except
+that it will not cover graphics (<code>Tkinter</code>).</p></li>
+
+<li><p>This is an <strong>open-book</strong> and <strong>open reference</strong> exam, with some restrictions.
+You may not consult the work of any other student in CS 1 (<em>e.g.</em> a copy of
+their assignments), or printed notes written up by other students in the course
+or even not in the course.  You are allowed to consult any notes you yourself
+have prepared, or any notes prepared by a CS 1 TA or the instructor.  You're
+also allowed to consult your own assignments, including any comments on them
+submitted by your grader.  Also, you may consult the online Python documentation
+for Python 2.7.10 located <a href="http://docs.python.org/release/2.7.10/">here</a> and
+<a href="http://docs.python.org/release/2.7.10//library/index.html">here</a> (and also linked from the CS 1 home page
+under "Course software").  Make sure that you are consulting the documentation
+for the correct version of Python!  The most recent Python documentation refers
+to a version of Python which is not the version we are using in this course,
+and this could cause a lot of confusion.</p></li>
+
+<li><p>You may <strong>not</strong> ask questions about the exam problems on internet forums.
+Also, in the (unlikely) event that you find some code online which happens to
+solve one of the exam problems, you may not read it, consult it or use it in any
+way.</p></li>
+
+<li><p>You may consult the PDF (electronic) versions of the CS 1 lectures.  However,
+we recommend that you not print out paper copies of the CS 1 lectures in the
+interests of saving trees.  We also <strong>strongly</strong> recommend that you use the
+"Course syllabus" web page on the course website to help you find the lecture(s)
+covering particular topics.</p></li>
+
+<li><p>This is an <strong>open interpreter</strong> exam, with the exception of section 1, which
+must be done without typing the code into a Python interpreter.  For the other
+sections, you may use WingIDE or a Python interpreter to test your code.
+However, we recommend that you don't spend large amounts of time debugging your
+code.  We're more interested in seeing that you know what you're doing than that
+every single detail is perfect (this is in sharp contrast to the assignments!).</p></li>
+
+<li><p>There is <strong>no collaboration</strong> on this exam.  Show us what <em>you</em> know.  Do not
+discuss the exam with anyone (in or outside of Caltech) before the final due
+date under <em>any</em> circumstances, even if you have both turned in your answers
+already.  You also can't discuss the exam with a TA or the course instructor,
+except to ask for clarifications of questions.  If you attend a lab section
+before the due date, do not discuss the exam with the TA.  Do not not look at
+anyone else's code, and do not let anyone else see your code.</p></li>
+
+<li><p>Be aware that violating the reference or collaboration policies is a violation
+of the Honor Code, and will be dealt with accordingly.</p></li>
+
+<li>
+
+<p>Here is how your exam should be formatted.  Note that <strong>we will deduct a
+significant proportion of your midterm grade (up to 1/4 of the total grade) if
+you break any of these rules.</strong> If you have any questions about these rules,
+contact us before starting the exam and we'll clarify them.</p>
+
+<ol>
+
+<li><p>Type up your exam in any <strong>plain text</strong> editor of your choice, including
+WingIDE.  A plain text editor is one which saves text in an unformatted state;
+therefore, you may not use word processors like Microsoft Word unless you know
+how to make it save files as plain text (and you <em>will</em> lose marks if you do
+this wrong!).  We recommend you use WingIDE since you are already familiar with
+it, and since it definitely saves text as unformatted plain text.</p></li>
+
+<li>
+
+<p>Your midterm exam should all be in a <strong>single plain text file</strong> called
+"<code>midterm.py</code>" (that <strong>exact</strong> name; not "<code>cs1midterm</code>", "<code>midterm</code>",
+"<code>mymidterm</code>", "<code>Midterm.py</code>" or anything else).  <strong>You should write your
+full name and your CMS cluster login name in comments on the first two lines of
+the file, like this:</strong></p>
+
+<pre><code># Name: Joe Blow
+# CMS cluster login name: jblow
+</code></pre>
+
+<p>(Naturally, you'll substitute your own names for the names given above.)</p>
+
+</li>
+
+<li>
+
+<p>Your midterm exam should be executable Python code.  This means that all
+non-code answers to questions should be written as Python comments, for
+instance:</p>
+
+<pre><code># Problem 2.1
+# The mistake in this Python code is ...
+</code></pre>
+
+<p>However, Python code you write should not be commented-out, except that
+normal Python comments in your code are OK.  In addition, all Python functions
+you write should have docstrings.  For instance:</p>
+
+<pre><code># Problem 4.3
+def howdy(s):
+    '''Print a cool greeting.'''
+    print "Howdy, %s" % s
+</code></pre>
+
+</li>
+
+<li><p><strong>Do not</strong> submit code in non-plaintext form; Microsoft Word documents, Rich
+Text documents, and PDFs are examples of non-plaintext formats.  Again,
+<strong>Microsoft Word documents, Rich Text documents and PDFs are not acceptable
+submission formats!</strong> If you do not know what format your editor saves its files
+in, you should ask someone more knowledgeable (like your TA) to help you.</p></li>
+       
+<li><p><strong>Make sure</strong> that all of the lines in your midterm file have <strong>no more than
+80 characters in a line</strong>.  Most text editors (including WingIDE) will show you
+what column you're on as you're editing, so this will help you keep the line
+lengths to a maximum of 80 characters.  WingIDE also has a helpful red line at
+the 80-column mark, so if your lines go over this, they're too long.</p></li>
+
+<li>
+
+<p>Here is a tip which will make it much easier to tell if your exam is
+formatted correctly.  First, copy the <code>midterm.py</code> file containing your midterm
+answers to your CMS cluster account.  Then type this at the terminal prompt:</p>
+
+<pre><code>% more midterm.py
+</code></pre>
+
+<p>(where the <code>%</code> is the terminal prompt; yours may be different).  If the file
+is displayed as you expect it to look on the terminal, then there is probably no
+problem.  If it doesn't display at all or looks like random garbage, then the
+file is almost certainly in the wrong format and you'll have to ask a TA for
+help.  If there is a warning about the file being a binary file, it is
+definitely in the wrong format.  Note that changing the file extension (<em>e.g.</em>
+from <code>.pdf</code> to <code>.txt</code>) does <em>not</em> change the file format, so don't do that.
+Alternatively, you may find that the file is readable but the indentation is
+messed up, or there may be some very long lines.  This probably indicates that
+it is a valid text file, but that you have a problem with your text editor (for
+instance, you may be using tabs instead of spaces or you could be letting lines
+wrap instead of hitting the return key to begin a new line).  You should fix
+this unless you want to lose marks.</p>
+
+</li>
+
+<li><p>At this point, you've seen examples of good and bad style and you should have
+at least skimmed the "Python Style Guide" posted on the CS 1 Moodle page.
+Therefore, if your code exhibits very bad style you will lose marks for it.  We
+will mainly be concerned with aspects of style that have been covered in the
+assignments.</p></li>
+
+</ol>
+
+</li>
+
+<li><p><strong>If you did not read the preceding formatting rules, go back and read them
+now.</strong> Remember: you <strong>will</strong> lose a lot of marks for not following the rules!</p></li>
+
+<li><p>In addition, we will take marks off if your code is extremely convoluted
+and/or hard to understand, even if it's technically correct.  Good commenting
+can improve matters, but try to find simple solutions to problems where
+possible!</p></li>
+
+<li><p>The exam will receive a floating-point score between <code>0.0</code> and <code>6.0</code>, based
+on your performance across all of the problems.  Marks for each problem are
+indicated in boldface at the beginning of the problem. The exam is thus worth
+6.0 marks out of a maximum of 45.0 marks for the entire course, or about 10% of
+your final grade.  There is <u>no</u> minimum grading on the midterm exam, and the
+point value of each problem is indicated next to the problem.  There is also
+<strong>no rework</strong> on the midterm — it's an exam, after all, not an assignment.</p></li>
+
+<li><p>If you need a clarification of anything on the exam after you've started
+writing it, you may send email to your TA or to the instructor (Mike) at
+<a href="mailto:mvanier@cms.caltech.edu">mvanier@cms.caltech.edu</a>.  You can pause your exam while you wait for the
+answer.</p></li>
+
+</ul><hr><p>Go <a href="https://courses.caltech.edu/pluginfile.php/112328/mod_resource/content/7/midterm.html">here</a> to take the midterm.</p>
+<hr>
+<font size="-1">Copyright (c) 2015, California Institute of
+  Technology. All rights reserved.<br>
+</font>
+
+
+
+</body></html>

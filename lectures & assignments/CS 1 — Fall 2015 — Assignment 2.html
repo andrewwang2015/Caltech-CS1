@@ -1,0 +1,669 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0082)https://courses.caltech.edu/pluginfile.php/111761/mod_resource/content/3/lab2.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CS 1 — Fall 2015 — Assignment 2</title>
+<style type="text/css"> 
+.centered { text-align: center }
+blockquote {
+  margin: 1em 1em;
+  background-color: #d0d0d0;
+  border: 2px solid #000;
+  padding: 0em 1em;
+}
+pre           { color: #0000bb }
+code          { color: #0000bb }
+div.solution  { color: #006644 }
+code.solution { color: #006644 }
+pre.solution  { color: #006644 }
+p.solution    { color: #006644 }
+b.solution    { color: #006644 }
+h3.solution   { color: #006644 }
+h3.warning    { color: #ff0000 }
+p.warning     { color: #ff0000 }
+h3.gradingNotes  { color: #008090 }
+div.gradingNotes { color: #0080a0 }
+span.interact { color: #007700 }
+</style>
+<style type="text/css"></style></head>
+<body>
+<div class="centered">
+<h1>CS 1: Introduction To Computer Programming, Fall 2015</h1>
+<h2>Assignment 2: The Lizard-Spock Expansion</h2>
+<p><b>Due:</b> <em>Thursday, October 22, 02:00:00</em></p>
+</div>
+<hr width="75%">
+<h2>Coverage</h2>
+<p>This assignment covers the material up to lecture 7 (as well as the
+<code>range</code> function covered in lecture 8).</p>
+
+<hr>
+<h2>What to hand in</h2>
+<p>You will be handing in two files for this assignment.</p><p>You should collect the answers to sections B and C into a file called
+<code>lab2a.py</code>.  For the questions in section C, you should write your
+answers in comments, but write the corrected code outside of comments.</p><p>For section D, you should hand in the file <code>lab2b.py</code> containing
+your Mastermind code.  You should <b>not</b> hand in the
+<code>lab2b_tests.py</code> file.</p><p>Both files should be handed in to <a href="http://csman.cms.caltech.edu/">csman</a> as usual.</p>
+<hr>
+<h2>Part A: Installing the "nose" package</h2>
+<p>For this section, we're going to assume that you already installed Python
+2.7.10 and WingIDE last week.  There are still several more Python packages
+that we will be using in this course, and so Part A of the labs will cover
+installation of these packages.  Naturally, you will not be graded on this
+section.</p><p>For this assignment, we will install the <code>nose</code> testing framework.  This
+will provide Python modules which will make it easier to test the code that you
+write.  In particular, this will make it easier for you (and your TA!) to figure
+out if your code is correct or not.  For this assignment, and for many of the
+subsequent assignments, we will provide the testing code for you.  Later we will
+get you to write some of your own tests.</p><p>The <code>nose</code> framework is already installed on the CMS cluster, so if you
+can't be bothered doing this you can always run your programs there.  The
+<code>nose</code> documentation is <a href="https://nose.readthedocs.org/en/latest/">here</a>, but you don't need to read it
+(it will probably be more confusing than helpful to you at this stage).  We will
+only be using the most basic features of <code>nose</code> for the next few assignments.
+Note that the documentation link is for the most recent version of <code>nose</code>,
+which may not be the same as the version you have; it shouldn't make any
+difference.</p><p>The rest of the instructions depend on which operating system you're running
+on your computer.  We will cover Windows, Mac OS X, and Linux; if you're running
+some other operating system, you're on your own.</p><p>The easiest way to install nose is using a Python installation system called
+<code>easy_install</code>.  We'll do that here.</p>
+<h3>Windows</h3>
+
+<h4>Step 1</h4>
+<p>Install <code>setuptools</code>.  This will install <code>easy_install</code> for you.  The
+<code>setuptools</code> installer can be found
+<a href="http://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11.win32-py2.7.exe#md5=57e1e64f6b7c7f1d2eddfc9746bbaf20">here</a>.
+Click on this, follow the instructions, and select all the default values to
+install the software.  If you're running Windows Vista, the operating system
+will ask you several times if you trust the software enough to install it;
+reassure it that you do.</p>
+<h4>Step 2</h4>
+<p>Run the DOS Command Prompt (under Accessories -&gt; Command Prompt).  This is
+something like a terminal program on Unix.  At the prompt, type:</p><pre><code>C:\Python27\Scripts\easy_install nose
+</code></pre><p>This will install <code>nose</code>.  (For this step to work, you must be
+connected to the internet.) </p>
+<h3>Mac OS X</h3>
+
+<h4>Step 1</h4>
+<p>Install <code>setuptools</code> by going to
+<a href="https://pypi.python.org/pypi/setuptools#installation-instructions">this
+web site</a> and following the instructions.  Most likely, you will be doing
+something like the following.  Start a terminal (<em>e.g.</em> <code>Terminal.app</code>) and
+at the prompt, type:</p><pre><code>% sudo curl https://bootstrap.pypa.io/ez_setup.py -o - | python 
+</code></pre><p>You may need to type in your password if you use <code>sudo</code>.</p><p>If this doesn't work, enable the root user by following
+<a href="http://support.apple.com/kb/ht1528">these directions</a>, and then type:</p><pre><code>% su
+[enter the root password]
+# curl https://bootstrap.pypa.io/ez_setup.py -o - | python 
+# exit
+</code></pre><p>Note that the prompt changes to <code>#</code> when you enter the root password.  <b>Do
+not do anything else as root!</b>  Careless use of the root account can severely
+damage your computer.</p>
+<h4>Step 2</h4>
+<p>In a terminal, type:</p><pre><code>% easy_install nose
+</code></pre><p>This will install <code>nose</code>.  (For this step to work, you must be
+connected to the internet.)  If this doesn't work and you get an error message
+containing the words <code>permission denied</code>, try this:</p><pre><code>% sudo easy_install nose
+</code></pre>
+<h3>Linux</h3>
+<p>The instructions for installing nose on Linux are exactly the same as for
+installing nose on Mac OS X.</p>
+<h3>Checking that it installed correctly</h3>
+<p>Start up WingIDE, and in the Python Shell type:</p><pre><code>&gt;&gt;&gt; import nose
+</code></pre><p>If it gives you the prompt again without reporting any errors, you've
+installed <code>nose</code>.  If not, ask your TA for help.  To see which version of
+<code>nose</code> you're running, type:</p><pre><code>&gt;&gt;&gt; print nose.__version__
+</code></pre><p>Anything above version 0.11 should be fine.</p>
+<hr>
+<h2>Part B: Exercises</h2>
+<p><b>Note</b>: In many of the exercises below, we want you to not only solve
+the problem, but to solve the problem in a particular way.  So if we say to
+solve a problem using a particular function or without doing something (for
+instance) we want it done that way.  Alternative solutions, even correct ones,
+are not acceptable.</p><p>Make sure you write a docstring for every function we ask you to write.  It
+should describe what the function does, what the arguments represent, and what
+the return value represents.</p><ol>
+
+<li><p>[<b>15</b>] Write a function which takes as its only argument a string composed
+of only the letters 'A', 'C', 'G', and 'T' (representing a DNA string).  This
+function will return another string composed of the same four letters,
+representing the <i>complement</i> of the original string.  This means that the
+result string will have an 'A' where the original string has a 'T', a 'C' where
+the original string has a 'G', a 'G' where the original string has a 'C', and a
+'T' where the original string has an 'A'.</p><p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; complement('ACGGATC')  
+'TGCCTAG'
+</code></pre><p>Use string operations only (don't convert the string to a list).  You may
+find the <code>+=</code> operation on strings to be useful.  Note that you can write a
+<code>for</code> loop to loop over the characters in a string, as described in class.</p>
+</li>
+<li><p>[<b>15</b>] Now assume that we're representing DNA using lists of individual
+base pairs, represented as the characters 'A', 'C', 'G', and 'T'.  So a DNA
+strand might be <i>e.g.</i> something like <code>['A', 'A', 'C', 'G', 'T', 'G', 'T']</code>.
+Write a function that takes as its only argument a list of this type, and
+changes the list so that all the 'A's become 'T's, the 'T's become 'A's, the
+'C's become 'G's, and the 'G's become 'C's.  In this function you will be
+changing the list that is passed as an argument to the function, so you will not
+need a <code>return</code> statement (and there shouldn't be one).</p><p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; dna = ['A', 'C', 'G', 'G', 'A', 'T', 'C']
+&gt;&gt;&gt; list_complement(dna)
+&gt;&gt;&gt; dna
+['T', 'G', 'C', 'C', 'T', 'A', 'G']
+</code></pre>
+</li>
+<li><p>[<b>15</b>] You know that you can sum a list of numbers using the built-in
+<code>sum</code> function.  Write a function called <code>product</code> which will take one
+argument, which will be a list of numbers.  It will compute the product of the
+entire list and return it.  If the list is empty, it should return 1.</p><p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; product([])
+1
+&gt;&gt;&gt; product([2, 2, 3, 3, 10])
+360
+</code></pre>
+</li>
+<li><p>[<b>15</b>] The factorial of a non-negative integer is defined to be the product
+of all the integers from 1 up to the integer.  As a special case, the factorial
+of 0 is defined to be 1.  Use the <code>range</code> function and the <code>product</code> function
+you just defined to define a function called <code>factorial</code> which takes a single
+argument (a non-negative integer) and returns the factorial of that integer.</p><p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; factorial(0)
+1
+&gt;&gt;&gt; factorial(5)  # 5 * 4 * 3 * 2 * 1
+120
+</code></pre>
+</li>
+<li><p>[<b>15</b>] You are writing a computer game which simulates a game of Dungeons
+and Dragons.  You need a way to simulate the rolling of dice, which can have
+different numbers of sides (regular six-sided dice, four-sided dice, 10-sided
+dice, 20-sided dice, etc.).  Write a function <code>dice(m, n)</code> which takes two
+arguments: the "sidedness" of the dice (<code>m</code>) and the number of dice rolled
+(<code>n</code>).  This function will use the <code>random.choice()</code> function (so you will
+need to put the line <code>import random</code> in your file before using it, ideally at
+the top) and the <code>range()</code> function to compute the sum of all the random dice
+values.</p><p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; dice(4, 1)
+3
+&gt;&gt;&gt; dice(4, 2)
+5
+&gt;&gt;&gt; dice(4, 3)
+8
+&gt;&gt;&gt; dice(6, 2)
+11
+&gt;&gt;&gt; dice(6, 3)
+14
+&gt;&gt;&gt; dice(6, 6)
+22
+&gt;&gt;&gt; dice(20, 1)
+13
+&gt;&gt;&gt; dice(20, 3)
+42
+</code></pre>
+</li>
+<li><p>[<b>20</b>] The <code>remove</code> method of lists is useful, but it has the limitation
+that it will only remove the first matching element it finds in a list.  Write a
+function called <code>remove_all</code> which takes two arguments: a list (which you can
+assume to be a list of integers) and a value (which you can assume to be an
+integer).  It will remove <i>all</i> copies of the value from the list.  It will do
+this by using a <code>while</code> loop and the <code>count</code> method on lists to determine if
+there are any more matching elements in the list.  Each time through the list,
+the <code>remove</code> method will be called to remove one more matching element from the
+list.  The function won't return anything, because the list will be changed in
+place.</p><p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; lst = [1, 1, 3, 1, 4, 1, 5, 1, 6, 1, 1, 7, 1]
+&gt;&gt;&gt; remove_all(lst, 1)
+&gt;&gt;&gt; lst
+[3, 4, 5, 6, 7]
+</code></pre>
+</li>
+<li><p>[<b>20</b>] The use of the <code>count</code> method in the previous problem is
+inefficient because you have to count all of the occurrences of a particular
+value in a list just to see if there are any values to be removed.  Once you
+know that there is at least one value to be removed, you could stop counting,
+but the <code>count</code> method will go ahead and look at every value in the list to see
+if it matches the value being counted, even if that value has already been
+encountered earlier in the list.  There are two obvious ways to fix this:</p><ol>
+
+<li><p>Count the number of values to be removed once, and then use the <code>remove</code>
+method that many times.</p></li>
+
+<li><p>Use some other way to find out if a value is in a list, and remove elements
+until there are no more elements.</p></li>
+
+</ol><p>The first way is straightforward; let's talk about the second way. You've
+learned the Python syntax <code>for &lt;item&gt; in &lt;list&gt;</code> in
+class.  But as we've mentioned several times, Python likes to overload its
+syntax to mean different things.  The <code>in</code> keyword, in particular,
+can be used not just as part of a <code>for</code> loop but also to test for
+membership in a list.  For instance:</p><pre><code>&gt;&gt;&gt; 4 in [1, 2, 3, 4, 5]
+True
+&gt;&gt;&gt; 'foo' in ['foo', 'bar', 'baz']
+True
+&gt;&gt;&gt; 'cat' in ['fluffy', 'morris', 'sylvester']
+False
+</code></pre><p>In each case, the interpretation is the same: is this item in this list?
+When we use the <code>in</code> keyword in this way we often refer to it as the "<code>in</code>
+operator".  The nice thing about the <code>in</code> operator is that once it finds that a
+particular is in the list, it stops looking.</p><p>Given what you now know, write two efficient versions of
+<code>remove_all</code>, called <code>remove_all2</code> and
+<code>remove_all3</code>, which implement the two new strategies for removing
+all copies of a particular value from a list.  Use a <code>for</code> loop for
+<code>remove_all2</code> (the function which counts the number of repetitions
+first), and a <code>while</code> loop for <code>remove_all3</code> (the function
+which uses the <code>in</code> operator).  The way these functions are used is
+exactly the same as for <code>remove_all</code>; only the implementation is
+different.  This is a common theme in programming: rewriting an inefficient
+function into a more efficient form without changing the interface to the
+function (the inputs or the outputs).</p>
+</li>
+<li><p>[<b>20</b>] Let's use the <code>in</code> operator described in the previous problem to
+write a function called <code>any_in</code>.  It will take two lists as arguments, and
+will return <code>True</code> if any of the elements of the first list are equal to any of
+the elements of the second one.</p><p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; any_in([1, 2, 3], [1, 5, 9, 11, 43])
+True
+&gt;&gt;&gt; any_in([1, 2, 3], [])
+False
+&gt;&gt;&gt; any_in([], [1, 2, 3])
+False
+&gt;&gt;&gt; any_in([], [])
+False
+&gt;&gt;&gt; any_in(['foo', 'bar', 'baz'], ['to', 'be', 'or', 'not', 'to', 'be'])
+False
+&gt;&gt;&gt; any_in(['and', 'or', 'not'], ['to', 'be', 'or', 'not', 'to', 'be'])
+True
+</code></pre><p>The <code>any_in</code> function can be written using only a few lines of
+code, so if your function is long, you're probably doing something wrong (or at
+least, doing something inefficiently).</p><p><em>Hint:</em> It's legal to <code>return</code> from a function before the end of the
+function (say, when some condition is met).</p>
+</li>
+
+</ol>
+<hr>
+<h2>Part C: Pitfalls</h2>
+<p>In this section we're going to review some aspects of Python that can confuse
+new programmers (and sometimes also experienced programmers).  We encourage you
+to experiment with these examples in WingIDE to get a better understanding of
+what's going on. </p><ol>
+
+<li><p>[<b>30</b>] What is wrong with the following snippets of Python code?  Write a
+sentence or two describing what the problem is, why it's incorrect, and how to
+fix it.</p><ol type="a">
+
+<li>
+
+<pre><code>a = 20
+# ... later in the program, test to see if a has become 0.
+if a = 0:
+      print 'a is zero!' 
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+ 
+<pre><code>def add_suffix('s'):
+    '''This function adds the suffix '-Caltech' to the string s.'''
+    return s + '-Caltech'
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+ 
+<pre><code>def add_suffix(s):
+    '''This function adds the suffix '-Caltech' to the string s.'''
+    return 's' + '-Caltech'
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<pre><code># We want to add the string 'bam' to a list of strings, changing the original
+# list.
+lst = ['foo', 'bar', 'baz']
+lst = lst + 'bam'
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+ 
+<pre><code>def reverse_and_append_zero(lst):
+    '''This function reverses a list of numbers and then
+    appends the number 0 to the end of the list.'''
+    lst2 = lst.reverse()
+    return lst2.append(0)
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<pre><code>def append_string_letters_to_list(list, str):
+    '''This function converts a string 'str' to a list and appends
+    the letters of the string to the list 'list'.'''
+    letters = list(str)
+    list.append(letters)
+</code></pre>
+
+
+
+
+</li>
+
+</ol></li>
+<li><p>[<b>10</b>] Write a sentence or two explaining why the following code:</p><pre><code>a = 10
+b = 20
+c = b + a
+a = 30
+print c
+</code></pre><p>prints <code>30</code> and not <code>50</code>.</p>
+</li>
+<li><p>[<b>20</b>] Consider the following two functions:</p><pre><code>def add_and_double_1(x, y, z):
+    result = 2 * (x + y + z)
+    return result
+
+def add_and_double_2(x, y, z):
+    result = 2 * (x + y + z)
+    print result
+</code></pre><p>Now let's say that you wanted to use the result of these functions somewhere
+else in your program.   Explain why this would work:</p><pre><code>n = 2 * add_and_double_1(1, 2, 3)
+</code></pre><p>and why this would not work:</p><pre><code>n = 2 * add_and_double_2(1, 2, 3)
+</code></pre><p>Write a sentence or two explaining the difference between printing a result
+and returning a result from a function.</p>
+</li>
+<li><p>[<b>20</b>] Consider the following two functions:</p><pre><code>def sum_of_squares_1(x, y):
+    result = x * x + y * y
+    return result
+
+def sum_of_squares_2():
+    x = int(raw_input('Enter x: '))
+    y = int(raw_input('Enter y: '))
+    result = x * x + y * y
+    return result
+</code></pre><p>Now let's say that you wanted to use the result of these functions somewhere
+else in your program.   Explain why this would work:</p><pre><code>n = 2 * sum_of_squares_1(2, 3)
+</code></pre><p>and why this would not work:</p><pre><code>n = 2 * sum_of_squares_2(2, 3)
+</code></pre><p>Write a sentence or two explaining the difference between passing a value as
+an argument to a function and getting it interactively using
+<code>raw_input</code>.</p>
+</li>
+<li><p>[<b>10</b>] Why won't this function work?</p><pre><code>def capitalize(s):
+    '''This function capitalizes the first letter of the string 's'.'''
+    s[0] = s[0].upper()
+</code></pre>
+</li>
+<li><p>[<b>10</b>] Why won't this function work? <b>Warning:</b> This is a bit tricky.</p><pre><code>def double_list(lst):
+    '''This function doubles each element in a list in-place.'''
+    for item in lst:
+        item *= 2
+</code></pre>
+</li>
+
+</ol>
+<hr>
+<h2>Part D: Miniproject: The game of Mastermind</h2>
+<p>Mastermind is a simple board game for two players.  The rules are listed
+<a href="http://en.wikipedia.org/wiki/Mastermind_%28board_game%29">here</a>, but here
+is a quick summary.  One player (the "codemaker") picks a secret code consisting
+of four <i>code pegs</i> which can be any of six colors (we'll use the colors red,
+green, blue, yellow, orange, and white, which we'll abbreviate as 'R', 'G', 'B',
+'Y', 'O', and 'W').  The order of the pegs is important, so a code of "RGBB" is
+not the same as a code of "BRGB".  Colors can be duplicated in a code, but they
+don't have to be.  The codemaker puts the four pegs representing his/her code in
+a secret location where the other player can't see them.  That player (the
+"codebreaker") tries to guess the code by laying down four code pegs that he/she
+thinks might be the correct code.  The codemaker compares the guess with the
+real code, and puts down zero to four <i>key pegs</i> which indicate how close the
+guess is to the solution.  For every code peg which is the correct color in the
+correct location, a black key peg is put down.  For every code peg which is a
+correct color but not in a correct location, a white peg is put down.  Victory
+occurs when four black pegs are put down, which means that all the code pegs in
+the guess are the same as those in the secret code.  The objective is to guess
+the code in as few moves as possible.</p><p>Here's an example of a sample game.  Let's say that the secret code was
+'ROOB' (Red, Orange, Orange, Blue).  We'll show the code pegs on the left and
+the key pegs on the right (as black ('b'), white ('w'), or blank ('-')).</p><pre><code>Guess    Result
+-----    ------
+
+RGBY     bw--   (R is in the correct location, B is not, other colors wrong)
+OOWW     bw--   (One O is in the right location, one isn't, other colors wrong)
+RBOR     bbw-
+RBBW     bw--
+RBOO     bbww   (All colors correct, but not in the right order)
+ROOB     bbbb   (All colors correct and in the right order; victory!)
+</code></pre><p>Your job will be to write a computer program to play Mastermind against you.
+The computer will be the codemaker and will choose a random code.  You will be
+the codebreaker.  The computer has to take your guesses and report how well you
+are doing.  An interaction with the computer will look like this:</p><pre><code>New game.
+Enter your guess: RGBW
+    Result: bw--
+Enter your guess: OOWW
+    Result: bw--
+Enter your guess: RBOR
+    Result: bbw-
+Enter your guess: RBBW
+    Result: bw--
+Enter your guess: RBOO
+    Result: bbww
+Enter your guess: ROOB
+    Result: bbbb
+Congratulations!  You cracked the code in 6 moves!
+</code></pre><p>We will build up to this in stages.  All of the code for this miniproject
+should be in a file called <code>lab2b.py</code>.  All of your functions should
+have docstrings in which you state what the function does, what the arguments
+mean, and what the return value represents.  Import whatever modules you need to
+solve the problems.</p><p>None of these functions need to be very long, so if you find yourself writing
+a lot of code for any function (say, more than 20 lines), you are probably going
+about the task the wrong way and need to speak to a TA.</p><ol>
+
+<li>
+ 
+<p>[<b>15</b>] Write a function called <code>make_random_code</code> which takes no arguments
+and returns a string of exactly four characters, each of which should be one of
+'R', 'G', 'B', 'Y', 'O', or 'W'.  You may find the <code>random.choice</code> function
+very useful for this problem.  Do:</p>
+
+<pre><code>&gt;&gt;&gt; help(random.choice)
+</code></pre>
+
+<p>from inside Python to learn more about it. (Make sure you <code>import</code> the
+<code>random</code> module first!)</p>
+
+
+
+
+</li>
+
+<li>
+ 
+<p>[<b>15</b>] Write a function called <code>count_exact_matches</code> which takes two
+arguments which are both strings of length 4 (you don't have to check this).  It
+returns the number of places where the two strings have the exact same letters
+at the exact same locations.  So if the two strings are identical, it would
+return 4; if the first and third letters of both strings are the same but the
+other two are different, it would return 2; and if none of the letters are the
+same at corresponding locations it would return 0.</p>
+
+<p><b>Examples:</b></p><pre><code>count_exact_matches('ABCD', 'ABCD')  # --&gt; 4
+count_exact_matches('ABCD', 'EFGH')  # --&gt; 0
+count_exact_matches('ABCD', 'BCDA')  # --&gt; 0  (not in the same locations in string)
+count_exact_matches('AXBX', 'AABB')  # --&gt; 2
+</code></pre>
+
+<p>Use a <code>for</code> loop, which should iterate over the indices of the string
+(<i>i.e.</i> the list <code>[0, 1, 2, 3]</code>).  Recall that you can access letters of a
+string using the same syntax you use to access elements of a list (because
+they're both sequences).</p>
+
+
+
+
+</li>
+
+<li>
+ 
+<p>[<b>30</b>] Write a function called <code>count_letter_matches</code> which is like
+<code>count_exact_matches</code> except that it doesn't care about what order the letters
+are in; it returns the number of letters of the two strings that are the same
+regardless of order.</p>
+
+<p><b>Examples:</b></p><pre><code>count_letter_matches('ABCD', 'ABCD')  # --&gt; 4
+count_letter_matches('ABCD', 'EFGH')  # --&gt; 0
+count_letter_matches('ABCD', 'BCDA')  # --&gt; 4  (the order doesn't matter)
+count_letter_matches('AXBX', 'AABB')  # --&gt; 2
+</code></pre>
+
+<p>This function is a bit tricky, so here are some hints.  Of course, you don't
+have to follow our hints; you can solve this problem any way you like as long as
+the solution isn't ridiculously long or convoluted.</p>
+
+<ol>
+
+<li><p>Convert the two strings into lists using the <code>list</code> built-in function before
+doing anything else.</p></li>
+
+<li><p>Go through one list character by character using a <code>for</code> loop.  For each
+character that is in the other list, increment a counter variable and then
+remove the character from the second list (not the list you are iterating over)
+using the <code>remove</code> method on lists.  Use the form <code>&lt;x&gt; in &lt;list&gt;</code> (see section
+B) to find out if a character is in a list.</p></li>
+
+<li><p>Once you have gone through the list, the counter variable is the answer.</p></li>
+
+</ol>
+
+
+
+
+</li>
+
+<li>
+ 
+<p>[<b>30</b>] Write a function called <code>compare_codes</code> which takes two arguments
+which are both strings of length 4.  The first argument is called <code>code</code> and
+will represent the secret code chosen by the codemaker.  The second argument is
+called <code>guess</code> and will represent the guess of the codebreaker.  The function
+will output a string of length four consisting only of the characters <code>'b'</code>,
+<code>'w'</code>, and <code>'-'</code> (for black, white, and blank key pegs).  This represents the
+key pegs <i>i.e.</i> the evaluation of the guess (so <code>'bbbb'</code> would be a perfect
+guess, <code>'wwww'</code> would mean all colors are correct but in the wrong order, and
+<code>'----'</code> would mean that no colors are correct).</p>
+
+<p>This function is the heart of the game.  Fortunately, if you've written the
+two previous functions correctly, writing this one is a piece of cake.  Here is
+the algorithm (solution method) you should use:</p>
+
+<ol>
+
+<li><p>The count of black pegs can be obtained just by calling the function
+<code>count_exact_matches</code>.</p></li>
+
+<li><p>The count of white pegs can be obtained by calling both the functions
+<code>count_letter_matches</code> and <code>count_exact_matches</code> and
+subtracting the result of the second function call from the first.</p></li>
+
+<li><p>The count of blank pegs is the difference between 4 and the sum of the
+count of black and white pegs.</p></li>
+
+</ol> 
+
+<p>You will need to take these three counts and create a string for the result.
+Make sure that the string includes the '<code>b</code>'s first, then the
+'<code>w</code>'s, then the '<code>-</code>'s.</p>
+
+<p>Note that this function doesn't print anything; it just returns a string.</p>
+
+<p><b>Examples:</b></p><pre><code>compare_codes('ABCD', 'ABCD')  # --&gt; 'bbbb'
+compare_codes('ABCD', 'EFGH')  # --&gt; '----'
+compare_codes('ABCD', 'BCDA')  # --&gt; 'wwww'
+compare_codes('AXBX', 'AABB')  # --&gt; 'bb--'
+compare_codes('ABDC', 'ABCD')  # --&gt; 'bbww'
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+ 
+<p>[<b>30</b>] Now we're ready to write the function that actually runs the game.
+It will be called <code>run_game</code>, and it will take no arguments.  When called, this
+function will do the following:</p>
+
+<ol>
+
+<li><p>Print "<code>New game.</code>".</p></li>
+
+<li><p>Select a secret code using the <code>make_random_code</code> function you
+defined above, and store this in a variable.</p></li>
+
+<li><p>Prompt the user for a guess using the <code>raw_input</code> function and
+the prompt string "<code>Enter your guess: </code>".</p></li> 
+
+<li><p>Evaluate how well the guess matches the stored code using the
+<code>compare_codes</code> function and print out the result in the format
+"<code>Result: &lt;result string&gt;</code>".</p></li>
+
+<li><p>If the result string is "<code>bbbb</code>", then the function will print
+"<code>Congratulations! You cracked the code in &lt;N&gt; moves!</code>" and exit (where <code>&lt;N&gt;</code>
+is the number of moves since the game began).  Otherwise, the function will go
+back to step 3 above.</p></li>
+
+</ol>
+
+<p>In other words, the interaction with the user should be the same as what was
+described above at the beginning of this section.  Here are a few hints:</p>
+
+<ol>
+
+<li><p>Every time the function asks for a guess, a counter which holds the number of
+moves should be incremented.</p></li>
+
+<li><p>Consider using an infinite loop (with a <code>while</code> statement) and a <code>break</code>
+statement inside the loop once the exit condition applies.</p></li>
+
+</ol>
+
+
+
+
+</li>
+
+<li>
+ 
+<p>[<b>15</b>] To make it easier for you to decide if your code is working
+correctly, we have written a "test suite" which will automatically test most of
+the above functions (all but the last one, to be exact).  This test suite is in
+a Python file called <code>lab2b_tests.py</code> and can be downloaded
+<a href="https://courses.caltech.edu/pluginfile.php/111761/mod_resource/content/3/lab2b_tests.py">here</a>.  Once you've downloaded it, you should put it in
+the same directory as your <code>lab2b.py</code> file and load it into WingIDE.  Then hit
+the "Run" button.  If all is well it will report that it ran 4 tests and it will
+print "OK".  If there is a test failure, it will report that as well and
+indicate which function failed.  If that happens, you have some bugs to fix!</p>
+
+<p>Note that even though there is nothing to hand in for this problem, we still
+require that you do it.  Good programmers get into the habit of testing their
+code thoroughly every time they write code.  Another way to say it is that code
+that has not been tested is wrong by definition.</p>
+
+
+
+
+</li>
+
+</ol>
+<hr>
+<font size="-1">Copyright (c) 2015, California Institute of
+  Technology. All rights reserved.<br>
+</font>
+
+
+
+</body></html>

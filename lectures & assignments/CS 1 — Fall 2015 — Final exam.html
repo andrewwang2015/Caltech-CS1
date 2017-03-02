@@ -1,0 +1,2253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0083)https://courses.caltech.edu/pluginfile.php/113235/mod_resource/content/7/final.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CS 1 — Fall 2015 — Final exam</title>
+<style type="text/css"> 
+.centered { text-align: center }
+blockquote {
+  margin: 1em 1em;
+  background-color: #d0d0d0;
+  border: 2px solid #000;
+  padding: 0em 1em;
+}
+pre           { color: #0000bb }
+code          { color: #0000bb }
+div.solution  { color: #006644 }
+code.solution { color: #006644 }
+pre.solution  { color: #006644 }
+p.solution    { color: #006644 }
+b.solution    { color: #006644 }
+h3.solution   { color: #006644 }
+h3.warning    { color: #ff0000 }
+p.warning     { color: #ff0000 }
+h3.gradingNotes  { color: #008090 }
+div.gradingNotes { color: #0080a0 }
+span.interact { color: #007700 }
+</style>
+<style type="text/css"></style></head>
+<body>
+<div class="centered">
+<h1>CS 1: Introduction To Computer Programming, Fall 2015</h1>
+<h2>Final exam</h2>
+<p><b>Due:</b> <em>Friday, December 11, 09:00:00</em></p>
+</div>
+
+<hr>
+<h2>General notes</h2>
+<p>This exam is one large miniproject.  You will implement a working version of
+the "color game", which is described below.  The mark value of each individual
+problem is written in boldface at the beginning of the problem description.</p><p>As is typical for CS 1 final exams, the descriptions of some of the problems
+are quite long but the code you have to write isn't.  Don't be scared by long
+problem descriptions; we're just trying to make sure that you understand
+<em>exactly</em> what we want.  Most of the functions or methods you need to write
+requires less than about 25 lines of code (not counting comments and
+docstrings), and those that don't can easily be made into smaller functions by
+defining some helper functions or methods.  Conversely, you shouldn't start
+writing your code until you have read the <em>entire</em> exam.</p><p>Since there is no time limit on this exam, we expect that you will spend time
+debugging the code and that it will actually work!  Don't spend a ridiculous
+amount of time on the exam, but do your best to make it work correctly.</p>
+<hr>
+<h2>Template code and other supplied files</h2>
+<p>We are providing you with two template files:</p><ul>
+<li><p><a href="https://courses.caltech.edu/pluginfile.php/113235/mod_resource/content/7/final.py"><code>final.py</code></a></p></li>
+<li><p><a href="https://courses.caltech.edu/pluginfile.php/113235/mod_resource/content/7/final_gui.py"><code>final_gui.py</code></a></p></li>
+</ul><p>You should download these files into the same directory in which you write
+your exam code.  You will be editing these files to produce your exam
+submissions.  You will have to replace lines of the form:</p><pre><code>    pass # TODO
+</code></pre><p>in the two files (<code>final.py</code> and <code>final_gui.py</code>) with code that
+accomplishes various tasks, as described below.  The entire amount of code you
+need to add should be no more than about 250 lines.  If you find that you need
+to write very long functions or methods, you are doing something wrong (or at
+least unnecessary).  Remember that you can always break up parts of long
+functions/methods into smaller helper functions/methods (which is good design
+anyway, as we've talked about in class).</p><p>The bulk of the code you need to write will be the implementation of a class
+called <code>ColorGame</code>.  This class is in the file <code>final.py</code>.  The rest of the
+code is in the class <code>ColorGameGUI</code> which is in the file <code>final_gui.py</code>.</p><p>We are also supplying you with a number of files containing board puzzles in
+a zip file called <a href="https://courses.caltech.edu/pluginfile.php/113235/mod_resource/content/7/boards.zip">boards.zip</a>.  You should download this file
+and unzip it in the directory in which you are developing your code.  You can
+load the puzzles in the board files (one puzzle per file) and use them to test
+your code.  In the zipfile we are also supplying a number of invalid board files
+that should all cause your code to raise <code>LoadError</code> exceptions; these files
+are named <code>bad_board1</code>, <code>bad_board2</code> <em>etc.</em>  Please test your code on these
+files too!</p><p>Other than the <code>boards.zip</code> file, we are not supplying you with test scripts
+for this exam, so you will need to manually test your program yourself to make
+sure that it works.  You are also encouraged to run the examples below and
+check that your program generates the same output.  All the board files used
+below are in the <code>boards.zip</code> file too.</p>
+<hr>
+<h2>What to hand in</h2>
+<p>Submit the completed files <code>final.py</code> and <code>final_gui.py</code> to <a href="http://csman.cms.caltech.edu/">csman</a> as
+usual.  Make sure you use these <em>exact</em> names.  Do not submit any other files,
+except that if you are doing the optional Honor Roll problems (see below), you
+will need to submit additional files (see below).</p><p>The first two lines of each file you submit should be comments in which you
+write your full name (first and last names) as well as your CMS cluster login
+name.  Below that there are some <code>import</code> lines for importing various modules.
+You should leave in the <code>import</code> lines we've supplied, but you can add more
+imports if you like.  Don't put <code>import</code> statements anywhere else in the file.</p>
+<hr>
+<h2>Miniproject: The color game</h2>
+<hr width="75%">
+<h3>Description of the game</h3>
+<p>You will be writing two programs to implement a solitaire puzzle game we're
+calling the "Color Game".  (Versions of this game exist on apps available for
+iPhones and Android phones under different names.)  One of the programs will
+provide a purely text-based interface to the game (and thus, the "colors" in the
+game won't be actual colors), but the other will implement a partial graphical
+interface, so that you will actually be able to see the colors in the Color Game
+in their full glory.  We hope that this will make the game more fun to play.</p><p>The game is both extremely simple and extremely challenging.  It consists of
+a board which is a two-dimensional grid of colored squares.  The actual pattern
+of colors varies from puzzle to puzzle (you will be writing code to load up
+puzzle descriptions from files).  The goal is to change some of the colors on
+the board so that every color on the board is the same.  The final color of all
+the board squares doesn't matter as long as they are all the same color.  In
+addition, it is very important to complete the game in as few moves as possible
+— this is what makes the game challenging.</p><p>A "move" in the game consists of specifying a row/column location of one of
+the squares on the board, together with a color that you would like the square
+to change to.  (If the square already has that color, that move is invalid.)
+So, for instance, a move might be "change the color of the square at row 2 and
+column 3 to red".  Note that we index rows and columns starting from 0, in
+accordance with computer science tradition.  When this move is made, the color
+of the specified square will change to the color specified, so in the case
+given, the color of the square at (row 2, column 3) will become red.  Now here
+is where the game becomes interesting!  If there are any squares that are
+orthogonally adjacent to the specified square that are also of the same original
+color (so if there are any squares orthogonally adjacent to the square at
+(row 2, column 3) with the same color as the original color of the square at
+(row 2, column 3), <em>their</em> color changes to red too.  Then if there are any
+neighboring squares of <em>these</em> squares that have the same original color, they
+change to red too, and so on until there are no more adjacent squares with the
+original color.  In other words, the color change "percolates" to adjacent
+colors that have the same starting color until all connected squares of that
+color have changed to the new color.</p><p>When we say "orthogonally adjacent squares" we mean squares that are touching
+the original square on one edge.  This means that they must be either in the
+same row or column as the original square. If they are in the same row,
+their column index must be one more or less than the original square; if they
+are in the same column, their row index must be one more or less than the
+original square.  So a square at (row, column) coordinates (2, 3) has the
+orthogonally adjacent neighbors at (1, 3), (3, 3), (2, 2) and (2, 4).  You can't
+wrap around the board, so a square at (row, column) coordinates (0, 4) has the
+orthogonally adjacent neighbors at (1, 4), (0, 3) and (0, 5) only.  Corner
+squares have only two adjacent neighbors.  Diagonally-adjacent squares don't
+count!</p><p>Each puzzle has a "target" number of moves that the puzzle is solvable in.
+Normally, this should be the minimum possible number of moves that the puzzle is
+solvable in, but we won't assume that this is always the case.  If you solve the
+puzzle in this number of moves or less, you win!  If you solve the puzzle in one
+more move than the target number, you "draw".  If you solve the puzzle in two or
+more moves than the target number, you lose!  Note that it's always possible to
+flip all the squares on the board to a single color if you use enough moves; the
+challenge is doing it in as few moves as possible.</p><p>Below we will show you some sample games played through the text-based
+interface, which will clarify exactly how the game works if you still aren't
+sure.</p><hr width="75%">
+<h3>Program usage and example output</h3>
+<p>Here is a sample run of the program.  A small puzzle called <code>board4</code> is
+loaded from a directory called <code>boards</code> and the game is played.  The player
+initially makes a few invalid moves, which are flagged as invalid by the game
+(though no explanation is given of why they are invalid).  Then the player makes
+some bad moves, which he or she undoes with the <code>u</code> command, and then finally
+gets a solution in the optimal number of moves (5).</p><p>We've colored user input green for clarity.  Obviously, when running this
+from the terminal, you won't see any colors.  Also, note that the "colors" of
+the board squares are represented as either lower-case letters from <code>"a"</code> to
+<code>"e"</code> or the dot character <code>"."</code>.  The dot character is to make the boards
+easier to read and can be thought of as a "background" color.  For this
+particular puzzle, the final color of the board squares will be the color
+<code>"a"</code>.</p><p>Note that making a move increments a move count; conversely, undoing a move
+decrements the move count and returns us to the previous board.</p><p>Try to figure out why the moves flagged as invalid below are invalid based on
+the rules we've given above.</p><pre><code>% <span class="interact">python final.py</span>
+Command: <span class="interact">l boards/board4</span>
+
+     012345
+   +-------
+ 0 | .abbcc
+ 1 | .aabbc
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 0
+TARGET: 5
+
+Command: <span class="interact">m 5 4 f</span>
+invalid move: (5, 4, f)
+Command: <span class="interact">m 5 10 .</span>
+invalid move: (5, 10, .)
+Command: <span class="interact">m 5 5 .</span>
+invalid move: (5, 5, .)
+Command: <span class="interact">m 5 5 d</span>
+
+     012345
+   +-------
+ 0 | .abbcc
+ 1 | .aabbc
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddeedd
+ 6 | dddeed
+
+
+MOVES: 1
+TARGET: 5
+
+Command: <span class="interact">u</span>
+
+     012345
+   +-------
+ 0 | .abbcc
+ 1 | .aabbc
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 0
+TARGET: 5
+
+Command: <span class="interact">m 0 5 a</span>
+
+     012345
+   +-------
+ 0 | .abbaa
+ 1 | .aabba
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 1
+TARGET: 5
+
+Command: <span class="interact">m 0 2 .</span>
+
+     012345
+   +-------
+ 0 | .a..aa
+ 1 | .aa..a
+ 2 | ..aa..
+ 3 | d..aa.
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 2
+TARGET: 5
+
+Command: u
+
+     012345
+   +-------
+ 0 | .abbaa
+ 1 | .aabba
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 1
+TARGET: 5
+
+Command: <span class="interact">m 0 2 a</span>
+
+     012345
+   +-------
+ 0 | .aaaaa
+ 1 | .aaaaa
+ 2 | ..aaaa
+ 3 | d..aaa
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 2
+TARGET: 5
+
+Command: <span class="interact">m 5 2 .</span>
+
+     012345
+   +-------
+ 0 | .aaaaa
+ 1 | .aaaaa
+ 2 | ..aaaa
+ 3 | d..aaa
+ 4 | d...aa
+ 5 | dd....
+ 6 | ddd...
+
+
+MOVES: 3
+TARGET: 5
+
+Command: <span class="interact">m 6 0 .</span>
+
+     012345
+   +-------
+ 0 | .aaaaa
+ 1 | .aaaaa
+ 2 | ..aaaa
+ 3 | ...aaa
+ 4 | ....aa
+ 5 | ......
+ 6 | ......
+
+
+MOVES: 4
+TARGET: 5
+
+Command: <span class="interact">m 6 0 a</span>
+
+     012345
+   +-------
+ 0 | aaaaaa
+ 1 | aaaaaa
+ 2 | aaaaaa
+ 3 | aaaaaa
+ 4 | aaaaaa
+ 5 | aaaaaa
+ 6 | aaaaaa
+
+
+MOVES: 5
+TARGET: 5
+
+RESULT: WIN
+Enter filename to save to, or 'q' to quit: <span class="interact">board4.solution</span>
+</code></pre><p>At the end, a new file called <code>board4.solution</code> will be created that
+contains the following game history:</p><pre><code>
+     012345
+   +-------
+ 0 | .abbcc
+ 1 | .aabbc
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 0
+TARGET: 5
+
+
+MOVE: a at (0, 5)
+
+
+     012345
+   +-------
+ 0 | .abbaa
+ 1 | .aabba
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 1
+TARGET: 5
+
+
+MOVE: a at (0, 2)
+
+
+     012345
+   +-------
+ 0 | .aaaaa
+ 1 | .aaaaa
+ 2 | ..aaaa
+ 3 | d..aaa
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 2
+TARGET: 5
+
+
+MOVE: . at (5, 2)
+
+
+     012345
+   +-------
+ 0 | .aaaaa
+ 1 | .aaaaa
+ 2 | ..aaaa
+ 3 | d..aaa
+ 4 | d...aa
+ 5 | dd....
+ 6 | ddd...
+
+
+MOVES: 3
+TARGET: 5
+
+
+MOVE: . at (6, 0)
+
+
+     012345
+   +-------
+ 0 | .aaaaa
+ 1 | .aaaaa
+ 2 | ..aaaa
+ 3 | ...aaa
+ 4 | ....aa
+ 5 | ......
+ 6 | ......
+
+
+MOVES: 4
+TARGET: 5
+
+
+MOVE: a at (6, 0)
+
+
+     012345
+   +-------
+ 0 | aaaaaa
+ 1 | aaaaaa
+ 2 | aaaaaa
+ 3 | aaaaaa
+ 4 | aaaaaa
+ 5 | aaaaaa
+ 6 | aaaaaa
+
+
+MOVES: 5
+TARGET: 5
+
+</code></pre><p>Notice that the moves that got undone are <em>not</em> part of the game history;
+only the moves that lead to the final solution.</p><p>Here's another puzzle with a less successful outcome:</p><pre><code>% <span class="interact">python final.py</span>
+Command: <span class="interact">l boards/board8</span>
+
+     0123456789
+   +-----------
+ 0 | ..........
+ 1 | ......aaa.
+ 2 | ......a.a.
+ 3 | .bbbbba.a.
+ 4 | .b...baaa.
+ 5 | .b...b....
+ 6 | .b.ccbccc.
+ 7 | .bbcbb..c.
+ 8 | ...c....c.
+ 9 | .aacaaa.c.
+10 | .a.c..a.c.
+11 | .a.c..a.c.
+12 | .a.cccacc.
+13 | .a....a...
+14 | .aaaaaa...
+15 | ..........
+
+
+MOVES: 0
+TARGET: 3
+
+Command: <span class="interact">m 6 3 b</span>
+
+     0123456789
+   +-----------
+ 0 | ..........
+ 1 | ......aaa.
+ 2 | ......a.a.
+ 3 | .bbbbba.a.
+ 4 | .b...baaa.
+ 5 | .b...b....
+ 6 | .b.bbbccc.
+ 7 | .bbbbb..c.
+ 8 | ...b....c.
+ 9 | .aabaaa.c.
+10 | .a.b..a.c.
+11 | .a.b..a.c.
+12 | .a.bbbacc.
+13 | .a....a...
+14 | .aaaaaa...
+15 | ..........
+
+
+MOVES: 1
+TARGET: 3
+
+Command: <span class="interact">m 14 1 b</span>
+
+     0123456789
+   +-----------
+ 0 | ..........
+ 1 | ......aaa.
+ 2 | ......a.a.
+ 3 | .bbbbba.a.
+ 4 | .b...baaa.
+ 5 | .b...b....
+ 6 | .b.bbbccc.
+ 7 | .bbbbb..c.
+ 8 | ...b....c.
+ 9 | .bbbbbb.c.
+10 | .b.b..b.c.
+11 | .b.b..b.c.
+12 | .b.bbbbcc.
+13 | .b....b...
+14 | .bbbbbb...
+15 | ..........
+
+
+MOVES: 2
+TARGET: 3
+
+Command: <span class="interact">m 6 8 a</span>
+
+     0123456789
+   +-----------
+ 0 | ..........
+ 1 | ......aaa.
+ 2 | ......a.a.
+ 3 | .bbbbba.a.
+ 4 | .b...baaa.
+ 5 | .b...b....
+ 6 | .b.bbbaaa.
+ 7 | .bbbbb..a.
+ 8 | ...b....a.
+ 9 | .bbbbbb.a.
+10 | .b.b..b.a.
+11 | .b.b..b.a.
+12 | .b.bbbbaa.
+13 | .b....b...
+14 | .bbbbbb...
+15 | ..........
+
+
+MOVES: 3
+TARGET: 3
+
+Command: <span class="interact">m 1 8 b</span>
+
+     0123456789
+   +-----------
+ 0 | ..........
+ 1 | ......bbb.
+ 2 | ......b.b.
+ 3 | .bbbbbb.b.
+ 4 | .b...bbbb.
+ 5 | .b...b....
+ 6 | .b.bbbaaa.
+ 7 | .bbbbb..a.
+ 8 | ...b....a.
+ 9 | .bbbbbb.a.
+10 | .b.b..b.a.
+11 | .b.b..b.a.
+12 | .b.bbbbaa.
+13 | .b....b...
+14 | .bbbbbb...
+15 | ..........
+
+
+MOVES: 4
+TARGET: 3
+
+Command: <span class="interact">m 12 1 a</span>
+
+     0123456789
+   +-----------
+ 0 | ..........
+ 1 | ......aaa.
+ 2 | ......a.a.
+ 3 | .aaaaaa.a.
+ 4 | .a...aaaa.
+ 5 | .a...a....
+ 6 | .a.aaaaaa.
+ 7 | .aaaaa..a.
+ 8 | ...a....a.
+ 9 | .aaaaaa.a.
+10 | .a.a..a.a.
+11 | .a.a..a.a.
+12 | .a.aaaaaa.
+13 | .a....a...
+14 | .aaaaaa...
+15 | ..........
+
+
+MOVES: 5
+TARGET: 3
+
+Command: <span class="interact">m 0 0 a</span>
+
+     0123456789
+   +-----------
+ 0 | aaaaaaaaaa
+ 1 | aaaaaaaaaa
+ 2 | aaaaaaa.aa
+ 3 | aaaaaaa.aa
+ 4 | aa...aaaaa
+ 5 | aa...aaaaa
+ 6 | aa.aaaaaaa
+ 7 | aaaaaa..aa
+ 8 | aaaa....aa
+ 9 | aaaaaaa.aa
+10 | aa.a..a.aa
+11 | aa.a..a.aa
+12 | aa.aaaaaaa
+13 | aa....aaaa
+14 | aaaaaaaaaa
+15 | aaaaaaaaaa
+
+
+MOVES: 6
+TARGET: 3
+
+Command: <span class="interact">m 0 0 .</span>
+
+     0123456789
+   +-----------
+ 0 | ..........
+ 1 | ..........
+ 2 | ..........
+ 3 | ..........
+ 4 | ..........
+ 5 | ..........
+ 6 | ..........
+ 7 | ..........
+ 8 | ..........
+ 9 | ..........
+10 | ..........
+11 | ..........
+12 | ..........
+13 | ..........
+14 | ..........
+15 | ..........
+
+
+MOVES: 7
+TARGET: 3
+
+RESULT: LOSE
+</code></pre><p>Oh well, you can't win them all.  The game doesn't prompt you to save games
+that you lost; only games you won or drew.</p><hr width="75%">
+<h3>Data structures</h3>
+
+<h4>The board</h4>
+<p>As this game is a board game, the primary data structure is the board data
+structure.  This is actually quite simple: a board is just a list of lists of
+characters, where each character represents a color.  We use the letters
+<code>'.abcde'</code> (the characters <code>'a'</code> to <code>'e'</code> as well as the dot <code>'.'</code>) to
+represent "colors".  Each color character doesn't necessarily correspond to any
+actual color, but you will be able to set such a correspondence in the last part
+of the exam.  Each sublist of the board represents a row, and the items in the
+row represent locations (squares) on the board at particular columns in the
+row.</p>
+<h4>Moves</h4>
+<p>A move is represented as a three-tuple (<em>i.e.</em> a tuple with three components),
+which represent the row and column of the square being modified, as well as the
+color (a single character as described above) which is what you want the
+square's color to become.  For instance, the move <code>(4, 1, 'a')</code> means to change
+the color of the board square at row 4, column 1 to the color <code>'a'</code>.</p>
+<h4>History</h4>
+<p>There will be a history field in one of the game objects described below,
+which will be a list of tuples, where each tuple is a (move, board) pair.  The
+move is a move made by the player, and the board is the board that resulted from
+the move.  The very first move in the very first (move, board) pair is just
+<code>False</code>, because the first board was loaded from a file and is not the result
+of a move.</p><hr width="75%">
+<h3>Programming guidelines and coding advice</h3>
+<p>Below we will describe all the functions/methods you need to write in detail,
+along with the number of marks each is worth.  When writing your solutions, it
+is extremely important that you write the functions/methods <em>exactly</em> as we ask
+you to.  For instance, you shouldn't change the names of any of the functions or
+methods or fields, and you should do things the way we tell you to, even if you
+think that it's not the most efficient or "right" way to do things.  The reason
+for this is that our test scripts will assume that all the names and
+functionalities are exactly as we describe below, and if your code doesn't pass
+the test scripts, you will lose marks.  When you are writing your own programs
+for yourself, you will have the freedom to do things the way you like, but for
+this exam, please do things our way.</p><p>In the descriptions below of methods you need to write, we sometimes say
+"this method doesn't take any arguments".  By this we mean that it only takes
+the <code>self</code> argument.  Similarly, when we say "this method takes one argument"
+we mean it takes one argument in addition to the <code>self</code> argument, and similarly
+for methods that take more arguments.</p><p>If you find the code in any method getting too long, consider writing one or
+more helper functions and/or helper methods to handle parts of the work, and
+then using them in the original method.  Tip: If a method gets to be more than
+about 30 lines long, you probably could use some helper functions/methods.</p><p>Some of the methods we describe below (<code>adjacentLocations</code> and
+<code>isLegalMove</code>, for instance) are themselves helper methods for other methods
+that implement the core functionality of the game.  You should use these methods
+where appropriate in the rest of the code and not re-implement their
+functionality in other methods (which violates the D.R.Y. principle).</p><hr width="75%">
+<h3>Part A: The <code>ColorGame</code> class</h3>
+<p>For this part of the exam, you will complete a class called <code>ColorGame</code>
+which will actually implement the color game described above.  This class will
+implement the text-based interface shown in the example games above. The maximum
+total number of marks you can get from this section is 12.0 marks.</p><p>Here are the methods of this class, along with their point values (for
+methods you need to implement yourself).  Methods marked <strong>[supplied]</strong> are
+already implemented in the template <code>final.py</code> file as part of the <code>ColorGame</code>
+class, so you don't have to implement or modify them yourself (and you
+<em>shouldn't</em> modify them, even if you think you can improve them!).  There are
+10 methods you need to implement for this class.  Each method has its point
+value listed in its description below.  Some of these methods raise various
+exceptions (<code>LoadError</code>, <code>SaveError</code>, <code>MoveError</code>) in certain circumstances
+which are described below.  You do not need to catch these exceptions; the
+exception-handling code is included as part of the <code>play</code> method, which is
+supplied for you.  Similarly, the implementation of the exception classes is
+provided in the template file.  However, you are responsible for raising
+exceptions appropriately as indicated below.</p><p>You are free to implement extra methods if you like (and strongly encouraged
+to do so!), but make sure that all the methods described below exist and have
+the correct behaviors.  <b>Do not change the names of any of these methods!</b>
+The test scripts depend on the methods having these exact names.  <b>Misnamed
+methods will get no credit.</b></p>
+<h4>Methods to implement</h4>
+<ul>
+
+<li>
+
+<p><strong>[supplied]</strong> <code>__init__</code></p>
+
+<p>The constructor method creates and initializes the fields of the object,
+(mostly by calling the <code>reset</code> method (see below)).  These fields include:</p>
+
+<ul>
+
+<li><p><code>ok_colors</code>: A string whose characters represent the allowable "colors" on
+the board.  The allowable colors are the characters in the string <code>'.abcde'</code>.
+We normally use <code>'.'</code> for the "background" color, by which we mean the color
+that occupies the most squares at the beginning of the puzzle.  This is
+convenient when trying to read the printed representation of boards.  The
+letters <code>'a'</code> through <code>'e'</code> and <code>'.'</code> do not represent specific real colors,
+but they can be mapped to any six distinct colors when displaying the game
+graphically (see the next section).</p></li>
+
+<li>
+ 
+<p><code>status</code>: This is a string which represents the status of the game.  The
+valid statuses are:</p>
+
+<ul>
+
+<li><code>'ONGOING'</code> — this means that the game is still in progress (the board
+has not been reduced to a single color yet)</li>
+
+<li><code>'WON'</code> — this means that the game has been won (solved in the designated
+number of moves)</li>
+
+<li><code>'DRAW'</code> — this means that the game has been solved in one more than the
+designated number of moves</li>
+
+<li><code>'LOSE'</code> — this means that the game has been solved in at least two more
+moves than the designated number of moves</li>
+
+</ul>
+
+</li>
+
+<li><p><code>nrows</code>: This is a positive integer which represents the number of rows
+on the board.</p></li>
+
+<li><p><code>ncols</code>: This is a positive integer which represents the number of columns on
+the board.</p></li>
+
+<li><p><code>target</code>: This is a non-negative integer which represents the total number of
+moves that it should take to solve the currently-loaded puzzle.</p></li>
+
+<li><p><code>board</code>: This is a list of lists of characters which represents the state of
+the board.  Each square on the board is represented by a location in the list of
+lists, and it should contain a single character (<em>i.e.</em> a one-character string)
+which represents the color of the square.</p></li>
+
+<li><p><code>nmoves</code>: This is a non-negative integer which represents the number of moves
+that have been made in the game so far.</p></li>
+
+<li><p><code>history</code>: This is a list of (move, board) pairs as described above.</p></li>
+
+</ul>
+
+<p>Do not modify this method.  In particular, don't change the names of any of
+these fields, as the test code depends on them having the correct names.</p>
+
+</li>
+
+<li>
+
+<p><strong>[supplied]</strong> <code>reset</code></p>
+
+<p>This method takes no arguments and returns nothing.  It sets most of the
+fields of the <code>ColorGame</code> object to default values.  This is normally called
+before loading a new board from a file.</p>
+
+</li>
+
+<li>
+ 
+<p><strong>[2.0]</strong> <code>load</code></p>
+
+<p>This method takes a single argument, which is a filename (or a file path <em>e.g.</em>
+something like <code>'boards/board1'</code>; Python can handle these as easily as a
+filename).  It opens the given file and reads (loads) a board description from
+the file, checking for errors along the way.  Any error will cause the method to
+raise a <code>LoadError</code> exception with an appropriate error message.  This method
+doesn't return anything.</p>
+
+<p>The file format of a file to be loaded consists of a single line which we
+call the "header line", followed by lines representing rows on the board, which
+show the initial colors of all the squares in the row.  The header line contains
+exactly three integers.  The first two (which must be &gt;= 1) represent the number
+of rows and columns, respectively.  The last (which must be &gt;= 0) is the target
+number of moves (which should be the minimum number of moves needed to change
+the board into a board with only one color).  The following lines represent rows
+on the board.  There should be the correct number of these (equal to the first
+number in the header line), and each line should contains a number of characters
+equal to the number of columns (the second number in the header line); this
+doesn't include the newline character at the end of the line.  Each line's
+characters (apart from the newline at the end) should only consist of some or
+all of the characters in the string <code>'.abcde'</code>.</p>
+
+<p>Again, all loading errors must give rise to a <code>LoadError</code> exception with a
+relevant error message.  Possible errors include:</p>
+
+<ul>
+
+<li><p>The file doesn't exist.  Catch the <code>IOError</code> exception and raise a
+<code>LoadError</code> exception with a good error message.</p></li>
+
+<li><p>The header line doesn't contain exactly three integers, or some of the
+integers are out of the given ranges.</p></li>
+
+<li><p>The number of rows in the file are incorrect (different from what was given in
+the header line).</p></li>
+
+<li><p>One or more of the rows in the file have the wrong number of columns (the
+wrong number of characters <em>i.e.</em> different from what was given in the header
+line, not counting the newline character at the end).</p></li>
+
+<li><p>One or more of the characters in a row line are not in the string
+<code>'.abcde'</code>.</p></li>
+
+</ul>
+
+<p>Once the method is done, the object's fields <code>nrows</code>, <code>ncols</code>, <code>target</code>,
+and <code>board</code> will be filled with the values specified in the file.  The <code>board</code>
+field will be a list of lists of one-character strings, where each sublist
+represents a row and each one-character string in a row represents the color of
+a single square on the board.  <strong>Do not represent an entire row as a string!</strong></p>
+
+<p>In addition, the <code>history</code> field will become a list of one (move, board)
+tuple; in this case the move is just <code>False</code> because there hasn't been a move
+yet, but the board is a copy of the initial board stored in the <code>board</code> field.
+To copy the board, use the <code>copy.deepcopy</code> method (the template file imports
+the <code>copy</code> module, so you can use this), which ensures that there is no
+aliasing (in other words, the original board and the copy will not share any
+parts, so changing one won't affect the other).</p>
+
+<p>Also, please (re)set the <code>nmoves</code> and <code>status</code> fields to their default
+values after a <code>load</code>.</p>
+
+<p>This method can be pretty long if you attempt to do everything in one big
+method.  We recommend that you define one or more "helper methods" to do parts
+of the work.  For instance, one such method could take care of reading the
+header line and extracting the number of rows, columns, and the target number of
+moves.  Another could be responsible for checking each row line to make sure
+it's valid.  You don't have to do this, but if you do it will make the code
+easier to understand and debug.</p>
+
+<p>To help you debug this method, we are supplying you with a number of invalid
+boards in the <code>boards.zip</code> file.  These all have names of the form
+<code>bad_boardX</code>, where <code>X</code> is a number.  You should interactively test your
+<code>load</code> method on each bad board to make sure that loading them results in a
+<code>LoadError</code> exception with the right error message.  (We will be checking for
+this with our test scripts!)</p>
+
+<p><b>Examples:</b></p>
+<p>In the examples, we'll assume a game object called <code>game</code> has been created.
+First we'll try to load the following (correct) board file (which is the file
+<code>boards/board4</code> in the <code>boards.zip</code> collection):</p>
+
+<pre><code>7 6 5
+.abbcc
+.aabbc
+..aabb
+d..aab
+d...aa
+ddee..
+dddee.
+</code></pre>
+
+<p>The first line states that the board has 7 rows, 6 columns, and can be solved
+in 5 moves.  Each other line is one row of the board, and the letters are the
+colors of the corresponding squares.  Here is what loading the file looks like
+(with some formatting added for readability):</p>
+
+<pre><code>&gt;&gt;&gt; <span class="interact">game</span>
+&lt;__main__.ColorGame instance at 0x7fa73eaac170&gt;
+&gt;&gt;&gt; <span class="interact">game.load('boards/board4')</span>
+&gt;&gt;&gt; <span class="interact">game.board</span>
+[['.', 'a', 'b', 'b', 'c', 'c'], 
+ ['.', 'a', 'a', 'b', 'b', 'c'], 
+ ['.', '.', 'a', 'a', 'b', 'b'], 
+ ['d', '.', '.', 'a', 'a', 'b'], 
+ ['d', '.', '.', '.', 'a', 'a'], 
+ ['d', 'd', 'e', 'e', '.', '.'], 
+ ['d', 'd', 'd', 'e', 'e', '.']]
+&gt;&gt;&gt; <span class="interact">game.nrows</span>
+7
+&gt;&gt;&gt; <span class="interact">game.ncols</span>
+6
+&gt;&gt;&gt; <span class="interact">game.target</span>
+5
+&gt;&gt;&gt; <span class="interact">game.history</span>
+[(False,
+  [['.', 'a', 'b', 'b', 'c', 'c'], 
+   ['.', 'a', 'a', 'b', 'b', 'c'], 
+   ['.', '.', 'a', 'a', 'b', 'b'], 
+   ['d', '.', '.', 'a', 'a', 'b'], 
+   ['d', '.', '.', '.', 'a', 'a'], 
+   ['d', 'd', 'e', 'e', '.', '.'], 
+   ['d', 'd', 'd', 'e', 'e', '.']])]
+&gt;&gt;&gt; <span class="interact">game.nmoves</span>
+0
+&gt;&gt;&gt; <span class="interact">game.status</span>
+'ONGOING'
+</code></pre>
+
+<p>Now consider loading the following invalid board file:</p>
+
+<pre><code>1 2
+.a
+</code></pre>
+
+<p>This is invalid because it doesn't give the target number of moves.  The
+result would be something like this:</p>
+
+<pre><code>&gt;&gt;&gt; <span class="interact">game.load('boards/bad_board1')</span>
+Traceback (most recent call last): ...
+__main__.LoadError: invalid number of items in first line: 1 2
+</code></pre>
+
+
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[2.0]</strong> <code>printBoard</code></p> 
+
+<p>This method takes two or three arguments (the last one is optional), prints
+out the board to either the terminal or a file, and returns nothing. The
+arguments are:</p>
+
+<ul>
+
+<li><p><code>board</code> — the board to print (often, but not necessarily, <code>self.board</code>
+when called from another method).</p></li>
+
+<li><p><code>nmoves</code> — the number of moves taken up to this point (often, but not
+necessarily, <code>self.nmoves</code> when called from another method).</p></li>
+
+<li><p><code>file</code> — the file to print the board to.  This is optional and defaults
+to <code>sys.stdout</code>, which is just the terminal.  Note that this argument is a
+Python file object, <em>not</em> a filename; the file has to have been opened already
+before it gets passed to this function.</p></li>
+
+</ul>
+
+<p>You might wonder why the <code>board</code> and <code>nmoves</code> arguments are necessary.
+Most of the time, they will be <code>self.board</code> and <code>self.nmoves</code> respectively,
+but in the <code>saveGameHistory</code> method, you will need to print out boards that are
+not the current board.  Similarly, the <code>file</code> argument is usually going to be
+the default value (which means to print to the terminal), but in
+<code>saveGameHistory</code> the board is printed to a file.</p>
+
+<p>In the example, we'll again assume a game object called <code>game</code> has been
+created.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; <span class="interact">game</span>
+&lt;__main__.ColorGame instance at 0x7f671f1df170&gt;
+&gt;&gt;&gt; <span class="interact">game.load('boards/board4')</span>
+&gt;&gt;&gt; <span class="interact">game.board</span>
+[['.', 'a', 'b', 'b', 'c', 'c'], 
+ ['.', 'a', 'a', 'b', 'b', 'c'], 
+ ['.', '.', 'a', 'a', 'b', 'b'], 
+ ['d', '.', '.', 'a', 'a', 'b'], 
+ ['d', '.', '.', '.', 'a', 'a'], 
+ ['d', 'd', 'e', 'e', '.', '.'], 
+ ['d', 'd', 'd', 'e', 'e', '.']]
+&gt;&gt;&gt; <span class="interact">game.nmoves</span>
+0
+&gt;&gt;&gt; <span class="interact">game.printBoard(game.board, game.nmoves)</span>
+
+     012345
+   +-------
+ 0 | .abbcc
+ 1 | .aabbc
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 0
+TARGET: 5
+
+</code></pre>
+
+<p>Notice that the method also prints out the number of moves played so far (the
+<code>nmoves</code> argument) and also the target number of moves (which is just
+<code>self.target</code>).</p>
+
+<p>For a different puzzle with a larger board of size 16 rows by 10 columns, the
+output might look like this:</p>
+
+<pre><code>
+     0123456789
+   +-----------
+ 0 | ..........
+ 1 | ..........
+ 2 | ..........
+ 3 | ..aaaaaa..
+ 4 | ..aaaaaa..
+ 5 | ..aaaaaa..
+ 6 | bbccccccbb
+ 7 | ..cccccc..
+ 8 | ..cccccc..
+ 9 | bbccccccbb
+10 | ..aaaaaa..
+11 | ..aaaaaa..
+12 | ..aaaaaa..
+13 | ..........
+14 | ..........
+15 | ..........
+
+
+MOVES: 0
+TARGET: 3
+
+</code></pre>
+
+<p>We want the format of the printout to be <em>exactly</em> as shown above.  You may
+assume that there will never be more than nine columns (or 99 rows), and of
+course you should only print out the columns/rows that are there.  Put the
+row/column indices as shown above, with all the spacing as it is in the diagram
+above.</p>
+
+<p><em>Hint</em>: You might want to use the <code>print &gt;&gt; file</code> syntax for printing to a
+file, or else use the <code>file.write</code> method.</p>
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[1.0]</strong> <code>saveGameHistory</code></p>
+
+<p>This method takes a single argument: the name of a file to save the game
+history to.  It opens the file, saves the contents of the <code>history</code> list of the
+object to the file, and returns nothing.  The items in the <code>history</code> list are
+(move, board) pairs, with the first move being <code>False</code>.  This method prints out
+the first board to the file using the <code>printBoard</code> method (see above); the
+dummy <code>False</code> move is not printed.  Then, for each subsequent (move, board)
+pair, it prints the move to the file in the following format:</p>
+
+<pre><code>MOVE: &lt;color&gt; at (&lt;row&gt;, &lt;column&gt;)
+</code></pre>
+
+<p>with appropriate substitutions for <code>&lt;color</code>, <code>&lt;row&gt;</code>, and <code>&lt;column&gt;</code>, of
+course.  Then it prints out the resulting board to the file (again using the
+<code>printBoard</code> method.</p>
+
+<p>The method must also keep track of the move number it's printing out so that
+the <code>printBoard</code> method gets the correct arguments (again, see above).</p>
+
+<p>Once the board history has been saved to the designated file, the file object
+is closed.  If something went wrong while saving (<em>e.g.</em> the save file couldn't be
+opened), the method catches the exception that is raised and raises a different
+<code>SaveError</code> exception with an appropriate error message.</p>
+
+<p>In the example, we'll again assume a game object called <code>game</code> has been
+created.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; <span class="interact">game</span>
+&lt;__main__.ColorGame instance at 0x7f9e18715170&gt;
+&gt;&gt;&gt; <span class="interact">game.board</span>
+[]
+&gt;&gt;&gt; <span class="interact">game.nmoves</span>
+0
+&gt;&gt;&gt; <span class="interact">game.history</span>
+[]
+&gt;&gt;&gt; <span class="interact">game.load('boards/board4')</span>
+&gt;&gt;&gt; <span class="interact">game.board</span>
+[['.', 'a', 'b', 'b', 'c', 'c'], 
+ ['.', 'a', 'a', 'b', 'b', 'c'], 
+ ['.', '.', 'a', 'a', 'b', 'b'], 
+ ['d', '.', '.', 'a', 'a', 'b'], 
+ ['d', '.', '.', '.', 'a', 'a'], 
+ ['d', 'd', 'e', 'e', '.', '.'], 
+ ['d', 'd', 'd', 'e', 'e', '.']]
+&gt;&gt;&gt; <span class="interact">game.nmoves</span>
+0
+&gt;&gt;&gt; <span class="interact">game.history</span>
+[(False, 
+  [['.', 'a', 'b', 'b', 'c', 'c'], 
+   ['.', 'a', 'a', 'b', 'b', 'c'], 
+   ['.', '.', 'a', 'a', 'b', 'b'], 
+   ['d', '.', '.', 'a', 'a', 'b'], 
+   ['d', '.', '.', '.', 'a', 'a'], 
+   ['d', 'd', 'e', 'e', '.', '.'], 
+   ['d', 'd', 'd', 'e', 'e', '.']])]
+&gt;&gt;&gt; <span class="interact">game.printBoard(game.board, game.nmoves)</span>
+
+     012345
+   +-------
+ 0 | .abbcc
+ 1 | .aabbc
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 0
+TARGET: 5
+
+&gt;&gt;&gt; <span class="interact">game.makeMove(0, 5, 'a')</span>
+&gt;&gt;&gt; <span class="interact">game.board</span>
+[['.', 'a', 'b', 'b', 'a', 'a'], 
+ ['.', 'a', 'a', 'b', 'b', 'a'], 
+ ['.', '.', 'a', 'a', 'b', 'b'], 
+ ['d', '.', '.', 'a', 'a', 'b'], 
+ ['d', '.', '.', '.', 'a', 'a'], 
+ ['d', 'd', 'e', 'e', '.', '.'], 
+ ['d', 'd', 'd', 'e', 'e', '.']]
+&gt;&gt;&gt; <span class="interact">game.nmoves</span>
+1
+&gt;&gt;&gt; <span class="interact">game.history</span>
+[(False, 
+  [['.', 'a', 'b', 'b', 'c', 'c'], 
+   ['.', 'a', 'a', 'b', 'b', 'c'], 
+   ['.', '.', 'a', 'a', 'b', 'b'], 
+   ['d', '.', '.', 'a', 'a', 'b'], 
+   ['d', '.', '.', '.', 'a', 'a'], 
+   ['d', 'd', 'e', 'e', '.', '.'], 
+   ['d', 'd', 'd', 'e', 'e', '.']]), 
+ ((0, 5, 'a'), 
+   [['.', 'a', 'b', 'b', 'a', 'a'], 
+    ['.', 'a', 'a', 'b', 'b', 'a'], 
+    ['.', '.', 'a', 'a', 'b', 'b'], 
+    ['d', '.', '.', 'a', 'a', 'b'], 
+    ['d', '.', '.', '.', 'a', 'a'], 
+    ['d', 'd', 'e', 'e', '.', '.'], 
+    ['d', 'd', 'd', 'e', 'e', '.']])]
+&gt;&gt;&gt; <span class="interact">game.printBoard(game.board, game.nmoves)</span>
+
+     012345
+   +-------
+ 0 | .abbaa
+ 1 | .aabba
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 1
+TARGET: 5
+
+&gt;&gt;&gt; <span class="interact">game.makeMove(0, 2, 'a')</span>
+&gt;&gt;&gt; <span class="interact">game.board</span>
+[['.', 'a', 'a', 'a', 'a', 'a'], 
+ ['.', 'a', 'a', 'a', 'a', 'a'], 
+ ['.', '.', 'a', 'a', 'a', 'a'], 
+ ['d', '.', '.', 'a', 'a', 'a'], 
+ ['d', '.', '.', '.', 'a', 'a'], 
+ ['d', 'd', 'e', 'e', '.', '.'], 
+ ['d', 'd', 'd', 'e', 'e', '.']]
+&gt;&gt;&gt; <span class="interact">game.nmoves</span>
+2
+&gt;&gt;&gt; <span class="interact">game.history</span>
+[(False, 
+  [['.', 'a', 'b', 'b', 'c', 'c'], 
+   ['.', 'a', 'a', 'b', 'b', 'c'], 
+   ['.', '.', 'a', 'a', 'b', 'b'], 
+   ['d', '.', '.', 'a', 'a', 'b'], 
+   ['d', '.', '.', '.', 'a', 'a'], 
+   ['d', 'd', 'e', 'e', '.', '.'], 
+   ['d', 'd', 'd', 'e', 'e', '.']]), 
+ ((0, 5, 'a'), 
+  [['.', 'a', 'b', 'b', 'a', 'a'], 
+   ['.', 'a', 'a', 'b', 'b', 'a'], 
+   ['.', '.', 'a', 'a', 'b', 'b'], 
+   ['d', '.', '.', 'a', 'a', 'b'], 
+   ['d', '.', '.', '.', 'a', 'a'], 
+   ['d', 'd', 'e', 'e', '.', '.'], 
+   ['d', 'd', 'd', 'e', 'e', '.']]), 
+ ((0, 2, 'a'), 
+   [['.', 'a', 'a', 'a', 'a', 'a'], 
+    ['.', 'a', 'a', 'a', 'a', 'a'], 
+    ['.', '.', 'a', 'a', 'a', 'a'], 
+    ['d', '.', '.', 'a', 'a', 'a'], 
+    ['d', '.', '.', '.', 'a', 'a'], 
+    ['d', 'd', 'e', 'e', '.', '.'], 
+    ['d', 'd', 'd', 'e', 'e', '.']])]
+&gt;&gt;&gt; <span class="interact">game.printBoard(game.board, game.nmoves)</span>
+
+     012345
+   +-------
+ 0 | .aaaaa
+ 1 | .aaaaa
+ 2 | ..aaaa
+ 3 | d..aaa
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 2
+TARGET: 5
+
+&gt;&gt;&gt; <span class="interact">game.saveGameHistory('board4.move2')</span>
+</code></pre>
+
+<p>Now, the contents of the file <code>board4.move2</code> are:</p>
+
+<pre><code>
+     012345
+   +-------
+ 0 | .abbcc
+ 1 | .aabbc
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 0
+TARGET: 5
+
+
+MOVE: a at (0, 5)
+
+
+     012345
+   +-------
+ 0 | .abbaa
+ 1 | .aabba
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 1
+TARGET: 5
+
+
+MOVE: a at (0, 2)
+
+
+     012345
+   +-------
+ 0 | .aaaaa
+ 1 | .aaaaa
+ 2 | ..aaaa
+ 3 | d..aaa
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 2
+TARGET: 5
+
+</code></pre>
+
+<p>The example above also shows how the <code>history</code> and <code>nmoves</code> fields evolve as the game
+progresses.</p>
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[0.5]</strong> <code>adjacentLocations</code></p>
+
+<p>This method takes two arguments: the row and column indices of a square on
+the board.  It returns a list of the (row, column) indices of all the
+orthogonally adjacent squares on the board.  (Orthogonally adjacent means
+adjacent but not diagonally adjacent, so either the row index or the column
+index have to be the same).  All (row, column) pairs in the list have to be
+valid board locations (not off the edge of the board).  Adjacency doesn't wrap
+around the edges of the board, so the square at (say) row 1, column 0 is not
+considered adjacent to the square at row 1, column 5.</p>
+
+<p>For the examples, assume we've loaded a board that looks like this:</p>
+
+<pre><code>     012345
+   +-------
+ 0 | .aaacc
+ 1 | .abacc
+ 2 | .abacc
+ 3 | dabacc
+ 4 | daba..
+ 5 | daba..
+ 6 | daba..
+ 7 | .aba..
+ 8 | .aaa..
+</code></pre>
+
+<p>and assume the game object is called <code>game</code>.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; <span class="interact">game.adjacentLocations(0, 0)</span>
+[(0, 1), (1, 0)]
+&gt;&gt;&gt; <span class="interact">game.adjacentLocations(0, 5)</span>
+[(0, 4), (1, 5)]
+&gt;&gt;&gt; <span class="interact">game.adjacentLocations(2, 2)</span>
+[(2, 1), (2, 3), (1, 2), (3, 2)]
+&gt;&gt;&gt; <span class="interact">game.adjacentLocations(5, 5)</span>
+[(5, 4), (4, 5), (6, 5)]
+</code></pre>
+
+<p>The order of the (row, column) pairs in the list doesn't matter.</p>
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[0.5]</strong> <code>isLegalMove</code></p>
+
+<p>This method takes three arguments: a row, a column, and a color (represented
+as a one-character string as described above.  Together these represent a
+potential move on the board.  The method returns <code>True</code> if the move is valid,
+or <code>False</code> if not.  For the move to be valid, the (row, column) coordinates
+must be integers in the correct ranges for the board.  The color must also be
+one of the colors currently on the game board (since allowing colors that are
+not on the game board could not result in a faster solution).</p>
+
+<p>Please check the types of the row and column arguments.  You don't need to
+check the type of the color argument, for what should be obvious reasons.</p>
+
+<p>For the examples, again assume we've loaded a board that looks like this:</p>
+
+<pre><code>     012345
+   +-------
+ 0 | .aaacc
+ 1 | .abacc
+ 2 | .abacc
+ 3 | dabacc
+ 4 | daba..
+ 5 | daba..
+ 6 | daba..
+ 7 | .aba..
+ 8 | .aaa..
+</code></pre>
+
+<p>and assume the game object is called <code>game</code>.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; <span class="interact">game.isLegalMove('foo', 'bar', 'baz')  # wrong types</span>
+False
+&gt;&gt;&gt; <span class="interact">game.isLegalMove(-1, 0, 'a')  # invalid location</span>
+False
+&gt;&gt;&gt; <span class="interact">game.isLegalMove(2, 0, '.')  # color '.' already in that location</span>
+False
+&gt;&gt;&gt; <span class="interact">game.isLegalMove(2, 0, 'e')  # color 'e' is not on the board</span>
+False
+&gt;&gt;&gt; <span class="interact">game.isLegalMove(2, 0, 'a')</span>
+True
+</code></pre>
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[4.0]</strong> <code>makeMove</code></p>
+
+<p>Now we get to the most important part of the game implementation: making a
+move!  This is also the trickiest method in the exam, which is why it's worth so
+many marks.</p>
+
+<p>This method takes three arguments: a row number, a column number, and a
+string of one letter representing a color.  It checks that the row number,
+column number, and color string are all valid on this board.  (Recall that a
+valid color is one which is one of the characters in the string <code>'.abcde'</code>,
+where at least one square on the board has that color, and where that color is
+not the color at the square at the specified (row, column) location.)  The
+method makes the move, updates the board according to the rules of the game,
+updates the number of moves, and finally updates the game history.  This method
+doesn't return anything.</p>
+
+<p>Here is how to update the colors on the board.  The method first changes the
+color of the square at the specified row or column to the new color.  Then it
+"propagates out" the color change to squares which are (orthogonally) adjacent
+to the original square that have the same color as the original color of the
+original square, then it propagates out the color change to squares adjacent to
+<em>these</em> new squares with the same original color, and so on until there are no
+more squares in the adjacent group with the original color.</p>
+
+<p>For instance, if the original color is color <code>'a'</code>, and you want to change
+it to color <code>'b'</code>, then change the square at the original location (which we'll
+call (r, c)) from <code>'a'</code> to <code>'b'</code>.  Then look for squares orthogonally adjacent
+to the square at (r, c) that have color <code>'a'</code> and change them to color <code>'b'</code>,
+and then look for squares adjacent to these squares which have color <code>'a'</code> and
+change them to color <code>'b'</code>, and so on until there are no more color changes to
+make.</p>
+
+<p>Note that only squares with the original color get changed to the new color.
+Also, for a square to change color, it must have been connected to the original
+square by a series of adjacent squares of the original color to start with.
+Squares of the original color that are not connected to the original square by a
+series of adjacent squares of the same color do not change color.  See the
+examples below and above for illustrations of how the propagation rule works,
+because it's really important that you understand it perfectly before
+proceeding.</p>
+
+<p>Orthogonal adjacency is computed the same way as in the <code>adjacentLocations</code>
+method (which is a hint).</p>
+
+<p>This is a good example of a method where writing some pseudocode would be
+useful.  Here are some hints as to how to handle the propagation.  You should
+have a list of (row, column) locations which are yet to be processed (<em>i.e.</em> which
+will eventually change color but haven't changed color yet).  There should be a
+loop which exits when there are no more locations to process.  If there are
+still locations to process, remove one location from the list, change its color,
+find all locations adjacent to it that have the original color, and add them
+back to the list.  Then continue.  When adding locations back to the list, it
+doesn't matter where you add them, but for the code in part B, it will be better
+if you remove locations from one end of the list and add them back onto the
+other end.  This makes the list into a data structure known in computer science
+as a <em>queue</em>.  Queues have a lot of uses in programming, and hopefully you will
+learn all about them in CS 2.</p>
+
+<p><b>Examples:</b></p>
+<pre><code>&gt;&gt;&gt; <span class="interact">game</span>
+&lt;__main__.ColorGame instance at 0x7f6ff9d11170&gt;
+&gt;&gt;&gt; <span class="interact">game.load('boards/board4')</span>
+&gt;&gt;&gt; <span class="interact">game.board</span>
+[['.', 'a', 'b', 'b', 'c', 'c'], 
+ ['.', 'a', 'a', 'b', 'b', 'c'], 
+ ['.', '.', 'a', 'a', 'b', 'b'], 
+ ['d', '.', '.', 'a', 'a', 'b'], 
+ ['d', '.', '.', '.', 'a', 'a'], 
+ ['d', 'd', 'e', 'e', '.', '.'], 
+ ['d', 'd', 'd', 'e', 'e', '.']]
+&gt;&gt;&gt; <span class="interact">game.printBoard(game.board, game.nmoves)</span>
+
+     012345
+   +-------
+ 0 | .abbcc
+ 1 | .aabbc
+ 2 | ..aabb
+ 3 | d..aab
+ 4 | d...aa
+ 5 | ddee..
+ 6 | dddee.
+
+
+MOVES: 0
+TARGET: 5
+
+&gt;&gt;&gt; <span class="interact">game.makeMove(3, 0, '.')</span>
+&gt;&gt;&gt; <span class="interact">game.board</span>
+[['.', 'a', 'b', 'b', 'c', 'c'], 
+ ['.', 'a', 'a', 'b', 'b', 'c'], 
+ ['.', '.', 'a', 'a', 'b', 'b'], 
+ ['.', '.', '.', 'a', 'a', 'b'], 
+ ['.', '.', '.', '.', 'a', 'a'], 
+ ['.', '.', 'e', 'e', '.', '.'], 
+ ['.', '.', '.', 'e', 'e', '.']]
+&gt;&gt;&gt; <span class="interact">game.printBoard(game.board, game.nmoves)</span>
+
+     012345
+   +-------
+ 0 | .abbcc
+ 1 | .aabbc
+ 2 | ..aabb
+ 3 | ...aab
+ 4 | ....aa
+ 5 | ..ee..
+ 6 | ...ee.
+
+
+MOVES: 1
+TARGET: 5
+
+&gt;&gt;&gt; <span class="interact">game.makeMove(0, 2, 'c')</span>
+&gt;&gt;&gt; <span class="interact">game.board</span>
+[['.', 'a', 'c', 'c', 'c', 'c'], 
+ ['.', 'a', 'a', 'c', 'c', 'c'], 
+ ['.', '.', 'a', 'a', 'c', 'c'], 
+ ['.', '.', '.', 'a', 'a', 'c'], 
+ ['.', '.', '.', '.', 'a', 'a'], 
+ ['.', '.', 'e', 'e', '.', '.'], 
+ ['.', '.', '.', 'e', 'e', '.']]
+&gt;&gt;&gt; <span class="interact">game.printBoard(game.board, game.nmoves)</span>
+
+     012345
+   +-------
+ 0 | .acccc
+ 1 | .aaccc
+ 2 | ..aacc
+ 3 | ...aac
+ 4 | ....aa
+ 5 | ..ee..
+ 6 | ...ee.
+
+
+MOVES: 2
+TARGET: 5
+
+&gt;&gt;&gt; <span class="interact">game.makeMove('foo', 'bar', 'baz')</span>
+Traceback (most recent call last): ...
+__main__.MoveError: invalid move: (foo, bar, baz)
+&gt;&gt;&gt; game.makeMove(-1, 10, '.')
+Traceback (most recent call last): ...
+__main__.MoveError: invalid move: (-1, 10, .)
+&gt;&gt;&gt; game.makeMove(2, 2, 'z')
+Traceback (most recent call last): ...
+__main__.MoveError: invalid move: (2, 2, z)
+&gt;&gt;&gt; game.makeMove(2, 2, 'a')
+Traceback (most recent call last): ...
+__main__.MoveError: invalid move: (2, 2, a)
+&gt;&gt;&gt; game.makeMove(2, 2, 'd')
+Traceback (most recent call last): ...
+__main__.MoveError: invalid move: (2, 2, d)
+&gt;&gt;&gt; <span class="interact">game.makeMove(2, 2, 'c')</span>
+&gt;&gt;&gt; <span class="interact">game.board</span>
+[['.', 'c', 'c', 'c', 'c', 'c'], 
+ ['.', 'c', 'c', 'c', 'c', 'c'], 
+ ['.', '.', 'c', 'c', 'c', 'c'], 
+ ['.', '.', '.', 'c', 'c', 'c'], 
+ ['.', '.', '.', '.', 'c', 'c'], 
+ ['.', '.', 'e', 'e', '.', '.'], 
+ ['.', '.', '.', 'e', 'e', '.']]
+&gt;&gt;&gt; <span class="interact">game.printBoard(game.board, game.nmoves)</span>
+
+     012345
+   +-------
+ 0 | .ccccc
+ 1 | .ccccc
+ 2 | ..cccc
+ 3 | ...ccc
+ 4 | ....cc
+ 5 | ..ee..
+ 6 | ...ee.
+
+
+MOVES: 3
+TARGET: 5
+
+</code></pre>
+
+<p>Here, each invalid move is just identified as such, but if you want your
+error messages to contain more detail (<em>e.g.</em> <code>"invalid number of rows"</code> or
+<code>"invalid color character: z"</code>) go right ahead.</p>
+
+
+ 
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[0.5]</strong> <code>updateGameHistory</code></p> 
+
+<p>This method takes three arguments representing a move: the row coordinate of
+the move, the column coordinate of the move, and the color.  It makes a 3-tuple
+of the move arguments, then makes a 2-tuple of the move plus a copy of the
+current game board (in that order), and then appends them to the <code>self.history</code>
+field.  It returns nothing.</p>
+
+<p>The only thing to be careful of in this method is that the board is copied
+correctly.  For this, we again recommend using the <code>copy.deepcopy</code> function.
+Don't try to make a copy using list slices, because it's too easy to make a
+mistake which will result in boards in the game history changing as the game
+progresses (this is the phenomenon of <em>aliasing</em> we talked about in class.)</p>
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[0.5]</strong> <code>undoMove</code></p>
+
+<p>This method takes no arguments, undoes the last move, and returns nothing.
+It raises a <code>MoveError</code> if there was no last move (which can be determined from
+the <code>history</code> field; note that the initial board is not considered to be part
+of a move).  Otherwise, it removes the last <code>history</code> item, adjusts the
+<code>nmoves</code> field and copies the last board remaining in the history to the
+<code>self.board</code> field (make sure to do a deep copy as in the previous method to
+avoid problems).</p>
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[0.5]</strong> <code>isGameOver</code></p>
+
+<p>This method returns <code>True</code> if the game is over, which means that all the
+squares on the board are the same color.  Otherwise it returns <code>False</code>.</p>
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[0.5]</strong> <code>gameStatus</code></p>
+
+<p>This method takes no arguments and updates and returns the game status, which
+is a string giving the state of the game.  If the game is not over, the status
+should be <code>'ONGOING'</code>.  If the game is over (which means that all the board
+colors are the same), the status should be <code>'WIN'</code> if the number of moves taken
+up to this point is the same as (or less than) the target, <code>'DRAW'</code> if the
+number of moves is one more than the target, or <code>'LOSE'</code> otherwise.</p>
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[supplied]</strong> <code>play</code></p> 
+
+<p>This method runs the text-based user interface to the game.  The player
+inputs commands and the resulting board is printed back out.  Game errors that
+occur (at least, <code>MoveError</code>s, <code>LoadError</code>s and <code>SaveError</code>s) are caught and
+their error messages are printed out.  <code>MoveError</code>s don't cause the game to
+halt, but <code>LoadError</code>s and <code>SaveError</code>s do.</p>
+
+<p>This method prints out a prompt (<code>Command: </code>) and accepts the following
+commands:</p>
+
+<ol>
+
+<li><p><code>q</code> — (Q)uits the game without saving anything.  No arguments are
+required.</p></li>
+
+<li><p><code>l</code> — (L)oads a game board file by calling the <code>load</code> method.  A
+filename argument must be given.</p></li>
+
+<li><p><code>s</code> — (S)aves the game history to a file by calling the
+<code>saveGameHistory</code> method.  A filename argument must be given.</p></li>
+
+<li><p><code>m</code> — Makes a (M)ove on the game board by calling the <code>makeMove</code> method.
+Three arguments must be given: the row and column indices of the board square,
+and the "color" (a letter in <code>".abcde"</code>) to change the square to.</p></li>
+
+<li><p><code>u</code> — (U)ndoes the last move by calling the <code>undoMove</code> method.  No
+arguments are required.</p></li>
+
+</ol>
+
+<p>Once the game is over (because all the squares on the board are the same
+color), the method will print out the result of the game (one of <code>"WIN"</code>,
+<code>"LOSE"</code>, or <code>"DRAW"</code>) and if the result is a win or a draw, it will ask you
+if you want to save the game history or not.</p>
+
+<p>For examples of all these commands in action, see the sample games above.</p>
+
+</li>
+
+</ul><hr width="75%">
+<h3>Part B: The <code>ColorGameGUI</code> class</h3>
+<p>For this part of the final exam, you will complete a new class called
+<code>ColorGameGUI</code> that will implement an extremely rudimentary graphical user
+interface for the color game.  The only graphical part you need to add is a
+board window which will change as you enter moves to reflect the new board.  You
+will continue to enter commands via the text-based interface described above,
+and the text-based output will still be printed to the terminal.  However, you
+will also be able to look at the output in a separate window, and the board
+squares will be colored instead of being represented by characters.  This makes
+it much easier to understand what is going on in the game, and it's more fun to
+look at.</p><p>In addition, when making a move, the squares of one color in the graphics
+window will not all immediately switch to a new color; instead, one square at a
+time will change color until all the squares which can change have changed.
+This "percolation effect" is cool to watch and will make the game more pleasant
+to play.  (See below for some images that show you what this looks like in
+action.)</p><p><b>You do not have to implement any event handling code in this section!</b>
+Even if you are capable of doing so, please don't.  If you really want to do
+that, see the Honor Roll problems below.  But in this section, you are only
+responsible for generating graphical output.  One consequence of this is that
+you will not need to call the <code>mainloop</code> method of a root window.</p><p>You will not be modifying your <code>final.py</code> program from part A in this
+section.  Instead, there is a separate template file for this section called
+<a href="https://courses.caltech.edu/pluginfile.php/113235/mod_resource/content/7/final_gui.py">final_gui.py</a>, which you should download.  You need to fill
+in all the sections marked <code>TODO</code> (and please remove the <code>TODO</code> comments, as
+you did in the previous section).  The template file contains the
+<code>ColorGameGUI</code> class, which inherits from the <code>ColorGame</code> class you completed
+in part A.  You will need to write one brand-new method and modify (override)
+two others, as described below.</p><p>When running this program, <strong>please run it from the terminal prompt instead
+of from WingIDE!</strong>  As most of you probably know by now, running Python programs
+that use Tkinter from WingIDE often doesn't work properly.  Save yourself a lot
+of annoyance and just run it from the terminal.  (Actually, part A's program is
+also easier to use if you run it from the terminal, but you don't have to.)</p><p>Also, when running the program, be aware that the graphical window can come
+up anywhere, including behind the terminal you are using to input commands.
+Therefore, if you don't see it at any point, you should hit the Alt-Tab key
+combination (or Command-Tab on Mac OS X) to cycle through open windows until you
+see it.  You will probably want to move the window to one side of the terminal
+so that you can see both at the same time.</p>
+<h4>Desired output</h4>
+<p>To give you an idea of what kind of output your graphics window should
+display, we'll show you the output from our version of the program while solving
+this puzzle (which is <code>boards/board2</code> in the zip file:</p><pre><code>16 10 3
+..........
+..........
+..........
+..aaaaaa..
+..aaaaaa..
+..aaaaaa..
+bbccccccbb
+..cccccc..
+..cccccc..
+bbccccccbb
+..aaaaaa..
+..aaaaaa..
+..aaaaaa..
+..........
+..........
+..........
+</code></pre><p>This can be solved in 3 moves (not counting the original board).  Therefore,
+we have 4 images (counting the original board).  Here they are:</p><img src="./CS 1 — Fall 2015 — Final exam_files/final1.jpg" alt="./images/final1.jpg"><img src="./CS 1 — Fall 2015 — Final exam_files/final2.jpg" alt="./images/final2.jpg"><img src="./CS 1 — Fall 2015 — Final exam_files/final3.jpg" alt="./images/final3.jpg"><img src="./CS 1 — Fall 2015 — Final exam_files/final4.jpg" alt="./images/final4.jpg"><p>The first move is to place the blue color (color <code>'b'</code>) at location (row 6,
+column 2).  The second move is to place the green color (color <code>'a'</code>) at the
+same location.  The final move is to place the red color (color <code>'.'</code>) at the
+same location.  This solves the puzzle.</p><p>The first move actually proceeds in a series of animated steps, changing one
+square at a time.  We can see this in the following animation:</p><img src="./CS 1 — Fall 2015 — Final exam_files/final5_animated.gif" alt="./images/final5_animated.gif"><p>Your program should update in a similar way.  It doesn't have to be
+identical, but the color change should spread out from the initial location one
+square at a time in a smooth wave-like pattern.</p>
+<h4>Methods to implement</h4>
+<ul>
+
+<li>
+
+<p><strong>[supplied]</strong> <code>__init__</code></p>
+
+<p>This method calls the superclass constructor (which is a trick you might find
+useful below, <em>hint hint</em>) and adds a few extra lines to initialize the
+graphical interface.  Specifically, it creates a root window and then creates a
+canvas and positions it inside the window.</p>
+
+</li>
+
+<li>
+
+<p><strong>[4.0]</strong> <code>displayBoard</code></p>
+
+<p>This method is the heart of the GUI program.  It takes no arguments and
+changes the game window so that it displays the current state of the board.  It
+returns nothing.</p>
+
+<p>Each square in the board is represented as a square on a Tkinter canvas of
+the same size (25 pixels works well).  Define a dictionary which maps the
+abstract "colors" on the board (<em>i.e.</em> the single letters in the string
+<code>".abcde"</code>) to actual colors.  These colors must be the same colors every time
+the method is called (so don't generate a new set of random colors each time,
+for instance).  It doesn't matter which colors you choose as long as Tkinter can
+understand the color string.</p>
+
+<p>Make sure you adjust the geometry of the root window so it is large enough to
+hold the entire canvas (since it's initially set at an arbitrary value of
+100x100).  You will also have to adjust the size of the canvas; you can do this
+with the <code>config</code> method of canvasses <em>e.g.</em>
+<code>self.canvas.config(width=myNewWidth, height=myNewHeight)</code>.</p>
+
+<p>Since this method will be called after every move (and often also in the
+middle of moves), you should delete all the previously-drawn squares on the
+canvas before drawing any new ones, using the line <code>self.canvas.delete('all')</code>.
+Alternatively, you can try to change the colors of existing squares, but this
+will only work if the board size hasn't changed; this method should still work
+even if a new board with a different size is loaded while the program is
+running.</p>
+
+<p>Draw one square on the graphical board for each square in the <code>self.board</code>
+field.  The graphical version of the board should match the display in the
+terminal in terms of where the squares are, so if you have a 16 row by 10 column
+display in the terminal, you should also have 16 rows by 10 columns on the
+graphical display.</p>
+
+<p>At the end, manually update the canvas using the canvas' <code>update</code> method to
+make sure that all squares you are drawing are indeed rendered on the canvas.</p>
+
+<p>See the previous section to see what a graphical version of a board ought to
+look like.</p>
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[1.0]</strong> <code>printBoard</code></p>
+
+<p>Override the <code>printBoard</code> method in the superclass (<code>ColorGame</code>) so that it
+calls <code>displayBoard</code> after printing the board to the terminal.  It should still
+print the board to the terminal, but it will also update the graphical display.</p>
+
+<p>To get full marks for this problem, you should not duplicate any of the
+<code>printBoard</code> code from the previous section (remember the D.R.Y. principle?).
+Instead, you should call the superclass version of <code>printBoard</code> from this
+method.  Although we didn't cover this in class, the <code>__init__</code> method supplied
+above for this class shows an example of doing this, which should give you an
+idea of what to do.  You can also do a web search on "calling a superclass
+method in python" to get some ideas (but don't use a call to <code>super</code>; it won't
+work here).  (You are <strong>not</strong> allowed to ask questions about this on internet
+forums however; this is a violation of the Honor Code as described in the cover
+sheet for this exam.)  This method should only require a couple of lines.</p>
+
+
+
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[1.0]</strong> <code>makeMove</code></p>
+
+<p>Override the <code>makeMove</code> method to update the graphical display when a move
+is made.</p>
+
+<p>You won't be able to call the superclass <code>makeMove</code> method here, because you
+have to modify the old method by adding code in the middle of the method.
+Therefore, you should copy your <code>makeMove</code> code from <code>final.py</code> into this
+method and add whatever lines you need (you only need to add a couple of
+lines).</p>
+
+<p>Don't just update all the squares which change color all at once.  Instead,
+update the board whenever a single square on the board changes color, then pause
+for a period of time (say, 0.1 seconds) before continuing.  You'll find the
+<code>time.sleep</code> method to be useful for pausing the program.</p>
+
+<p>If this is done correctly, when a move is made, the squares on the board that
+need to change color will change color one square at a time, starting from the
+initial square and spreading out in a wave-like pattern.  You might want to
+adjust your <code>makeMove</code> code so that new locations to be updated are added to
+the <em>front</em> of the to-update list while old locations are removed from the end
+of the list. (You may have done this already, in which case you can leave it as
+is.)  What this amounts to is a data structure called a <em>queue</em>, which is a
+first-in, first-out (FIFO) structure.  The idea is that the first element put
+into the list will also be the first one removed from the list.  This is like a
+line-up for a movie; the first person in line gets in first.  Queues are very
+commonly used in programming.</p>
+
+<p>See the animation in the previous section to see what the updating looks like
+when done correctly.</p>
+
+
+
+
+
+
+
+</li>
+
+</ul><hr width="75%">
+<h3>Part C (<b>OPTIONAL</b>): Honor Roll problems</h3>
+<p>Some of you may have some additional time to work on the CS 1 final exam, and
+you may want some more challenging problems.  If so, here's your chance!
+Remember that the students who get the most Honor Roll points at the end of the
+course will be crowned <b>Honor Roll Champions</b>, with the top scorer becoming
+the <b>Honor Roll Grand Champion</b>.  The top scorers will also get Amazon.com
+gift certificates, which I'm sure you will all spend exclusively on programming
+books :-)</p><p>A few things must be made clear before we proceed:</p><ol>
+
+<li><p>Most importantly, <b>please do not attempt this section until you have
+successfully completed the previous sections!</b></p></li>
+
+<li><p>These problems are <b>completely optional</b>.  They will not affect your CS 1
+grade one way or another.  Completing them successfully will not improve your CS
+1 grade, and not completing them will not cause you to lose points.  These are
+more for bragging rights and fun than anything else.</p></li>
+
+<li><p>Even if you write an improved version of the final exam code described above,
+<b>you still have to submit the final exam code</b>.  In other words, no Honor Roll
+submission, no matter how transcendentally awesome it might be, will be accepted
+in place of any of the code we are asking for above.  Furthermore, your
+"official" final exam submission (the files <code>final.py</code> and <code>final_gui.py</code>)
+must fulfill all the specifications described above <strong>and <u>only</u> those
+specifications</strong>.  <strong>Please don't add any extra functionality to your official
+submission!</strong> That's what <em>this</em> section is for.  We do not want to see anyone
+submitting one huge program which fulfills all the requirements of the final
+exam as well as the HR problems.  If you do that, you will not get any HR points
+at all and you will lose points on the final exam itself.  Please do not try to
+"game" the exam.</p></li>
+
+<li><p>You can solve zero, one or more of these problems as you like.  If you solve
+all problems you can get the maximum possible score.  All problems are
+completely independent of each other.</p></li>
+
+<li><p>There is <b>absolutely no collaboration permitted</b> on any of these problems!
+This is the same rule as for the final itself; we just want to emphasize it to
+be clear.</p></li>
+
+</ol><p>All files for the first two Honor Roll problems should be submitted as a
+single zip file called <code>hr.zip</code>.  Each problem's files should be in a separate
+directory <em>e.g.</em> <code>problem1</code> and <code>problem2</code>.  You can duplicate any of the code
+you have written for the final exam problems above in your Honor Roll
+submission, though you will probably need to modify a lot of code.</p><p>All files for the second two Honor Roll problems, if you dare to attempt
+them, should be submitted as another single zip file called <code>hr_extra.zip</code>.
+Each problem's files should be in a separate directory <em>e.g.</em> <code>problem3</code> and
+<code>problem4</code>.  You get an extra week to submit these, so they aren't due until
+December 18th at 9 AM.  See below for warnings and disclaimers about these
+two problems.</p>
+<h4>HR Problem 1: An improved GUI for the game (max 10 points)</h4>
+<p>The GUI in part B is extremely primitive in that it only handles the display
+of the board; all move entry is still done via the terminal.  For this problem,
+write a program containing an <code>HRColorGameGUI</code> class which inherits from either
+<code>ColorGame</code> or <code>ColorGameGUI</code> and creates a proper GUI for playing the game.
+By "proper GUI" we mean that the text interface will not be used at all (except
+for saving the game result to a file).</p><p>The GUI for this program will consist of a display canvas much like the one
+you implemented in part B (in fact, you can reuse the code from <code>final_gui.py</code>
+in this program, with or without modifications).  However, you will not make
+moves by typing commands into the terminal but by clicking on the game window.
+There should be a row of buttons (or another canvas!) on the bottom of the
+window that are (is) colored differently to match the colors of the puzzle on
+the display.  To make a move, first click the button corresponding to the color
+you want to use and then click on a square on the board.  If the square is the
+same color, nothing will happen, but if it's a different color, it, along with
+all connected squares of the same color, will change colors.  The color changes
+should percolate a single square at a time as in part B, or you can make it so
+that several squares which are the same distance from the starting square all
+change colors at the same time (which gives a nicer "wave" effect).  You should
+also have a Tkinter label which lists the target number of moves and the current
+number of moves (you can use more than one label if you like).  Once the game is
+over, a pop-up window should come up informing you of the result; if it's a win
+or draw, another pop-up window should ask if you want to save to a file, and if
+so, what the name of the file is.</p><p>You don't have to slavishly follow every instruction given above; if you
+think you have an even better way to present the game graphically, go for it!
+But please make sure all your code is written cleanly and well-documented, and
+that the game is easy to play without having to enter any commands into a
+terminal.</p>
+<h4>HR Problem 2: A game solver (max 20 points)</h4>
+<p>Although the color game is fun to play, it can get very frustrating because
+some puzzles are extremely hard to solve manually.  When we have hard problems
+that involve a lot of brute force searching, we like to give them to computers,
+and this is a prime candidate.  Therefore, for this problem, we would like you
+to write a program containing a class called <code>HRColorGameSolver</code> which inherits
+from <code>ColorGame</code> and adds a method called <code>solve</code> which will solve the game.
+(You can add additional methods too.)  When this program is run, it should take
+a single command-line argument which is the name of a board file.  It will
+create a game solver object, load the board file, solve the board, and save the
+output to a file with the same name as the original board file but with the
+string <code>".solution"</code> appended to the filename.  In other words, if the input
+filename is <code>"board1"</code> the output filename should be <code>"board1.solution"</code>.  The
+solution should be saved using the <code>saveGameHistory</code> method described above.</p><p>To get full marks for this problem, you need to search systematically for the
+solution.  A random search is unlikely to work on harder boards, and if the
+search takes a very long time, you will not get full marks.  Helping you is the
+fact that you know how many moves the optimal solution takes.  You should try
+algorithms called <em>depth-first search</em> or <em>breadth-first search</em>; if you don't
+know what these are, look them up online!</p><p>One thing that will be tricky is to minimize the search space by collapsing
+equivalent moves into a single move.  One interesting approach to this is to
+generate a list of sets of moves where each move in a set is equivalent
+(connected by a chain of squares of the same color).  Then you could use the set
+of moves as a single move, and select any move from the set when playing through
+a particular puzzle.</p><p>Note that the solver program is entirely non-graphical and non-interactive.</p>
+<h4>Unreasonable HR Problems</h4>
+<p>OK, now we are leaving the realm of reasonableness and asking for something
+utterly unreasonable.  You have been warned!</p><p>Honestly, we don't really expect anyone to do these last two problems,
+because they're so outrageously hard.  There's no penalty for not doing them
+either.  Perhaps your time would be better spent doing your math or physics
+final exam?  Or maybe writing that Hum paper?</p><p>Seriously, this isn't a good idea at all.  It's probably just going to stress
+you out.  We won't think less of you if you just skip these problems.  Maybe we
+shouldn't have even brought it up.</p><p>Still here?  OK, scroll down...</p><pre><code>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</code></pre><p>We can tell that you're reconsidering this.  Deep down, you probably really
+<em>don't</em> want to do this.  Think of your mental health!</p><p>Still determined?  OK, keep going...</p><pre><code>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</code></pre>
+<h4>HR Problem 3: A GUI in a different programming language (max 90
+points)</h4>
+<p>Python is a cool language, but it's not the only programming language out
+there.  For this problem, we want you to repeat HR problem 1, but to use one or
+more of the following languages: <a href="http://www.ocaml.org/">Ocaml</a>,
+<a href="http://scala-lang.org/">Scala</a>, and <a href="http://www.jsoftware.com/">J</a>.  You will need to
+download these languages, get them running, learn the languages by reading
+online documentation (which you have to find yourself), write and test the code,
+and include a file of directions on how to get your program working (<em>i.e.</em> how to
+compile and run it).  You can assume that we already have working
+implementations of each language, so you don't have to explain how to do that.
+You can use one, two, or all three of the languages.  Each program you write
+should only use one of the languages, so you should have subdirectories for the
+different languages called <code>problem3/ocaml</code>, <code>problem3/scala</code>, <code>problem3/j</code>
+as needed (only include directories if you are actually going to write the code
+with that language).  You do not necessarily have to write your code in an
+object-oriented style for this problem, but you can if you want to.</p><p>Each working program is worth up to 30 HR points, so if you complete all
+three programs and they all are spectacular you can get 90 HR points from this
+problem alone!</p>
+<h4>HR Problem 4: A solver in a different language (max 180 points)</h4>
+<p>This problem is like HR problem 2, except that you will implement a
+non-interactive game solver in one or more of the languages
+<a href="http://www.ocaml.org/">Ocaml</a>, <a href="http://scala-lang.org/">Scala</a>, and <a href="http://www.jsoftware.com/">J</a>
+as in HR problem 3.  Again, you don't have to write your programs in an
+object-oriented style if you don't want to.  Put your programs in subdirectories
+for the different languages called <code>problem4/ocaml</code>, <code>problem4/scala</code>,
+<code>problem4/j</code> as needed.   Each working program is worth up to 60 HR points, so
+if you complete all three programs and they all are spectacular you can get a
+whopping 180 HR points from this problem alone!</p>
+<hr><p>[End of final exam; have a great holiday break!]</p>
+<hr>
+<font size="-1">Copyright (c) 2015, California Institute of
+  Technology. All rights reserved.<br>
+</font>
+
+
+
+</body></html>

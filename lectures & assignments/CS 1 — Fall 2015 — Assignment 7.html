@@ -1,0 +1,971 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0082)https://courses.caltech.edu/pluginfile.php/112653/mod_resource/content/2/lab7.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CS 1 — Fall 2015 — Assignment 7</title>
+<style type="text/css"> 
+.centered { text-align: center }
+blockquote {
+  margin: 1em 1em;
+  background-color: #d0d0d0;
+  border: 2px solid #000;
+  padding: 0em 1em;
+}
+pre           { color: #0000bb }
+code          { color: #0000bb }
+div.solution  { color: #006644 }
+code.solution { color: #006644 }
+pre.solution  { color: #006644 }
+p.solution    { color: #006644 }
+b.solution    { color: #006644 }
+h3.solution   { color: #006644 }
+h3.warning    { color: #ff0000 }
+p.warning     { color: #ff0000 }
+h3.gradingNotes  { color: #008090 }
+div.gradingNotes { color: #0080a0 }
+span.interact { color: #007700 }
+</style>
+<style type="text/css"></style></head>
+<body>
+<div class="centered">
+<h1>CS 1: Introduction To Computer Programming, Fall 2015</h1>
+<h2>Assignment 7: The Argument Clinic</h2>
+<p><b>Due:</b> <em>Saturday, December 5, 02:00:00</em></p>
+</div>
+<hr width="75%">
+<h2>Coverage</h2>
+<p>This assignment covers the material up to lecture 21.</p>
+
+<hr>
+<h2>About this assignment</h2>
+<p>This will be the final assignment of the term.  As such, it will <em>not</em> be
+min-graded, but you will be allowed to submit one rework as usual.  The
+miniproject in the last section is a very good approximation to the kinds of
+miniprojects we have put on the final exam in the last few years, so we <strong>very
+strongly</strong> recommend that you do it even if you feel like you don't need the
+marks.  It is excellent preparation for the final.</p>
+<hr>
+<h2>Part  What to hand in</h2>
+<p>You will be handing in two files for this assignment.</p><p>You should collect the answers to sections B and C into a file called
+<code>lab7_bc.py</code>.  Make sure that it passes the test script for section B:
+<a href="https://courses.caltech.edu/pluginfile.php/112653/mod_resource/content/2/code/lab7_b_tests.py"><code>lab7_b_tests.py</code></a>.  The answers for section C
+should be written as comments only.</p><p>For section D, you should hand in a file called <code>Sudoku.py</code> containing your
+program.  As will be mentioned below, there is a <a href="https://courses.caltech.edu/pluginfile.php/112653/mod_resource/content/2/code/Sudoku.py">template
+file</a> that you should use as a starting point when writing your code.  Some of
+the code has already been written for you, notably the <code>show</code> method.</p><p>We are supplying you with four Sudoku puzzles to test your program on: an
+<a href="https://courses.caltech.edu/pluginfile.php/112653/mod_resource/content/2/code/easy.su">easy</a> puzzle, a <a href="https://courses.caltech.edu/pluginfile.php/112653/mod_resource/content/2/code/medium.su">medium</a> puzzle, a
+<a href="https://courses.caltech.edu/pluginfile.php/112653/mod_resource/content/2/code/hard.su">hard</a> puzzle, and a <a href="https://courses.caltech.edu/pluginfile.php/112653/mod_resource/content/2/code/very_hard.su">very hard</a>
+puzzle.  Don't copy-and-paste these puzzles into an editor; instead, use the
+"save page as" feature of your browser (usually located under the File menu) to
+download the files.</p><p>Both files (<code>lab7_bc.py</code> and <code>Sudoku.py</code>) should be handed in to
+<a href="http://csman.cms.caltech.edu/">csman</a> as usual.</p>
+<hr>
+<h2>Part A: <em>[OPTIONAL]</em> Installing new Python packages</h2>
+<p>There are no new Python packages that you need to install for this week's
+assignment.</p>
+<hr>
+<h2>Part B: Exercises</h2>
+<p>This section will give you some practice with raising exceptions, working
+with sets/frozensets, and working with Python's facilities for handling unusual
+argument lists in functions.</p><ol>
+
+<li>
+
+<p><strong>[20]</strong>  Python's <code>set</code> and <code>frozenset</code> types include methods for
+computing unions and intersections of two sets.  For this problem, we want you
+to pretend that those methods don't exist, and use only primitive set/frozenset
+operations to write functions that implement these operations.</p>
+
+<ol>
+
+<li>
+
+<p>Write a function called <code>union</code> that takes two <code>sets</code> and computes and
+returns their union as another set.  The union of two sets is a set which
+contains all the elements that are present in either of the two sets.  This
+function should work regardless of whether its inputs are sets or frozensets,
+but the output should be a set, not a frozenset.  You are only allowed to use
+<code>for</code> loop(s) over the set elements and the <code>add</code> method on sets.  You may not
+use any other data type (for instance, don't convert the sets to lists) or any
+methods on sets other than the <code>add</code> method.  The solution is just a few short
+lines long.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; s1 = { 'a', 'b', 'c' }
+&gt;&gt;&gt; s2 = { 'b', 'c', 'd' }
+&gt;&gt;&gt; union(s1, s2)
+set(['a', 'c', 'b', 'd'])
+&gt;&gt;&gt; s1
+set(['a', 'c', 'b'])
+&gt;&gt;&gt; s2
+set(['c', 'b', 'd'])
+</code></pre>
+
+<p>Note that computing the union of two sets will not change either of the
+original sets.</p>
+
+
+
+
+</li>
+
+<li>
+
+<p>Write a function called <code>intersection</code> that takes two <code>sets</code> and computes
+and returns their intersection as another set.  The intersection of two sets is
+a set which contains all the elements that are present in <em>both</em> of the two
+sets.  This function should again work regardless of whether its inputs are sets
+or frozensets, but the output should be a set, not a frozenset.  You are only
+allowed to use <code>for</code> loop(s) over the set elements, an <code>if</code> statement if you
+need it, the <code>in</code> operator on sets, and the <code>add</code> method on sets.  You may not
+use any other data type (for instance, don't convert the sets to lists) or any
+methods on sets other than the <code>add</code> method.  The solution is again just a few
+short lines long.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; s1 = { 'a', 'b', 'c' }
+&gt;&gt;&gt; s2 = { 'b', 'c', 'd' }
+&gt;&gt;&gt; intersection(s1, s2)
+set(['c', 'b'])
+&gt;&gt;&gt; s1
+set(['a', 'c', 'b'])
+&gt;&gt;&gt; s2
+set(['c', 'b', 'd'])
+</code></pre>
+
+<p>Note that computing the intersection of two sets will not change either of the
+original sets.</p>
+
+
+
+
+</li>
+
+</ol>
+
+</li>
+
+<li>
+
+<p><strong>[15]</strong> Write a function called <code>mySum</code> that takes an arbitrary number
+of arguments, all of which should be integers greater than zero, and returns
+their sum.  If an argument isn't an integer, raise a <code>TypeError</code> (along with a
+meaningful error message).  If an argument is <code>&lt;= 0</code>, raise a <code>ValueError</code>
+(along with a meaningful error message).</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; mySum(1, 2, 3, 4, 5)
+15
+&gt;&gt;&gt; mySum()
+0
+&gt;&gt;&gt; mySum(2, -1, 3)
+# raises ValueError with message
+&gt;&gt;&gt; mySum([1, 2, 3])
+# raises TypeError with message
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[25]</strong> Write a more general version of <code>mySum</code> called <code>myNewSum</code> which
+will also be able to take a single list of positive integers as its only
+argument and which will return the sum of the list.  This function will also be
+able to take an arbitrary number (zero or more) of individual values (positive
+integers), but it won't accept both individual values and a list, nor will it
+accept multiple lists (it will raise a <code>TypeError</code> in such cases).  This
+function will also raise a <code>TypeError</code> if the list's elements are not integers
+and will raise a <code>ValueError</code> if any of the supplied integers (in a list or
+outside of a list) are smaller than 1.</p>
+
+<p><em>Hint:</em> Handle the list case first.  Most of this function is just checking
+argument types and values.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; myNewSum(1, 2, 3, 4, 5)
+15
+&gt;&gt;&gt; myNewSum(1)
+1
+&gt;&gt;&gt; myNewSum()
+0
+&gt;&gt;&gt; myNewSum(2, -1, 3)
+# raises ValueError with message
+&gt;&gt;&gt; myNewSum(0, 2, 3)
+# raises ValueError with message
+&gt;&gt;&gt; myNewSum('foo', 'bar')
+# raises TypeError with message
+&gt;&gt;&gt; myNewSum([1, 2, 3])
+6
+&gt;&gt;&gt; myNewSum(['foo', 'bar'])
+# raises TypeError with message
+&gt;&gt;&gt; myNewSum([1, 0, -1])
+# raises ValueError with message
+&gt;&gt;&gt; myNewSum(1, 2, 3, [4, 5, 6])
+# raises TypeError with message
+&gt;&gt;&gt; myNewSum([1, 2, 3], [4, 5, 6])
+# raises TypeError with message
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[25]</strong> Write a function called <code>myOpReduce</code> which will take one
+required argument (a list of integers) and one keyword argument called <code>op</code>,
+whose value should be a string.  If <code>op</code> is <code>'+'</code>, then the function will sum
+all the integers; if it's <code>'*'</code>, it will multiply them all together, and if
+it's <code>'max'</code>, it will return the maximum of the numbers.  You can ignore
+<code>TypeErrors</code> and <code>ValueErrors</code> on the list argument, but if there is no
+keyword argument, more than one keyword argument, or no valid keyword argument
+(not one of the three allowable strings), a <code>ValueError</code> should be raised
+(unless there is a keyword argument whose value has a non-string type, in which
+case a <code>TypeError</code> should be raised).  All exceptions raised should have a
+reasonable error message.</p>
+
+<p><b>Examples:</b></p><pre><code>&gt;&gt;&gt; myOpReduce([1, 2, 3, 4, 5], op='+')
+15
+&gt;&gt;&gt; myOpReduce([], op='+')
+0
+&gt;&gt;&gt; myOpReduce([1, 2, 3, 4, 5], op='*')
+120
+&gt;&gt;&gt; myOpReduce([], op='*')
+1
+&gt;&gt;&gt; myOpReduce([1, 2, 3, 4, 5], op='max')
+5
+&gt;&gt;&gt; myOpReduce([], op='max')
+0
+&gt;&gt;&gt; myOpReduce([1, 2, 3, 4, 5])
+# raises ValueError: no keyword argument
+&gt;&gt;&gt; myOpReduce([1, 2, 3, 4, 5], op='foo')
+# raises ValueError: invalid keyword argument 
+&gt;&gt;&gt; myOpReduce([1, 2, 3, 4, 5], op=123)
+# raises TypeError: value for keyword argument 'op' must be a string
+&gt;&gt;&gt; myOpReduce([1, 2, 3, 4, 5], bla='+')
+# raises ValueError: invalid keyword argument 
+&gt;&gt;&gt; myOpReduce([1, 2, 3, 4, 5], op='+', bla='foo')
+# raises ValueError: too many keyword arguments
+</code></pre>
+
+
+
+
+</li>
+
+</ol>
+<hr>
+<h2>Part C: Pitfalls: Exception handling</h2>
+<p>Exception handling is a tricky subject.  Although there are no absolute
+guidelines on the best way to handle exceptions, there are some ways of doing it
+that are clearly wrong.  In this section we'll present you with some incorrect
+ways of handling exceptions.  In each case you should identify what the problem
+is (write this in a comment) and then write the code the way it should be
+written (you will not have to write any extra functions beyond the ones shown
+here).  There may be more than one correct way to rewrite the code; justify what
+you are doing in a comment.  Feel free to type the code into a Python
+interpreter and experiment with it to see what happens.</p><p>While working through this section, think about which parts of the code
+should be responsible for notifying the rest of the program of an error, and
+which parts should be responsible for handling errors that have been raised
+elsewhere.</p><ol>
+
+<li>
+
+<p><strong>[10]</strong></p>
+
+<pre><code>import sys
+
+def sum_of_key_values(dict, key1, key2):
+    '''Return the sum of the values in the dictionary stored at key1 and key2.'''
+    try:
+        return dict[key1] + dict[key2]
+    except KeyError:   
+        quit()
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[10]</strong></p>
+
+<pre><code>import sys
+
+def sum_of_key_values(dict, key1, key2):
+    '''Return the sum of the values in the dictionary stored at key1 and key2.'''
+    try:
+        return dict[key1] + dict[key2]
+    except KeyError:   # raised if a key isn't in a dictionary
+        print &gt;&gt; sys.stderr, 'key not found!'
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[10]</strong></p>
+
+<pre><code>def sum_of_key_values(dict, key1, key2):
+    '''Return the sum of the values in the dictionary stored at key1 and key2.'''
+    try:
+        return dict[key1] + dict[key2]
+    except KeyError:   # raised if a key isn't in a dictionary
+        raise KeyError
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[10]</strong></p>
+
+<pre><code>def sum_of_key_values(dict, key1, key2):
+    '''Return the sum of the values in the dictionary stored at key1 and key2.'''
+    try:
+        val1 = dict[key1]
+    except KeyError, e:   
+        raise e
+
+    try:
+        val2 = dict[key2]
+    except KeyError, e:
+        raise e
+
+    return val1 + val2
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[10]</strong></p>
+
+<pre><code>import sys
+
+def fib(n):
+    '''Return the nth fibonacci number.'''
+    if n &lt; 0:
+        raise ValueError
+        print &gt;&gt; sys.stderr, 'n must be &gt;= 0'
+    elif n &lt; 2:
+        return n  # base cases: fib(0) = 0, fib(1) = 1.
+    else:
+        return fib(n-1) + fib(n-2)
+
+# NOTE: This is a very inefficient recursive function.  The 
+# inefficiency is not the problem we want you to identify.
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[10]</strong></p>
+
+<pre><code>import sys
+
+def fib(n):
+    '''Return the nth fibonacci number.'''
+    if n &lt; 0:
+        print &gt;&gt; sys.stderr, 'n must be &gt;= 0'
+        raise ValueError
+    elif n &lt; 2:
+        return n  # base cases: fib(0) = 0, fib(1) = 1.
+    else:
+        return fib(n-1) + fib(n-2)
+
+# NOTE: This is a very inefficient recursive function.  The 
+# inefficiency is not the problem we want you to identify.
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[10]</strong></p>
+
+<pre><code>from math import exp
+
+def exp_x_over_x(x):
+    '''
+    Return the value of e**x / x, for x &gt; 0 and
+    e = 2.71828... (base of natural logarithms).
+    '''
+    if x &lt; 0:
+        raise TypeError('x must be &gt;= 0.0')
+    return (exp(x) / x)
+</code></pre>
+
+
+
+
+</li>
+
+<li>
+
+<p><strong>[10]</strong></p>
+
+<pre><code>from math import exp
+
+def exp_x_over_x(x):
+    '''
+    Return the value of e**x / x, for x &gt; 0 and
+    e = 2.71828... (base of natural logarithms).
+    '''
+    if type(x) is not float:
+        raise Exception('x must be a float')
+    elif x &lt;= 0:
+        raise Exception('x must be &gt; 0.0')
+    return (exp(x) / x)
+</code></pre>
+
+
+
+
+
+
+</li>
+
+</ol>
+<hr>
+<h2>Part D: Miniproject: An Interactive Sudoku Program</h2>
+<h3>Introduction</h3><p>For this week's miniproject, you will be writing a program which will help
+you to solve Sudoku puzzles interactively.  If you aren't familiar with Sudoku,
+<a href="http://en.wikipedia.org/wiki/Sudoku">this</a> article is a good description of Sudoku
+puzzles, so you should read that article before continuing, since we will assume
+you know how to play Sudoku in the following problem description.</p><p>Many programmers have written programs to automatically solve Sudoku
+problems.  These are interesting and fun programs to write, but this week's
+miniproject is a bit different.  For this program, we assume that you have some
+Sudoku problems that you would like to solve yourself, but you don't want to
+write the solution on a piece of paper.  (One problem with solving Sudoku
+puzzles on paper is that it's hard to undo what you've written if you make a
+mistake; in contrast, your program will make it easy to undo your moves.)  Your
+program will be an <em>interactive Sudoku program</em>; it will present you with a
+Sudoku puzzle and ask <em>you</em> to solve it.  It will allow you to enter moves as
+well as to undo moves if you find that you get stuck.  (Therefore, you may find
+that you will enjoy solving Sudoku problems using your program more than you do
+with pencil and paper.)  However, your program will <em>not</em> solve the Sudoku
+puzzle for you; all the moves have to come from you (much like the Mastermind
+game you wrote way back in lab 2).  Your program will, however, keep track of
+the current state of the grid of numbers (which we will refer to as the Sudoku
+"board"), what moves have been made and in what order, and it will not allow you
+to make an invalid move.</p><p>This program will also give you an opportunity to work with Python classes on
+a more realistic scale.  You will see that your objects can store all the
+information about the state of the puzzle, including the entire history of what
+moves were played and in what order.</p><p><strong>Reminder:</strong> The CS 1 final exam will contain a miniproject of at least the
+same size as this one.  You should consider this as a warmup for the final
+exam!</p><h3>The program</h3><ol>
+
+<li>
+
+<p><strong>[180]</strong> Write an interactive Sudoku puzzle game.  The main part of the
+game will be a class called <code>Sudoku</code>, which will have the following methods:</p>
+
+<ul>
+
+<li>
+
+<p>[<code>__init__</code>]  The <code>__init__</code> method will create the board and store it as a
+field of the <code>Sudoku</code> object.  The board will be a list of lists of numbers (a
+list of 9 lists of length 9 each), representing the 9x9 grid of numbers in the
+Sudoku board.  An empty square is represented by the number 0.  In addition,
+<code>Sudoku</code> instances will also have a field representing a list of moves, which
+is initially empty; this field is initialized in this method.</p>
+
+<p>Be careful!  When creating the board, it's very easy to create a list of
+lists where the lists are not actually copies of each other but references to
+the same list, and this may result in some very peculiar bugs due to aliasing.
+<strong>On the other hand, we don't want you to just manually write out a 9x9 list of
+lists!</strong>  (You won't get any credit for this method if you do that!)  Make sure
+that all of the rows are independent, so that modifying a value in one row will
+not modify the values in any other.  If you're having problems with this, ask
+your TA.</p>
+
+<p>Note that each instance of the <code>Sudoku</code> class will be a fully-functional
+Sudoku game object, even though you won't need more than one instance.</p>
+
+</li>
+
+<li>
+
+<p>[<code>load</code>]  The <code>load</code> method will take one (non-<code>self</code>) argument (a
+filename) and try to load the contents of that file into the object's board
+representation.  For this to work, the file should consist of 9 lines, each of
+which contains exactly 9 numbers in the range from 0 to 9 (not counting the
+newline at the end of each line).  Don't catch any exceptions which may be
+raised in this method (<em>e.g.</em> an <code>IOError</code> if the file isn't found).  If the
+file exists, but it has the wrong number of lines, or the lines are not exactly
+9 characters long (not counting the newline at the end), or the lines have
+characters other than the digits 0 to 9 (spaces are not acceptable), then you
+should raise an <code>IOError</code> exception with an error message appropriate for the
+specific error.  Again, don't catch this error in this method.</p>
+
+<p>If the file is OK, then all the digits in the file will get copied into the
+board representation.  The board will then be a list of list of integers in the
+range 0 to 9.  This method should also clear the list of moves, since you are
+starting a new game.</p>
+
+<p>A sample file might look like this:</p>
+
+<pre><code>060000010
+007060000
+000072000
+304086900
+200000001
+005130406
+000540000
+000010600
+090000080
+</code></pre>
+
+<p>Notice that each line consists of 9 digits.  The 0s are blanks, so the real
+puzzle would be:</p>
+
+<pre><code>.6.....1.
+..7.6....
+....72...
+3.4.869..
+2.......1
+..513.4.6
+...54....
+....1.6..
+.9.....8.
+</code></pre>
+
+<p>where the <code>.</code> represents a blank space.</p>
+
+</li>
+
+<li>
+
+<p>[<code>save</code>]  The <code>save</code> method takes one non-<code>self</code> argument, which is the
+name of a file to save the board representation to.  This method will write the
+board representation to the file with the given name.  Once written, the
+contents of the file should be in exactly the same format as the format that the
+<code>load</code> method can read: 9 lines of 9 digits, with no spaces.  You don't have to
+raise or catch any exceptions in this method.  If you do this right, the output
+file saved by the <code>save</code> method could be successfully loaded by the <code>load</code>
+method later on.</p>
+
+</li>
+
+<li>
+
+<p>[<code>show</code>]  The <code>show</code> method will take no (non-<code>self</code>) arguments, and
+will print out the board in the exact format shown below in the example.  For
+the board shown above, the <code>show</code> method would display it as follows:</p>
+
+<pre><code>
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  6  |     |  1  |
+2 |    7|  6  |     |
+3 |     |  7 2|     |
+  +-----+-----+-----+
+4 |3   4|  8 6|9    |
+5 |2    |     |    1|
+6 |    5|1 3  |4   6|
+  +-----+-----+-----+
+7 |     |5 4  |     |
+8 |     |  1  |6    |
+9 |  9  |     |  8  |
+  +-----+-----+-----+
+
+</code></pre>
+
+<p>This method has been supplied for you in the template code, though you are
+free to change it if you really want to.</p>
+
+</li>
+
+<li>
+
+<p>[<code>move</code>] The <code>move</code> method is the most important method in the program.  It
+takes three non-<code>self</code> arguments: the row coordinate, the column coordinate,
+and the number to place at those coordinates.  The row and column coordinates
+are integers which range from 1 to 9, and the value is also an integer ranging
+from 1 to 9.  The <code>move</code> method has these responsibilities:</p>
+
+<ol>
+<li>It checks that the inputs are valid coordinates.</li>
+<li>It checks that the move is a valid move on this board.</li>
+<li>It makes the move by writing the value into the board representation.</li>
+<li>It appends the move into the list of moves stored in the object.</li>
+</ol>
+
+<p>Let's expand on this a bit.</p>
+
+<p>If the inputs are not valid row/column coordinates (integers between 1 and 9)
+then the method should raise a <code>SudokuMoveError</code> exception with an error
+message which describes the exact problem which gave rise to the error.  The
+<code>SudokuMoveError</code> exception class is defined for you in the template code, but
+you have to raise these exceptions in the code you write.</p>
+
+<p>For the move to be considered valid, the location in which the number is
+stored must be empty, which means that it must contain the number 0.  In
+addition, there must be no number of that value anywhere in the same row,
+column, or box.  Checking the row and column for the number is fairly easy, but
+checking the box is a bit tricky.  What you should do is compute what the ranges
+of row and column coordinates are for the box in which the location specified is
+contained, and then look for the number in that box.  If you find the number in
+the box, it's an error.</p>
+
+<p>Making the move, once you have determined that it's a valid move, is very
+simple.  If the move is not valid, the method should raise a <code>SudokuMoveError</code>
+exception with an error message which describes what the problem is (<em>e.g.</em>
+occupied space, row conflict, column conflict, box conflict).</p>
+
+<p>When you write the move into the move list, you should represent the move as
+a tuple containing three numbers: the row coordinate, the column coordinate, and
+the number that was written into that location.  So the move "at row 2, column
+6, place a 1" would be represented as the tuple <code>(2, 6, 1)</code>.  Each new move
+should be appended to the end of the move list.</p>
+
+</li>
+
+<li>
+
+<p>[<code>undo</code>]  The <code>undo</code> method is quite simple.  It should remove the
+last entry in the stored list of moves, and it should erase the contents of the
+board at the coordinates of the last move (which means storing a 0 at that
+location).  One handy method that you may not be familiar with is the <code>pop</code>
+method of lists.  It removes the last element of a list and returns it.</p>
+
+</li>
+
+<li>
+
+<p>[<code>solve</code>]  The <code>solve</code> method is the method that handles user
+interaction (playing the game).  It runs an infinite loop in which it asks the
+user for a command using <code>raw_input</code>, executes the command (if possible) by
+calling one of the other methods, asks for another command, and so on.  Here are
+the commands that <code>solve</code> understands:</p>
+
+<ul>
+
+<li><p><code>q</code>: This causes the <code>solve</code> method to return.  <code>q</code> stands for "quit"
+although typing <code>q</code> doesn't actually make the program exit (it just exits the
+<code>solve</code> method).</p></li>
+
+<li><p>A three-digit sequence where all the digits are in the range 1 to 9.
+This causes a move to be made by calling the <code>move</code> method.  The first two
+digits represent a row and a column coordinate on the board, and the last digit
+is the number to place at that location.</p></li>
+
+<li><p><code>u</code>: This undoes the last move.</p></li>
+
+<li><p><code>s &lt;filename&gt;</code>: This saves the current state of the board to the file named
+<code>&lt;filename&gt;</code>.</p></li>
+
+</ul>
+
+<p>Any other command is an error, and the <code>solve</code> method should raise a
+<code>SudokuCommandError</code> exception, giving the bad command as an argument to the
+exception.  The <code>SudokuCommandError</code> exception class is also defined for you in
+the template code.</p>
+
+<p>After every new move or undo command, the board should be printed using a
+call to the <code>show</code> method.</p>
+
+
+
+<p>There are two kinds of exceptions that can be raised as a result of running
+this method: the <code>SudokuCommandError</code> exceptions (raised in this method) and
+the <code>SudokuMoveError</code> exceptions (raised in the <code>move</code> method).  You should
+put all of the code inside the loop into a <code>try</code> block and have two <code>except</code>
+blocks to handle both kinds of exceptions.  In each <code>except</code> block you should
+print out the exception and ask the user to try again.  This is a nice example
+of exception handling as you are handling both "local" exceptions (the
+<code>SudokuCommandError</code> exceptions raised in this method) and "remote" exceptions
+(the <code>SudokuMoveError</code> exceptions raised in the <code>move</code> method).</p>
+
+</li>
+
+</ul>
+
+<p>You can write other methods as well, if you find that to be helpful.</p>
+
+<p>To help you get started, we are supplying you with a template file called
+<a href="https://courses.caltech.edu/pluginfile.php/112653/mod_resource/content/2/code/Sudoku.py"><code>Sudoku.py</code></a> which provides a skeleton for your code.  You
+need to fill in the parts marked <code># TODO</code>, which means that you must supply the
+bodies of several methods (including docstrings).  Please remove the <code># TODO</code>
+comments before submitting the completed version.</p>
+
+<h4>Example interaction</h4>
+
+<p>Here is a sample interaction with the Sudoku program, starting from the
+terminal.  The file <code>easy.su</code> is a Sudoku puzzle with the following contents:</p>
+
+<pre><code>010089000
+600200708
+070003510
+000010054
+095030670
+120040000
+056100080
+904008005
+000390060
+</code></pre>
+
+<p>As we mentioned above, the <code>0</code>s represent unfilled spaces, so this
+is really:</p>
+
+<pre><code>.1..89...
+6..2..7.8
+.7...351.
+....1..54
+.95.3.67.
+12..4....
+.561...8.
+9.4..8..5
+...39..6.
+</code></pre>
+
+<p>(with <code>.</code> being a blank space.)</p>
+
+<p>Running the program on this file produces this output, with someone (the user
+of the program) inputting commands at the <code>sudoku&gt;</code> prompt:</p>
+
+<pre><code>% python Sudoku.py
+Enter the sudoku filename: easy.su
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2    |7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7  |
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|    8|    5|
+9 |     |3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">315</span>
+Invalid move: row conflict; please try again.
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2    |7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7  |
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|    8|    5|
+9 |     |3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">319</span>
+Invalid move: column conflict; please try again.
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2    |7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7  |
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|    8|    5|
+9 |     |3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">349</span>
+Invalid move: box conflict; please try again.
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2    |7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7  |
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|    8|    5|
+9 |     |3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">261</span>
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2   1|7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7  |
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|    8|    5|
+9 |     |3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">591</span>
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2   1|7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7 1|
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|    8|    5|
+9 |     |3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">931</span>
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2   1|7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7 1|
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|    8|    5|
+9 |    1|3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">871</span>
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2   1|7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7 1|
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|    8|1   5|
+9 |    1|3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">856</span>
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2   1|7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7 1|
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|  6 8|1   5|
+9 |    1|3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">u</span>
+Undoing last move...
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2   1|7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7 1|
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|    8|1   5|
+9 |    1|3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">s easy1.out</span>
+
+   1 2 3 4 5 6 7 8 9 
+  +-----+-----+-----+
+1 |  1  |  8 9|     |
+2 |6    |2   1|7   8|
+3 |  7  |    3|5 1  |
+  +-----+-----+-----+
+4 |     |  1  |  5 4|
+5 |  9 5|  3  |6 7 1|
+6 |1 2  |  4  |     |
+  +-----+-----+-----+
+7 |  5 6|1    |  8  |
+8 |9   4|    8|1   5|
+9 |    1|3 9  |  6  |
+  +-----+-----+-----+
+
+sudoku&gt; <span class="interact">q</span>
+</code></pre>
+
+<p>Of course, we could have continued further, but this gives you the idea of
+what we want.  After this code has executed, the file <code>easy1.out</code> will have the
+following contents:</p>
+
+<pre><code>010089000
+600201708
+070003510
+000010054
+095030671
+120040000
+056100080
+904008105
+001390060
+</code></pre>
+
+<p>Our solution is less than 200 lines long.</p>
+
+
+
+
+</li>
+
+</ol>
+<hr>
+<font size="-1">Copyright (c) 2015, California Institute of
+  Technology. All rights reserved.<br>
+</font>
+
+
+
+</body></html>
